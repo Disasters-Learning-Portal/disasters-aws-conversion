@@ -42,7 +42,7 @@ def set_nodata_value(ds):
     print(f"   [NODATA] Data type: {ds.dtype}")
 
     if ds.dtype == 'uint8':
-        # For RGB images (uint8), use 0 as nodata (black pixels)
+        # For uint8 data, use 0 as nodata
         nodata_value = 0
         print(f"   [NODATA] Using nodata value {nodata_value} for uint8 data")
 
@@ -82,7 +82,7 @@ def set_nodata_value_src(src):
     print(f"   [NODATA] Data type: {src.dtypes[0]}")
 
     if src.dtypes[0] == 'uint8':
-        # For RGB images (uint8), use 0 as nodata (black pixels)
+        # For uint8 data, use 0 as nodata
         nodata_value = 0
         print(f"   [NODATA] Using nodata value {nodata_value} for uint8 data")
 
