@@ -3,6 +3,49 @@ Compression module - handles compression settings and nodata values.
 Single responsibility: Compression configuration and data type handling.
 """
 
+import numpy as np
+
+
+def validate_nodata_for_dtype(nodata_value, dtype):
+    """
+    Validate if a no-data value is appropriate for the data type.
+
+    Args:
+        nodata_value: No-data value to validate
+        dtype: Data type string
+
+    Returns:
+        dict: Validation results with 'valid' and 'error' keys
+    """
+    dtype_str = str(dtype)
+
+    try:
+        if dtype_str == 'uint8':
+            if not (0 <= nodata_value <= 255):
+                return {'valid': False, 'error': f"Value {nodata_value} out of range for uint8 [0, 255]"}
+        elif dtype_str == 'uint16':
+            if not (0 <= nodata_value <= 65535):
+                return {'valid': False, 'error': f"Value {nodata_value} out of range for uint16 [0, 65535]"}
+        elif dtype_str == 'int8':
+            if not (-128 <= nodata_value <= 127):
+                return {'valid': False, 'error': f"Value {nodata_value} out of range for int8 [-128, 127]"}
+        elif dtype_str == 'int16':
+            if not (-32768 <= nodata_value <= 32767):
+                return {'valid': False, 'error': f"Value {nodata_value} out of range for int16 [-32768, 32767]"}
+        elif dtype_str == 'int32':
+            if not (-2147483648 <= nodata_value <= 2147483647):
+                return {'valid': False, 'error': f"Value {nodata_value} out of range for int32"}
+        # Float types can handle any numeric value including NaN
+        elif dtype_str in ['float32', 'float64']:
+            # Accept any numeric value or NaN
+            if not (isinstance(nodata_value, (int, float)) or np.isnan(nodata_value)):
+                return {'valid': False, 'error': f"Value {nodata_value} must be numeric for float types"}
+
+        return {'valid': True, 'error': None}
+
+    except Exception as e:
+        return {'valid': False, 'error': str(e)}
+
 
 def get_predictor_for_dtype(dtype):
     """
@@ -69,17 +112,29 @@ def set_nodata_value(ds):
     return nodata_value
 
 
-def set_nodata_value_src(src):
+def set_nodata_value_src(src, manual_nodata=None):
     """
     Set appropriate nodata value based on data type for a rasterio source.
 
     Args:
         src: Rasterio source object with dtypes attribute
+        manual_nodata: Optional manual no-data value to use
 
     Returns:
         Appropriate nodata value for the data type
     """
     print(f"   [NODATA] Data type: {src.dtypes[0]}")
+
+    # Use manual no-data if provided and valid
+    if manual_nodata is not None:
+        validation = validate_nodata_for_dtype(manual_nodata, src.dtypes[0])
+        if validation['valid']:
+            print(f"   [NODATA] Using manual nodata value {manual_nodata}")
+            return manual_nodata
+        else:
+            print(f"   [NODATA] WARNING: Manual nodata {manual_nodata} invalid for {src.dtypes[0]}")
+            print(f"   [NODATA] Reason: {validation['error']}")
+            print(f"   [NODATA] Falling back to automatic selection")
 
     if src.dtypes[0] == 'uint8':
         # For uint8 data, use 0 as nodata

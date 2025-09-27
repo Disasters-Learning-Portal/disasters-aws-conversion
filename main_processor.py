@@ -37,7 +37,7 @@ from configs.chunk_configs import get_chunk_config
 
 def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                    s3_client, cog_profile=None, local_output_dir=None,
-                   chunk_config=None):
+                   chunk_config=None, manual_nodata=None, overwrite=False):
     """
     Main function to convert a file to Cloud Optimized GeoTIFF.
 
@@ -51,6 +51,8 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         cog_profile: COG profile (optional)
         local_output_dir: Local output directory (optional)
         chunk_config: Chunk configuration (optional)
+        manual_nodata: Manual no-data value (optional)
+        overwrite: Whether to overwrite existing files (default: False)
 
     Returns:
         None (raises exception on error)
@@ -65,8 +67,11 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         # Step 1: Check if file already exists in S3
         print(f"   [CHECK] Checking if file already exists in S3: s3://{cog_data_bucket}/{s3_key}")
         if check_s3_file_exists(s3_client, cog_data_bucket, s3_key):
-            print(f"   [SKIP] File already exists in S3, skipping processing: {cog_filename}")
-            raise FileExistsError(f"File already exists: {cog_filename}")
+            if overwrite:
+                print(f"   [OVERWRITE] File exists but overwrite=True, reprocessing: {cog_filename}")
+            else:
+                print(f"   [SKIP] File already exists in S3, skipping processing: {cog_filename}")
+                raise FileExistsError(f"File already exists: {cog_filename}")
 
         # Step 2: Get file size and select appropriate configuration
         file_size_gb = get_file_size_from_s3(s3_client, bucket, name)
@@ -134,10 +139,15 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             transform, width, height = calculate_transform_parameters(src, dst_crs)
 
             # Get or set nodata value
-            if src.nodata is not None:
+            if manual_nodata is not None:
+                # Use manual no-data if provided
+                src_nodata = manual_nodata
+                print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+            elif src.nodata is not None:
                 src_nodata = src.nodata
+                print(f"   [NODATA] Using existing no-data value: {src.nodata}")
             else:
-                src_nodata = set_nodata_value_src(src)
+                src_nodata = set_nodata_value_src(src, manual_nodata)
 
             # Get appropriate predictor
             predictor = get_predictor_for_dtype(src.dtypes[0])
@@ -247,7 +257,9 @@ def convert_to_proper_CRS_and_cogify_improved_fixed(name, BUCKET, cog_filename,
                                                     cog_data_bucket, cog_data_prefix,
                                                     s3_client, COG_PROFILE=None,
                                                     local_output_dir=None,
-                                                    chunk_config=None):
+                                                    chunk_config=None,
+                                                    manual_nodata=None,
+                                                    overwrite=False):
     """
     Wrapper function for backwards compatibility with existing notebooks.
     """
@@ -260,5 +272,7 @@ def convert_to_proper_CRS_and_cogify_improved_fixed(name, BUCKET, cog_filename,
         s3_client=s3_client,
         cog_profile=COG_PROFILE,
         local_output_dir=local_output_dir,
-        chunk_config=chunk_config
+        chunk_config=chunk_config,
+        manual_nodata=manual_nodata,
+        overwrite=overwrite
     )
