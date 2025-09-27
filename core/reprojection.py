@@ -9,6 +9,8 @@ from rasterio.warp import calculate_default_transform, reproject, Resampling
 from rasterio.windows import Window
 import gc
 from tqdm import tqdm
+from utils.memory_management import get_memory_usage
+from core.validation import check_and_fix_nan_values
 
 
 def calculate_transform_parameters(src, dst_crs='EPSG:4326'):
@@ -89,9 +91,6 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
     Returns:
         None
     """
-    from ..utils.memory_management import get_memory_usage
-    from ..core.validation import check_and_fix_nan_values
-
     # Ensure chunk_size stays fixed
     FIXED_CHUNK_SIZE = chunk_size
     print(f"   [CHUNKS] Using FIXED chunk size: {FIXED_CHUNK_SIZE}x{FIXED_CHUNK_SIZE}")
