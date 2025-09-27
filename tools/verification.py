@@ -124,6 +124,7 @@ def compare_geotiffs(input_path: str, output_path: str, band: int = 1,
 def sample_data_for_comparison(src_in, src_out, band: int, sample_size: int) -> Tuple[np.ndarray, np.ndarray]:
     """
     Sample data from both files for efficient comparison.
+    Handles files with different dimensions (e.g., after reprojection).
 
     Args:
         src_in: Input rasterio dataset
@@ -134,22 +135,46 @@ def sample_data_for_comparison(src_in, src_out, band: int, sample_size: int) -> 
     Returns:
         Tuple of sampled arrays
     """
-    # Calculate sampling interval
-    total_pixels = src_in.width * src_in.height
-    interval = max(1, total_pixels // sample_size)
+    # For files with different dimensions (reprojected), just sample from each independently
+    if src_in.shape != src_out.shape:
+        # Sample input file
+        total_pixels_in = src_in.width * src_in.height
+        interval_in = max(1, total_pixels_in // sample_size)
+        sampled_in = []
 
-    # Sample data
-    sampled_in = []
-    sampled_out = []
+        for i in range(0, src_in.height, int(np.sqrt(interval_in))):
+            for j in range(0, src_in.width, int(np.sqrt(interval_in))):
+                window = Window(j, i, min(10, src_in.width - j), min(10, src_in.height - i))
+                sampled_in.append(src_in.read(band, window=window))
 
-    for i in range(0, src_in.height, int(np.sqrt(interval))):
-        for j in range(0, src_in.width, int(np.sqrt(interval))):
-            window = Window(j, i, min(10, src_in.width - j), min(10, src_in.height - i))
-            sampled_in.append(src_in.read(band, window=window))
-            sampled_out.append(src_out.read(band, window=window))
+        # Sample output file independently
+        total_pixels_out = src_out.width * src_out.height
+        interval_out = max(1, total_pixels_out // sample_size)
+        sampled_out = []
 
-    return np.concatenate([s.flatten() for s in sampled_in]), \
-           np.concatenate([s.flatten() for s in sampled_out])
+        for i in range(0, src_out.height, int(np.sqrt(interval_out))):
+            for j in range(0, src_out.width, int(np.sqrt(interval_out))):
+                window = Window(j, i, min(10, src_out.width - j), min(10, src_out.height - i))
+                sampled_out.append(src_out.read(band, window=window))
+
+        return np.concatenate([s.flatten() for s in sampled_in]), \
+               np.concatenate([s.flatten() for s in sampled_out])
+    else:
+        # For same-dimension files, sample the same locations
+        total_pixels = src_in.width * src_in.height
+        interval = max(1, total_pixels // sample_size)
+
+        sampled_in = []
+        sampled_out = []
+
+        for i in range(0, src_in.height, int(np.sqrt(interval))):
+            for j in range(0, src_in.width, int(np.sqrt(interval))):
+                window = Window(j, i, min(10, src_in.width - j), min(10, src_in.height - i))
+                sampled_in.append(src_in.read(band, window=window))
+                sampled_out.append(src_out.read(band, window=window))
+
+        return np.concatenate([s.flatten() for s in sampled_in]), \
+               np.concatenate([s.flatten() for s in sampled_out])
 
 
 def calculate_comparison_statistics(data_in: np.ndarray, data_out: np.ndarray,
@@ -224,6 +249,86 @@ def calculate_comparison_statistics(data_in: np.ndarray, data_out: np.ndarray,
     return stats
 
 
+def analyze_reprojected_files(data_in: np.ndarray, data_out: np.ndarray,
+                             nodata_in: Optional[float], nodata_out: Optional[float],
+                             verification: Dict) -> Dict:
+    """
+    Analyze reprojected files where direct pixel comparison isn't possible.
+
+    Args:
+        data_in: Input data
+        data_out: Output data (reprojected)
+        nodata_in: Input no-data value
+        nodata_out: Output no-data value
+        verification: Existing verification dict
+
+    Returns:
+        Updated verification results
+    """
+    # Filter out no-data values
+    if nodata_in is not None:
+        valid_in = data_in[data_in != nodata_in]
+    else:
+        valid_in = data_in.flatten()
+
+    if nodata_out is not None:
+        valid_out = data_out[data_out != nodata_out]
+    else:
+        valid_out = data_out.flatten()
+
+    if valid_in.size > 0 and valid_out.size > 0:
+        # Compare statistical properties
+        stats_in = {
+            'min': np.min(valid_in),
+            'max': np.max(valid_in),
+            'mean': np.mean(valid_in),
+            'std': np.std(valid_in)
+        }
+
+        stats_out = {
+            'min': np.min(valid_out),
+            'max': np.max(valid_out),
+            'mean': np.mean(valid_out),
+            'std': np.std(valid_out)
+        }
+
+        # Check for reasonable preservation of data range
+        range_in = stats_in['max'] - stats_in['min']
+        range_out = stats_out['max'] - stats_out['min']
+
+        # Allow for some variation due to reprojection interpolation
+        if abs(range_out - range_in) > 0.1 * range_in:  # More than 10% change
+            verification['warnings'].append(
+                f"Data range changed significantly: {range_in:.6f} -> {range_out:.6f}"
+            )
+
+        # Check for data corruption
+        if np.any(np.isnan(valid_out)):
+            verification['errors'].append("NaN values found in output")
+            verification['passed'] = False
+
+        if np.any(np.isinf(valid_out)):
+            verification['errors'].append("Infinite values found in output")
+            verification['passed'] = False
+
+        # Add statistics to verification for reporting
+        verification['statistics'] = {
+            'input': stats_in,
+            'output': stats_out
+        }
+    else:
+        verification['warnings'].append("No valid data found for comparison")
+
+    # Update status based on errors
+    if verification['errors']:
+        verification['status'] = 'FAILED'
+        verification['passed'] = False
+    else:
+        verification['status'] = 'PASSED'
+
+    return verification
+
+
 def verify_data_integrity(data_in: np.ndarray, data_out: np.ndarray,
                          nodata_in: Optional[float], nodata_out: Optional[float]) -> Dict:
     """
@@ -240,15 +345,22 @@ def verify_data_integrity(data_in: np.ndarray, data_out: np.ndarray,
     """
     verification = {
         'passed': True,
+        'status': 'PASSED',  # Initialize status field
         'warnings': [],
         'errors': []
     }
 
-    # Check dimensions
+    # Check dimensions - Note: shapes may differ after reprojection
     if data_in.shape != data_out.shape:
-        verification['errors'].append(f"Shape mismatch: {data_in.shape} vs {data_out.shape}")
-        verification['passed'] = False
-        return verification
+        # This is expected for reprojected files, just add a warning
+        verification['warnings'].append(f"Shape changed after reprojection: {data_in.shape} -> {data_out.shape}")
+        # Don't fail verification for shape mismatch as it's expected with reprojection
+        # Instead, we'll compare statistics rather than pixel-by-pixel
+        verification['reprojected'] = True
+
+        # For reprojected files, we can't do direct pixel comparison
+        # So we'll compare overall statistics instead
+        return analyze_reprojected_files(data_in, data_out, nodata_in, nodata_out, verification)
 
     # Check no-data handling
     if nodata_in is not None and nodata_out is not None:
@@ -324,11 +436,14 @@ def create_comparison_plots(input_path: str, output_path: str,
 
     with rasterio.open(input_path) as src_in, rasterio.open(output_path) as src_out:
         # Read subset for visualization (max 1000x1000)
-        h = min(1000, src_in.height)
-        w = min(1000, src_in.width)
+        # Handle different dimensions for reprojected files
+        h_in = min(1000, src_in.height)
+        w_in = min(1000, src_in.width)
+        h_out = min(1000, src_out.height)
+        w_out = min(1000, src_out.width)
 
-        data_in = src_in.read(band, window=Window(0, 0, w, h))
-        data_out = src_out.read(band, window=Window(0, 0, w, h))
+        data_in = src_in.read(band, window=Window(0, 0, w_in, h_in))
+        data_out = src_out.read(band, window=Window(0, 0, w_out, h_out))
 
         # 1. Side-by-side comparison plot
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
@@ -380,7 +495,11 @@ def create_comparison_plots(input_path: str, output_path: str,
             axes[2].axis('off')
             plt.colorbar(im3, ax=axes[2], fraction=0.046, pad=0.04)
         else:
-            axes[2].text(0.5, 0.5, 'Shape Mismatch', ha='center', va='center', fontsize=14)
+            # Different shapes (expected after reprojection)
+            axes[2].text(0.5, 0.5,
+                        f'Reprojected\nInput: {data_in_masked.shape}\nOutput: {data_out_masked.shape}',
+                        ha='center', va='center', fontsize=12)
+            axes[2].set_title('Difference (N/A - Reprojected)', fontsize=12, weight='bold')
             axes[2].axis('off')
 
         # Add colorbar for data plots
@@ -566,22 +685,53 @@ def create_verification_report(verification_results: List[Dict], save_path: str)
     }
 
     for result in verification_results:
-        file_info = {
-            'input': result['input_file'],
-            'output': result['output_file'],
-            'status': result['verification']['status'],
-            'warnings': result['verification']['warnings'],
-            'errors': result['verification']['errors']
-        }
-        report['files'].append(file_info)
+        # Defensive error handling for missing keys
+        try:
+            # Check if verification exists and has required fields
+            if 'verification' in result:
+                verification = result['verification']
+                status = verification.get('status', 'UNKNOWN')
+                warnings = verification.get('warnings', [])
+                errors = verification.get('errors', [])
+            else:
+                # Handle case where verification is missing
+                status = 'ERROR'
+                warnings = []
+                errors = ['Verification data missing']
 
-        if result['verification']['status'] == 'PASSED':
-            report['passed'] += 1
-        else:
+            file_info = {
+                'input': result.get('input_file', 'Unknown'),
+                'output': result.get('output_file', 'Unknown'),
+                'status': status,
+                'warnings': warnings,
+                'errors': errors
+            }
+
+            # Add statistics if available (for reprojected files)
+            if 'verification' in result and 'statistics' in result['verification']:
+                file_info['statistics'] = result['verification']['statistics']
+
+            report['files'].append(file_info)
+
+            if status == 'PASSED':
+                report['passed'] += 1
+            else:
+                report['failed'] += 1
+
+            report['warnings'].extend(warnings)
+            report['errors'].extend(errors)
+
+        except Exception as e:
+            # Handle any unexpected errors gracefully
+            print(f"Warning: Error processing verification result: {e}")
+            report['files'].append({
+                'input': result.get('input_file', 'Unknown'),
+                'output': result.get('output_file', 'Unknown'),
+                'status': 'ERROR',
+                'warnings': [],
+                'errors': [f'Error processing result: {str(e)}']
+            })
             report['failed'] += 1
-
-        report['warnings'].extend(result['verification']['warnings'])
-        report['errors'].extend(result['verification']['errors'])
 
     # Remove duplicates
     report['warnings'] = list(set(report['warnings']))
