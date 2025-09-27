@@ -10,6 +10,15 @@ import rasterio
 import numpy as np
 from datetime import datetime
 
+# Try to import rio-cogeo for optimized processing
+try:
+    from rio_cogeo import cog_translate
+    from rio_cogeo.profiles import cog_profiles as rio_cog_profiles
+    HAS_RIO_COGEO = True
+except ImportError:
+    HAS_RIO_COGEO = False
+    print("Warning: rio-cogeo not available, using fallback method")
+
 # Import core modules
 from core.s3_operations import (
     check_s3_file_exists,
@@ -70,7 +79,8 @@ except ImportError:
 
 def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                    s3_client, cog_profile=None, local_output_dir=None,
-                   chunk_config=None, manual_nodata=None, overwrite=False):
+                   chunk_config=None, manual_nodata=None, overwrite=False,
+                   skip_validation=False):
     """
     Main function to convert a file to Cloud Optimized GeoTIFF.
 
@@ -157,7 +167,89 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                 else:
                     raise Exception("Failed to download file from S3")
 
-        # Step 6: Process file
+        # Step 6: Use optimized rio-cogeo path if available
+        if HAS_RIO_COGEO and file_size_gb < 5.0:  # Use rio-cogeo for files under 5GB
+            print(f"   [OPTIMIZED] Using rio-cogeo for single-pass COG creation")
+            cog_output_path = f"cog_{cog_filename}"
+            temp_files.append(cog_output_path)
+
+            # Get nodata value
+            with rasterio.open(input_path) as src:
+                if manual_nodata is not None:
+                    src_nodata = manual_nodata
+                    print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+                elif src.nodata is not None:
+                    src_nodata = src.nodata
+                    print(f"   [NODATA] Using existing no-data value: {src.nodata}")
+                else:
+                    src_nodata = set_nodata_value_src(src, manual_nodata)
+
+                # Get predictor for data type
+                predictor = get_predictor_for_dtype(src.dtypes[0])
+
+            # Prepare COG profile
+            output_profile = rio_cog_profiles.get("zstd")
+            output_profile.update({
+                "ZSTD_LEVEL": 22,  # Maximum compression
+                "PREDICTOR": predictor,
+                "BLOCKSIZE": 512
+            })
+
+            # Additional GDAL options for performance
+            config = {
+                "GDAL_NUM_THREADS": "ALL_CPUS",
+                "GDAL_TIFF_INTERNAL_MASK": "YES",
+                "GDAL_TIFF_OVR_BLOCKSIZE": "512"
+            }
+
+            print(f"   [COG] Creating COG with reprojection in single pass...")
+
+            # Use rio-cogeo to create COG with reprojection in one pass
+            cog_translate(
+                input_path,
+                cog_output_path,
+                output_profile,
+                dst_crs="EPSG:4326",  # Reproject to WGS84
+                nodata=src_nodata,
+                overview_level=5,  # Create 5 levels of overviews
+                overview_resampling="average",
+                config=config,
+                quiet=False
+            )
+
+            print(f"   [COG] ✅ COG created successfully")
+
+            # Optional validation
+            if not skip_validation:
+                is_valid = check_cog_with_warnings(cog_output_path)
+                if not is_valid:
+                    print(f"   [WARNING] COG validation had warnings but continuing...")
+
+            # Upload to S3
+            if upload_to_s3(s3_client, cog_output_path, cog_data_bucket, s3_key):
+                # Save locally if requested
+                if local_output_dir:
+                    os.makedirs(local_output_dir, exist_ok=True)
+                    local_path = os.path.join(local_output_dir, cog_filename)
+                    import shutil
+                    shutil.copy2(cog_output_path, local_path)
+                    print(f"   [LOCAL] Saved to {local_path}")
+            else:
+                raise Exception("Failed to upload COG to S3")
+
+            # Report performance
+            final_memory = get_memory_usage()
+            print(f"   [MEMORY] Final: {final_memory:.1f} MB (Change: {final_memory - initial_memory:+.1f} MB)")
+            total_time = (datetime.now() - start_time).total_seconds()
+            print(f"   [TIME] Total processing time: {total_time:.1f} seconds")
+
+            # Clean up and return early - we're done!
+            cleanup_temp_files(*temp_files)
+            gc.collect()
+            return
+
+        # Step 7: Fall back to original processing for large files or if rio-cogeo unavailable
+        print(f"   [FALLBACK] Using original processing method")
         with rasterio.open(input_path) as src:
             # Check if we should use whole-file processing for small files
             use_whole_file = chunk_config.get('use_whole_file_processing', False)
@@ -206,7 +298,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                 'height': height,
                 'nodata': src_nodata,
                 'compress': 'ZSTD',
-                'zstd_level': 22,
+                'zstd_level': 22,  # Maximum compression as requested
                 'predictor': predictor,
                 'blockxsize': 512,
                 'blockysize': 512,
