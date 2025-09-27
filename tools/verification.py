@@ -40,8 +40,10 @@ def download_s3_file(bucket: str, key: str, s3_client=None) -> str:
     if s3_client is None:
         s3_client = boto3.client('s3')
 
-    # Create temp file
-    temp_file = tempfile.NamedTemporaryFile(suffix='.tif', delete=False)
+    # Create temp file in local directory instead of /tmp
+    temp_dir = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_verification'))
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_file = tempfile.NamedTemporaryFile(suffix='.tif', delete=False, dir=temp_dir)
     temp_path = temp_file.name
     temp_file.close()
 

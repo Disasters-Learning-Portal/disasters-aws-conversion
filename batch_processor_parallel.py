@@ -205,9 +205,10 @@ class ParallelCOGProcessor:
             if not input_path:
                 raise Exception("Failed to access input file")
 
-            # Create temporary output path
-            temp_output = f"/tmp/gdal_tmp/cog_{task.task_id}_{task.filename}"
-            os.makedirs(os.path.dirname(temp_output), exist_ok=True)
+            # Create temporary output path in local directory
+            temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_processing'))
+            os.makedirs(temp_base, exist_ok=True)
+            temp_output = os.path.join(temp_base, f"cog_{task.task_id}_{task.filename}")
             temp_files.append(temp_output)
 
             # Process with GDAL COG driver
@@ -280,9 +281,10 @@ class ParallelCOGProcessor:
         if result.returncode == 0:
             return vsi_path
 
-        # Fallback to download
-        local_path = f"/tmp/gdal_tmp/input_{task.task_id}_{os.path.basename(task.input_path)}"
-        os.makedirs(os.path.dirname(local_path), exist_ok=True)
+        # Fallback to download to local directory
+        temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_downloads'))
+        os.makedirs(temp_base, exist_ok=True)
+        local_path = os.path.join(temp_base, f"input_{task.task_id}_{os.path.basename(task.input_path)}")
 
         if download_from_s3(self.s3_client, task.bucket, task.input_path, local_path):
             return local_path

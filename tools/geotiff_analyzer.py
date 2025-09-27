@@ -401,8 +401,10 @@ def analyze_s3_geotiff(bucket: str, key: str, sample_size: int = None) -> Dict:
     response = s3_client.head_object(Bucket=bucket, Key=key)
     file_size_mb = response['ContentLength'] / (1024 * 1024)
 
-    # Download to temp file for analysis
-    with tempfile.NamedTemporaryFile(suffix='.tif', delete=False) as tmp_file:
+    # Download to temp file for analysis in local directory
+    temp_dir = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_analysis'))
+    os.makedirs(temp_dir, exist_ok=True)
+    with tempfile.NamedTemporaryFile(suffix='.tif', delete=False, dir=temp_dir) as tmp_file:
         try:
             print(f"Downloading {key} for analysis...")
             s3_client.download_file(bucket, key, tmp_file.name)

@@ -70,9 +70,11 @@ def set_optimal_gdal_env() -> Dict[str, str]:
     # Memory cache (8GB for 24.7GB system)
     env['GDAL_CACHEMAX'] = '8192'
 
-    # Temp directory
-    env['CPL_TMPDIR'] = '/tmp/gdal_tmp'
-    os.makedirs('/tmp/gdal_tmp', exist_ok=True)
+    # Temp directory - use local directory instead of /tmp to avoid space issues
+    # Check for environment variable first, then use local directory
+    temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_gdal'))
+    env['CPL_TMPDIR'] = temp_base
+    os.makedirs(temp_base, exist_ok=True)
 
     # S3 and VSI optimizations
     env['GDAL_DISABLE_READDIR_ON_OPEN'] = 'TRUE'
@@ -200,8 +202,10 @@ def create_cog_with_reprojection(
     """
     temp_file = None
     try:
-        # Create temp file for reprojected data
-        temp_file = f"/tmp/gdal_tmp/reproj_{uuid.uuid4().hex}.tif"
+        # Create temp file for reprojected data in local directory
+        temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_gdal'))
+        os.makedirs(temp_base, exist_ok=True)
+        temp_file = os.path.join(temp_base, f"reproj_{uuid.uuid4().hex}.tif")
 
         if verbose:
             print(f"   [GDAL-COG] Stage 1: Reprojecting to EPSG:4326 using {resampling} resampling...")
