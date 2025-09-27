@@ -13,6 +13,71 @@ from utils.memory_management import get_memory_usage
 from core.validation import check_and_fix_nan_values
 
 
+def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src_nodata):
+    """
+    Process entire file at once without chunking - for small files only.
+    Much faster than chunked processing for files under 0.5GB.
+
+    Args:
+        src: Source dataset
+        dst: Destination dataset
+        src_crs: Source CRS
+        dst_crs: Destination CRS
+        transform: Destination transform
+        width: Destination width
+        height: Destination height
+        src_nodata: Nodata value
+
+    Returns:
+        None
+    """
+    print(f"   [WHOLE-FILE] Processing entire file at once ({width}x{height} pixels)")
+
+    # Process each band
+    for band_idx in range(1, src.count + 1):
+        print(f"   [BAND {band_idx}/{src.count}] Reprojecting entire band...")
+
+        # Create destination array for the whole band
+        dst_array = np.full(
+            (height, width),
+            src_nodata if src_nodata is not None else 0,
+            dtype=src.dtypes[0]
+        )
+
+        # Reproject entire band at once
+        try:
+            reproject(
+                source=rasterio.band(src, band_idx),
+                destination=dst_array,
+                src_transform=src.transform,
+                src_crs=src_crs,
+                dst_transform=transform,
+                dst_crs=dst_crs,
+                resampling=Resampling.nearest,
+                src_nodata=src_nodata,
+                dst_nodata=src_nodata
+            )
+
+            # Check and fix NaN values if needed
+            if np.isnan(dst_array).any():
+                print(f"      [FIX] Found NaN values in band {band_idx}, replacing with nodata")
+                dst_array = np.nan_to_num(dst_array, nan=src_nodata)
+
+            # Write to destination
+            dst.write(dst_array, band_idx)
+            print(f"      ✓ Band {band_idx} complete")
+
+            # Clean up memory
+            del dst_array
+            gc.collect()
+
+        except Exception as e:
+            print(f"   [ERROR] Failed to reproject band {band_idx}: {e}")
+            raise
+
+    print(f"   [WHOLE-FILE] ✅ Processing complete")
+
+
 def calculate_transform_parameters(src, dst_crs='EPSG:4326'):
     """
     Calculate transformation parameters for reprojection.

@@ -28,8 +28,20 @@ def get_chunk_config(file_size_gb=0, memory_limit_mb=500):
         # Small-medium files (0.5-1GB) - use smaller fixed chunks
         return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=300)
     else:
-        # Small files (<0.5GB) - use even smaller chunks for faster processing
-        return get_fixed_chunk_config(chunk_size=128, memory_limit_mb=200)
+        # Small files (<0.5GB) - process whole file without chunking
+        return {
+            'use_whole_file_processing': True,  # Process entire file at once
+            'default_chunk_size': 128,  # Fallback if whole-file fails
+            'memory_limit_mb': memory_limit_mb,
+            'show_progress': True,
+            'enable_memory_monitoring': False,  # Not needed for whole-file
+            'use_streaming': False,
+            'adaptive_chunks': False,
+            'aggressive_gc': False,
+            'single_band_mode': False,
+            'cleanup_immediate': False,
+            'max_retries': 3
+        }
 
 
 def get_adaptive_chunk_config(memory_limit_mb=500):

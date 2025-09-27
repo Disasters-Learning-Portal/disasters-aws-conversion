@@ -126,15 +126,24 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
 
         # Step 6: Process file
         with rasterio.open(input_path) as src:
-            # Get chunk size based on configuration
-            chunk_size = chunk_config.get('default_chunk_size', 512)
-            if not chunk_config.get('adaptive_chunks', True):
-                print(f"   [CHUNKS] Using FIXED chunk size: {chunk_size}x{chunk_size}")
+            # Check if we should use whole-file processing for small files
+            use_whole_file = chunk_config.get('use_whole_file_processing', False)
+
+            if use_whole_file and file_size_gb < 0.5:
+                print(f"   [WHOLE-FILE] Small file detected ({file_size_gb:.2f} GB), processing without chunks")
             else:
-                print(f"   [CHUNKS] Using adaptive chunk size starting at: {chunk_size}x{chunk_size}")
+                # Get chunk size based on configuration
+                chunk_size = chunk_config.get('default_chunk_size', 512)
+                if not chunk_config.get('adaptive_chunks', True):
+                    print(f"   [CHUNKS] Using FIXED chunk size: {chunk_size}x{chunk_size}")
+                else:
+                    print(f"   [CHUNKS] Using adaptive chunk size starting at: {chunk_size}x{chunk_size}")
 
             # Calculate reprojection parameters
-            print(f"   [REPROJECT] Converting to EPSG:4326 using fixed-grid chunked processing...")
+            if use_whole_file and file_size_gb < 0.5:
+                print(f"   [REPROJECT] Converting to EPSG:4326 using whole-file processing...")
+            else:
+                print(f"   [REPROJECT] Converting to EPSG:4326 using fixed-grid chunked processing...")
             dst_crs = 'EPSG:4326'
             transform, width, height = calculate_transform_parameters(src, dst_crs)
 
@@ -169,13 +178,23 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                 'nodata': src_nodata
             })
 
-            # Process with fixed chunks
+            # Process based on file size
             with rasterio.open(reproject_filename, 'w', **kwargs) as dst:
-                process_with_fixed_chunks(
-                    src, dst, src.crs, dst_crs, transform,
-                    width, height, chunk_size, src_nodata,
-                    chunk_config, initial_memory
-                )
+                if use_whole_file and file_size_gb < 0.5:
+                    # Import the whole-file processing function
+                    from core.reprojection import process_whole_file
+                    process_whole_file(
+                        src, dst, src.crs, dst_crs, transform,
+                        width, height, src_nodata
+                    )
+                else:
+                    # Use chunked processing for larger files
+                    chunk_size = chunk_config.get('default_chunk_size', 512)
+                    process_with_fixed_chunks(
+                        src, dst, src.crs, dst_crs, transform,
+                        width, height, chunk_size, src_nodata,
+                        chunk_config, initial_memory
+                    )
 
         temp_files.append(reproject_filename)
         print(f"   [COGIFY] Preparing file for upload...")
