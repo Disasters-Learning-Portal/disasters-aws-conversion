@@ -406,15 +406,19 @@ class SimpleProcessor:
         Args:
             total_time: Total processing time in seconds
         """
-        if not self.results or len(self.results) == 0:
+        # Check if results exist and have data
+        if self.results is None:
             return
 
         # Convert to DataFrame if it's a list
         import pandas as pd
         if isinstance(self.results, list):
+            if len(self.results) == 0:
+                return
             self.results = pd.DataFrame(self.results)
 
-        if self.results.empty:
+        # Check if DataFrame is empty
+        if isinstance(self.results, pd.DataFrame) and self.results.empty:
             return
 
         print("\n" + "="*60)
