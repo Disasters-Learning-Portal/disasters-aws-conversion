@@ -78,10 +78,17 @@ def parse_filename_components(filepath):
     if satellite_match:
         components['satellite'] = satellite_match.group()
 
-    # Extract product type (NDVI, MNDWI, trueColor, etc.)
-    for product in ['NDVI', 'MNDWI', 'trueColor', 'RGB', 'NIR']:
-        if product in stem:
-            components['product'] = product
+    # Extract product type (any uppercase word or camelCase pattern)
+    # This will match patterns like NDVI, MNDWI, RGB, SAR, DEM, etc.
+    product_patterns = [
+        r'([A-Z]{2,})',           # Uppercase acronyms (NDVI, RGB, SAR, etc.)
+        r'([a-z]+[A-Z][a-zA-Z]+)' # camelCase patterns (trueColor, etc.)
+    ]
+
+    for pattern in product_patterns:
+        match = re.search(pattern, stem)
+        if match:
+            components['product'] = match.group(1)
             break
 
     # Extract location codes (3-letter codes)
