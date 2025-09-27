@@ -21,9 +21,15 @@ def get_chunk_config(file_size_gb=0, memory_limit_mb=500):
     elif file_size_gb > 3:
         # Large files
         return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=250)
+    elif file_size_gb > 1:
+        # Medium files (1-3GB) - use smaller fixed chunks
+        return get_fixed_chunk_config(chunk_size=512, memory_limit_mb=300)
+    elif file_size_gb > 0.5:
+        # Small-medium files (0.5-1GB) - use smaller fixed chunks
+        return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=300)
     else:
-        # Standard files
-        return get_adaptive_chunk_config(memory_limit_mb=memory_limit_mb)
+        # Small files (<0.5GB) - use even smaller chunks for faster processing
+        return get_fixed_chunk_config(chunk_size=128, memory_limit_mb=200)
 
 
 def get_adaptive_chunk_config(memory_limit_mb=500):
