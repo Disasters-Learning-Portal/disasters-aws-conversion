@@ -34,6 +34,9 @@ from processors.cog_creator import create_cog_with_overviews
 from configs.profiles import select_profile_by_size, get_compression_profile
 from configs.chunk_configs import get_chunk_config
 
+# Import COG profiles
+from rasterio.cog import cog_profiles
+
 
 def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                    s3_client, cog_profile=None, local_output_dir=None,
@@ -161,21 +164,25 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             # Get appropriate predictor
             predictor = get_predictor_for_dtype(src.dtypes[0])
 
-            # Prepare output profile
+            # Prepare output profile using rasterio's COG profile
+            # Start with a COG profile that ensures proper structure
+            cog_profile = cog_profiles.get('zstd')
             kwargs = src.meta.copy()
+            kwargs.update(cog_profile)
             kwargs.update({
-                'driver': 'GTiff',
-                'compress': 'ZSTD',
-                'zstd_level': 9,
-                'predictor': predictor,
                 'crs': dst_crs,
                 'transform': transform,
                 'width': width,
                 'height': height,
-                'tiled': True,
+                'nodata': src_nodata,
+                'compress': 'ZSTD',
+                'zstd_level': 9,
+                'predictor': predictor,
                 'blockxsize': 512,
                 'blockysize': 512,
-                'nodata': src_nodata
+                'tiled': True,
+                'interleave': 'pixel' if src.count > 1 else 'band',
+                'BIGTIFF': 'IF_SAFER'
             })
 
             # Process based on file size
@@ -195,6 +202,10 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                         width, height, chunk_size, src_nodata,
                         chunk_config, initial_memory
                     )
+
+        # Add overviews to make it a valid COG
+        from core.reprojection import add_cog_overviews
+        add_cog_overviews(reproject_filename)
 
         temp_files.append(reproject_filename)
 

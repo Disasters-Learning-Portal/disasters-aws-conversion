@@ -75,14 +75,22 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
             print(f"   [ERROR] Failed to reproject band {band_idx}: {e}")
             raise
 
-    # Build overviews directly after reprojection
-    print(f"   [OVERVIEWS] Building overviews...")
-    factors = calculate_overview_factors(width, height)
-    dst.build_overviews(factors, Resampling.average)
-    dst.update_tags(ns='rio_overview', resampling='average')
-    print(f"   [OVERVIEWS] ✅ Overviews built with factors: {factors}")
+    # For COGs, we need to close and reopen to add overviews properly
+    print(f"   [WHOLE-FILE] ✅ Processing complete")
 
-    print(f"   [WHOLE-FILE] ✅ Processing complete with overviews")
+# Re-open file to add overviews in COG-compliant way
+def add_cog_overviews(file_path, verbose=True):
+    """Add overviews to make the file a valid COG."""
+    if verbose:
+        print(f"   [OVERVIEWS] Building COG overviews...")
+
+    with rasterio.open(file_path, 'r+') as dst:
+        factors = calculate_overview_factors(dst.width, dst.height)
+        dst.build_overviews(factors, Resampling.average)
+        dst.update_tags(ns='rio_overview', resampling='average')
+
+    if verbose:
+        print(f"   [OVERVIEWS] ✅ Overviews built with factors: {factors}")
 
 
 def calculate_overview_factors(width, height):
@@ -330,9 +338,5 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
         if chunk_config.get('aggressive_gc', False):
             gc.collect()
 
-    # Build overviews after all bands are processed
-    print(f"   [OVERVIEWS] Building overviews...")
-    factors = calculate_overview_factors(width, height)
-    dst.build_overviews(factors, Resampling.average)
-    dst.update_tags(ns='rio_overview', resampling='average')
-    print(f"   [OVERVIEWS] ✅ Overviews built with factors: {factors}")
+    # Don't build overviews here - will be done after file is closed
+    print(f"   [CHUNKS] ✅ Processing complete")
