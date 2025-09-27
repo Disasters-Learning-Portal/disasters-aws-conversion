@@ -34,8 +34,38 @@ from processors.cog_creator import create_cog_with_overviews
 from configs.profiles import select_profile_by_size, get_compression_profile
 from configs.chunk_configs import get_chunk_config
 
-# Import COG profiles
-from rasterio.cog import cog_profiles
+# Import COG profiles - use the correct import path
+try:
+    from rasterio.cog import cog_profiles
+except ImportError:
+    # Fallback for older rasterio versions
+    cog_profiles = {
+        'zstd': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'ZSTD',
+            'photometric': 'MINISBLACK'
+        },
+        'lzw': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'LZW'
+        },
+        'deflate': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'DEFLATE'
+        }
+    }
 
 
 def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
