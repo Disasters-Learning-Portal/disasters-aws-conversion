@@ -205,8 +205,6 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             print(f"   [COG] ✅ File is a valid COG with overviews")
             # Upload directly to S3
             if upload_to_s3(s3_client, reproject_filename, cog_data_bucket, s3_key):
-                print(f"   [SUCCESS] ✅ Uploaded to s3://{cog_data_bucket}/{s3_key}")
-
                 # Save locally if requested
                 if local_output_dir:
                     os.makedirs(local_output_dir, exist_ok=True)
@@ -235,8 +233,6 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             if create_cog_with_overviews(reproject_filename, temp_cog, compression_config):
                 # Upload to S3
                 if upload_to_s3(s3_client, temp_cog, cog_data_bucket, s3_key):
-                    print(f"   [SUCCESS] ✅ Uploaded to s3://{cog_data_bucket}/{s3_key}")
-
                     # Save locally if requested
                     if local_output_dir:
                         os.makedirs(local_output_dir, exist_ok=True)
