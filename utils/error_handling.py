@@ -124,11 +124,12 @@ def setup_temp_directory(preferred_dir=None):
         tempfile.tempdir = preferred_dir
         return preferred_dir
 
-    # Try different locations
+    # Try different locations - prioritize local directories over /tmp
     temp_locations = [
-        '/tmp',
         os.path.join(os.getcwd(), 'temp_cog'),
-        tempfile.gettempdir()
+        os.path.join(os.getcwd(), 'temp_processing'),
+        os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp')),
+        tempfile.gettempdir()  # Last resort only
     ]
 
     for location in temp_locations:

@@ -11,13 +11,6 @@ from .memory_management import (
     monitor_memory
 )
 
-from .file_naming import (
-    create_cog_filename,
-    convert_date,
-    parse_filename_components,
-    extract_date_from_filename
-)
-
 from .error_handling import (
     handle_chunk_error,
     retry_with_download,
@@ -40,11 +33,6 @@ __all__ = [
     'estimate_chunk_memory',
     'format_bytes',
     'monitor_memory',
-    # File naming
-    'create_cog_filename',
-    'convert_date',
-    'parse_filename_components',
-    'extract_date_from_filename',
     # Error handling
     'handle_chunk_error',
     'retry_with_download',

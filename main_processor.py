@@ -10,6 +10,23 @@ import rasterio
 import numpy as np
 from datetime import datetime
 
+# Try to import optimization methods
+try:
+    from rio_cogeo import cog_translate
+    from rio_cogeo.profiles import cog_profiles as rio_cog_profiles
+    HAS_RIO_COGEO = True
+except ImportError:
+    HAS_RIO_COGEO = False
+    print("Warning: rio-cogeo not available, using fallback method")
+
+# Try to import our optimized GDAL processor
+try:
+    from core.gdal_cog_processor import create_cog_gdal, process_file_optimized
+    HAS_GDAL_PROCESSOR = True
+except ImportError:
+    HAS_GDAL_PROCESSOR = False
+    print("Warning: GDAL COG processor not available")
+
 # Import core modules
 from core.s3_operations import (
     check_s3_file_exists,
@@ -34,10 +51,44 @@ from processors.cog_creator import create_cog_with_overviews
 from configs.profiles import select_profile_by_size, get_compression_profile
 from configs.chunk_configs import get_chunk_config
 
+# Import COG profiles - use the correct import path
+try:
+    from rasterio.cog import cog_profiles
+except ImportError:
+    # Fallback for older rasterio versions
+    cog_profiles = {
+        'zstd': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'ZSTD',
+            'photometric': 'MINISBLACK'
+        },
+        'lzw': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'LZW'
+        },
+        'deflate': {
+            'driver': 'GTiff',
+            'interleave': 'pixel',
+            'tiled': True,
+            'blockxsize': 512,
+            'blockysize': 512,
+            'compress': 'DEFLATE'
+        }
+    }
+
 
 def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                    s3_client, cog_profile=None, local_output_dir=None,
-                   chunk_config=None):
+                   chunk_config=None, manual_nodata=None, overwrite=False,
+                   skip_validation=False):
     """
     Main function to convert a file to Cloud Optimized GeoTIFF.
 
@@ -51,6 +102,8 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         cog_profile: COG profile (optional)
         local_output_dir: Local output directory (optional)
         chunk_config: Chunk configuration (optional)
+        manual_nodata: Manual no-data value (optional)
+        overwrite: Whether to overwrite existing files (default: False)
 
     Returns:
         None (raises exception on error)
@@ -65,8 +118,11 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         # Step 1: Check if file already exists in S3
         print(f"   [CHECK] Checking if file already exists in S3: s3://{cog_data_bucket}/{s3_key}")
         if check_s3_file_exists(s3_client, cog_data_bucket, s3_key):
-            print(f"   [SKIP] File already exists in S3, skipping processing: {cog_filename}")
-            raise FileExistsError(f"File already exists: {cog_filename}")
+            if overwrite:
+                print(f"   [OVERWRITE] File exists but overwrite=True, reprocessing: {cog_filename}")
+            else:
+                print(f"   [SKIP] File already exists in S3, skipping processing: {cog_filename}")
+                raise FileExistsError(f"File already exists: {cog_filename}")
 
         # Step 2: Get file size and select appropriate configuration
         file_size_gb = get_file_size_from_s3(s3_client, bucket, name)
@@ -119,95 +175,283 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                 else:
                     raise Exception("Failed to download file from S3")
 
-        # Step 6: Process file
-        with rasterio.open(input_path) as src:
-            # Get chunk size based on configuration
-            chunk_size = chunk_config.get('default_chunk_size', 512)
-            if not chunk_config.get('adaptive_chunks', True):
-                print(f"   [CHUNKS] Using FIXED chunk size: {chunk_size}x{chunk_size}")
+        # Step 6: Use best available optimization method
+        # Priority: 1) GDAL COG driver, 2) rio-cogeo, 3) fallback
+
+        if HAS_GDAL_PROCESSOR and file_size_gb < 10.0:  # Use GDAL for files under 10GB
+            print(f"   [OPTIMIZED] Using GDAL COG driver for maximum performance")
+            cog_output_path = f"cog_{cog_filename}"
+            temp_files.append(cog_output_path)
+
+            # Get nodata value
+            with rasterio.open(input_path) as src:
+                if manual_nodata is not None:
+                    src_nodata = manual_nodata
+                    print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+                elif src.nodata is not None:
+                    src_nodata = src.nodata
+                    print(f"   [NODATA] Using existing no-data value: {src.nodata}")
+                else:
+                    src_nodata = set_nodata_value_src(src, manual_nodata)
+
+            # Use GDAL COG processor
+            success = process_file_optimized(
+                input_path,
+                cog_output_path,
+                nodata=src_nodata,
+                file_size_gb=file_size_gb,
+                reproject=True,  # Reproject to EPSG:4326
+                verbose=True
+            )
+
+            if success:
+                print(f"   [GDAL-COG] ✅ COG created successfully")
+
+                # Upload to S3
+                if upload_to_s3(s3_client, cog_output_path, cog_data_bucket, s3_key):
+                    # Save locally if requested
+                    if local_output_dir:
+                        os.makedirs(local_output_dir, exist_ok=True)
+                        local_path = os.path.join(local_output_dir, cog_filename)
+                        import shutil
+                        shutil.copy2(cog_output_path, local_path)
+                        print(f"   [LOCAL] Saved to {local_path}")
+                else:
+                    raise Exception("Failed to upload COG to S3")
+
+                # Report performance
+                final_memory = get_memory_usage()
+                print(f"   [MEMORY] Final: {final_memory:.1f} MB (Change: {final_memory - initial_memory:+.1f} MB)")
+                total_time = (datetime.now() - start_time).total_seconds()
+                print(f"   [TIME] Total processing time: {total_time:.1f} seconds")
+
+                # Clean up and return early
+                cleanup_temp_files(*temp_files)
+                gc.collect()
+                return
+
             else:
-                print(f"   [CHUNKS] Using adaptive chunk size starting at: {chunk_size}x{chunk_size}")
+                print(f"   [GDAL-COG] Failed, trying rio-cogeo fallback...")
 
-            # Calculate reprojection parameters
-            print(f"   [REPROJECT] Converting to EPSG:4326 using fixed-grid chunked processing...")
-            dst_crs = 'EPSG:4326'
-            transform, width, height = calculate_transform_parameters(src, dst_crs)
+        # Fallback to rio-cogeo if GDAL processor failed or not available
+        if HAS_RIO_COGEO and file_size_gb < 5.0:  # Use rio-cogeo for files under 5GB
+            print(f"   [OPTIMIZED] Using rio-cogeo for single-pass COG creation")
+            cog_output_path = f"cog_{cog_filename}"
+            temp_files.append(cog_output_path)
 
-            # Get or set nodata value
-            if src.nodata is not None:
-                src_nodata = src.nodata
-            else:
-                src_nodata = set_nodata_value_src(src)
+            # Get nodata value
+            with rasterio.open(input_path) as src:
+                if manual_nodata is not None:
+                    src_nodata = manual_nodata
+                    print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+                elif src.nodata is not None:
+                    src_nodata = src.nodata
+                    print(f"   [NODATA] Using existing no-data value: {src.nodata}")
+                else:
+                    src_nodata = set_nodata_value_src(src, manual_nodata)
 
-            # Get appropriate predictor
-            predictor = get_predictor_for_dtype(src.dtypes[0])
+                # Get predictor for data type
+                predictor = get_predictor_for_dtype(src.dtypes[0])
 
-            # Prepare output profile
-            kwargs = src.meta.copy()
-            kwargs.update({
-                'driver': 'GTiff',
-                'compress': 'ZSTD',
-                'zstd_level': 9,
-                'predictor': predictor,
-                'crs': dst_crs,
-                'transform': transform,
-                'width': width,
-                'height': height,
-                'tiled': True,
-                'blockxsize': 512,
-                'blockysize': 512,
-                'nodata': src_nodata
+            # Prepare COG profile
+            output_profile = rio_cog_profiles.get("zstd")
+            output_profile.update({
+                "ZSTD_LEVEL": 22,  # Maximum compression
+                "PREDICTOR": predictor,
+                "BLOCKSIZE": 512
             })
 
-            # Process with fixed chunks
-            with rasterio.open(reproject_filename, 'w', **kwargs) as dst:
-                process_with_fixed_chunks(
-                    src, dst, src.crs, dst_crs, transform,
-                    width, height, chunk_size, src_nodata,
-                    chunk_config, initial_memory
-                )
+            # Additional GDAL options for performance
+            config = {
+                "GDAL_NUM_THREADS": "ALL_CPUS",
+                "GDAL_TIFF_INTERNAL_MASK": "YES",
+                "GDAL_TIFF_OVR_BLOCKSIZE": "512"
+            }
 
-        temp_files.append(reproject_filename)
-        print(f"   [COGIFY] Preparing file for upload...")
+            print(f"   [COG] Creating COG with reprojection in single pass...")
 
-        # Step 7: Check if already valid COG
-        is_valid_cog = check_cog_with_warnings(reproject_filename)
+            # For reprojection, we need to use WarpedVRT first
+            from rasterio.vrt import WarpedVRT
+            from rasterio.enums import Resampling
 
-        if is_valid_cog:
-            print(f"   [COG] Reprojected file is already a valid COG, but rebuilding with overviews...")
-        else:
-            print(f"   [COG] Creating optimized COG using rasterio...")
+            with rasterio.open(input_path) as src:
+                with WarpedVRT(src, crs='EPSG:4326',
+                              resampling=Resampling.bilinear,
+                              nodata=src_nodata) as vrt:
+                    # Now use cog_translate with the reprojected VRT
+                    cog_translate(
+                        vrt,
+                        cog_output_path,
+                        output_profile,
+                        nodata=src_nodata,
+                        overview_level=5,  # Create 5 levels of overviews
+                        overview_resampling="average",
+                        config=config,
+                        quiet=False,
+                        in_memory=False,  # Don't load entire file into memory
+                        use_cog_driver=False  # Use standard GTiff driver with COG structure
+                    )
 
-        # Step 8: Create final COG with maximum compression and overviews
-        file_size_mb = os.path.getsize(reproject_filename) / (1024 * 1024)
-        print(f"   [COG] Processing {file_size_mb:.1f} MB file...")
+            print(f"   [COG] ✅ COG created successfully")
 
-        # Get compression configuration
-        compression_config = get_compression_profile(
-            dtype=str(src.dtypes[0]),
-            file_size_gb=file_size_mb / 1024
-        )
+            # Optional validation
+            if not skip_validation:
+                is_valid = check_cog_with_warnings(cog_output_path)
+                if not is_valid:
+                    print(f"   [WARNING] COG validation had warnings but continuing...")
 
-        # Create temporary COG with overviews
-        temp_cog = f"cog_{datetime.now().strftime('%Y%m%d_%H%M%S')}.tif"
-        temp_files.append(temp_cog)
-
-        if create_cog_with_overviews(reproject_filename, temp_cog, compression_config):
             # Upload to S3
-            if upload_to_s3(s3_client, temp_cog, cog_data_bucket, s3_key):
-                print(f"   [SUCCESS] ✅ Uploaded to s3://{cog_data_bucket}/{s3_key}")
-
+            if upload_to_s3(s3_client, cog_output_path, cog_data_bucket, s3_key):
                 # Save locally if requested
                 if local_output_dir:
                     os.makedirs(local_output_dir, exist_ok=True)
                     local_path = os.path.join(local_output_dir, cog_filename)
                     import shutil
-                    shutil.copy2(temp_cog, local_path)
+                    shutil.copy2(cog_output_path, local_path)
+                    print(f"   [LOCAL] Saved to {local_path}")
+            else:
+                raise Exception("Failed to upload COG to S3")
+
+            # Report performance
+            final_memory = get_memory_usage()
+            print(f"   [MEMORY] Final: {final_memory:.1f} MB (Change: {final_memory - initial_memory:+.1f} MB)")
+            total_time = (datetime.now() - start_time).total_seconds()
+            print(f"   [TIME] Total processing time: {total_time:.1f} seconds")
+
+            # Clean up and return early - we're done!
+            cleanup_temp_files(*temp_files)
+            gc.collect()
+            return
+
+        # Step 7: Fall back to original processing for large files or if rio-cogeo unavailable
+        print(f"   [FALLBACK] Using original processing method")
+        with rasterio.open(input_path) as src:
+            # Check if we should use whole-file processing for small files
+            use_whole_file = chunk_config.get('use_whole_file_processing', False)
+
+            if use_whole_file and file_size_gb < 1.5:
+                print(f"   [WHOLE-FILE] Small/medium file detected ({file_size_gb:.2f} GB), processing without chunks")
+            else:
+                # Get chunk size based on configuration
+                chunk_size = chunk_config.get('default_chunk_size', 512)
+                if not chunk_config.get('adaptive_chunks', True):
+                    print(f"   [CHUNKS] Using FIXED chunk size: {chunk_size}x{chunk_size}")
+                else:
+                    print(f"   [CHUNKS] Using adaptive chunk size starting at: {chunk_size}x{chunk_size}")
+
+            # Calculate reprojection parameters
+            if use_whole_file and file_size_gb < 1.5:
+                print(f"   [REPROJECT] Converting to EPSG:4326 using whole-file processing...")
+            else:
+                print(f"   [REPROJECT] Converting to EPSG:4326 using fixed-grid chunked processing...")
+            dst_crs = 'EPSG:4326'
+            transform, width, height = calculate_transform_parameters(src, dst_crs)
+
+            # Get or set nodata value
+            if manual_nodata is not None:
+                # Use manual no-data if provided
+                src_nodata = manual_nodata
+                print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+            elif src.nodata is not None:
+                src_nodata = src.nodata
+                print(f"   [NODATA] Using existing no-data value: {src.nodata}")
+            else:
+                src_nodata = set_nodata_value_src(src, manual_nodata)
+
+            # Get appropriate predictor
+            predictor = get_predictor_for_dtype(src.dtypes[0])
+
+            # Prepare output profile using rasterio's COG profile
+            # Start with a COG profile that ensures proper structure
+            cog_profile = cog_profiles.get('zstd')
+            kwargs = src.meta.copy()
+            kwargs.update(cog_profile)
+            kwargs.update({
+                'crs': dst_crs,
+                'transform': transform,
+                'width': width,
+                'height': height,
+                'nodata': src_nodata,
+                'compress': 'ZSTD',
+                'zstd_level': 22,  # Maximum compression as requested
+                'predictor': predictor,
+                'blockxsize': 512,
+                'blockysize': 512,
+                'tiled': True,
+                'interleave': 'pixel' if src.count > 1 else 'band',
+                'BIGTIFF': 'IF_SAFER'
+            })
+
+            # Process based on file size
+            with rasterio.open(reproject_filename, 'w', **kwargs) as dst:
+                if use_whole_file and file_size_gb < 1.5:
+                    # Import the whole-file processing function
+                    from core.reprojection import process_whole_file
+                    process_whole_file(
+                        src, dst, src.crs, dst_crs, transform,
+                        width, height, src_nodata
+                    )
+                else:
+                    # Use chunked processing for larger files
+                    chunk_size = chunk_config.get('default_chunk_size', 512)
+                    process_with_fixed_chunks(
+                        src, dst, src.crs, dst_crs, transform,
+                        width, height, chunk_size, src_nodata,
+                        chunk_config, initial_memory
+                    )
+
+        # Add overviews to make it a valid COG
+        from core.reprojection import add_cog_overviews
+        add_cog_overviews(reproject_filename)
+
+        temp_files.append(reproject_filename)
+
+        # Step 7: Validate the COG (it already has overviews from reprojection)
+        is_valid_cog = check_cog_with_warnings(reproject_filename)
+
+        if is_valid_cog:
+            print(f"   [COG] ✅ File is a valid COG with overviews")
+            # Upload directly to S3
+            if upload_to_s3(s3_client, reproject_filename, cog_data_bucket, s3_key):
+                # Save locally if requested
+                if local_output_dir:
+                    os.makedirs(local_output_dir, exist_ok=True)
+                    local_path = os.path.join(local_output_dir, cog_filename)
+                    import shutil
+                    shutil.copy2(reproject_filename, local_path)
                     print(f"   [LOCAL] Saved to {local_path}")
             else:
                 raise Exception("Failed to upload COG to S3")
         else:
-            raise Exception("Failed to create COG")
+            # Fallback: Create COG with overviews if validation failed
+            print(f"   [COG] File needs COG optimization...")
+            file_size_mb = os.path.getsize(reproject_filename) / (1024 * 1024)
+            print(f"   [COG] Processing {file_size_mb:.1f} MB file...")
+
+            # Get compression configuration
+            compression_config = get_compression_profile(
+                dtype=str(src.dtypes[0]),
+                file_size_gb=file_size_mb / 1024
+            )
+
+            # Create temporary COG with overviews
+            temp_cog = f"cog_{datetime.now().strftime('%Y%m%d_%H%M%S')}.tif"
+            temp_files.append(temp_cog)
+
+            if create_cog_with_overviews(reproject_filename, temp_cog, compression_config):
+                # Upload to S3
+                if upload_to_s3(s3_client, temp_cog, cog_data_bucket, s3_key):
+                    # Save locally if requested
+                    if local_output_dir:
+                        os.makedirs(local_output_dir, exist_ok=True)
+                        local_path = os.path.join(local_output_dir, cog_filename)
+                        import shutil
+                        shutil.copy2(temp_cog, local_path)
+                        print(f"   [LOCAL] Saved to {local_path}")
+                else:
+                    raise Exception("Failed to upload COG to S3")
+            else:
+                raise Exception("Failed to create COG")
 
         # Step 9: Report memory usage
         final_memory = get_memory_usage()
@@ -247,7 +491,9 @@ def convert_to_proper_CRS_and_cogify_improved_fixed(name, BUCKET, cog_filename,
                                                     cog_data_bucket, cog_data_prefix,
                                                     s3_client, COG_PROFILE=None,
                                                     local_output_dir=None,
-                                                    chunk_config=None):
+                                                    chunk_config=None,
+                                                    manual_nodata=None,
+                                                    overwrite=False):
     """
     Wrapper function for backwards compatibility with existing notebooks.
     """
@@ -260,5 +506,7 @@ def convert_to_proper_CRS_and_cogify_improved_fixed(name, BUCKET, cog_filename,
         s3_client=s3_client,
         cog_profile=COG_PROFILE,
         local_output_dir=local_output_dir,
-        chunk_config=chunk_config
+        chunk_config=chunk_config,
+        manual_nodata=manual_nodata,
+        overwrite=overwrite
     )
