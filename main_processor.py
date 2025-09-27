@@ -197,33 +197,14 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                     )
 
         temp_files.append(reproject_filename)
-        print(f"   [COGIFY] Preparing file for upload...")
 
-        # Step 7: Check if already valid COG
+        # Step 7: Validate the COG (it already has overviews from reprojection)
         is_valid_cog = check_cog_with_warnings(reproject_filename)
 
         if is_valid_cog:
-            print(f"   [COG] Reprojected file is already a valid COG, but rebuilding with overviews...")
-        else:
-            print(f"   [COG] Creating optimized COG using rasterio...")
-
-        # Step 8: Create final COG with maximum compression and overviews
-        file_size_mb = os.path.getsize(reproject_filename) / (1024 * 1024)
-        print(f"   [COG] Processing {file_size_mb:.1f} MB file...")
-
-        # Get compression configuration
-        compression_config = get_compression_profile(
-            dtype=str(src.dtypes[0]),
-            file_size_gb=file_size_mb / 1024
-        )
-
-        # Create temporary COG with overviews
-        temp_cog = f"cog_{datetime.now().strftime('%Y%m%d_%H%M%S')}.tif"
-        temp_files.append(temp_cog)
-
-        if create_cog_with_overviews(reproject_filename, temp_cog, compression_config):
-            # Upload to S3
-            if upload_to_s3(s3_client, temp_cog, cog_data_bucket, s3_key):
+            print(f"   [COG] ✅ File is a valid COG with overviews")
+            # Upload directly to S3
+            if upload_to_s3(s3_client, reproject_filename, cog_data_bucket, s3_key):
                 print(f"   [SUCCESS] ✅ Uploaded to s3://{cog_data_bucket}/{s3_key}")
 
                 # Save locally if requested
@@ -231,12 +212,42 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                     os.makedirs(local_output_dir, exist_ok=True)
                     local_path = os.path.join(local_output_dir, cog_filename)
                     import shutil
-                    shutil.copy2(temp_cog, local_path)
+                    shutil.copy2(reproject_filename, local_path)
                     print(f"   [LOCAL] Saved to {local_path}")
             else:
                 raise Exception("Failed to upload COG to S3")
         else:
-            raise Exception("Failed to create COG")
+            # Fallback: Create COG with overviews if validation failed
+            print(f"   [COG] File needs COG optimization...")
+            file_size_mb = os.path.getsize(reproject_filename) / (1024 * 1024)
+            print(f"   [COG] Processing {file_size_mb:.1f} MB file...")
+
+            # Get compression configuration
+            compression_config = get_compression_profile(
+                dtype=str(src.dtypes[0]),
+                file_size_gb=file_size_mb / 1024
+            )
+
+            # Create temporary COG with overviews
+            temp_cog = f"cog_{datetime.now().strftime('%Y%m%d_%H%M%S')}.tif"
+            temp_files.append(temp_cog)
+
+            if create_cog_with_overviews(reproject_filename, temp_cog, compression_config):
+                # Upload to S3
+                if upload_to_s3(s3_client, temp_cog, cog_data_bucket, s3_key):
+                    print(f"   [SUCCESS] ✅ Uploaded to s3://{cog_data_bucket}/{s3_key}")
+
+                    # Save locally if requested
+                    if local_output_dir:
+                        os.makedirs(local_output_dir, exist_ok=True)
+                        local_path = os.path.join(local_output_dir, cog_filename)
+                        import shutil
+                        shutil.copy2(temp_cog, local_path)
+                        print(f"   [LOCAL] Saved to {local_path}")
+                else:
+                    raise Exception("Failed to upload COG to S3")
+            else:
+                raise Exception("Failed to create COG")
 
         # Step 9: Report memory usage
         final_memory = get_memory_usage()

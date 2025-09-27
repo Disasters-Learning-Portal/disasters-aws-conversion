@@ -75,7 +75,25 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
             print(f"   [ERROR] Failed to reproject band {band_idx}: {e}")
             raise
 
-    print(f"   [WHOLE-FILE] ✅ Processing complete")
+    # Build overviews directly after reprojection
+    print(f"   [OVERVIEWS] Building overviews...")
+    factors = calculate_overview_factors(width, height)
+    dst.build_overviews(factors, Resampling.average)
+    dst.update_tags(ns='rio_overview', resampling='average')
+    print(f"   [OVERVIEWS] ✅ Overviews built with factors: {factors}")
+
+    print(f"   [WHOLE-FILE] ✅ Processing complete with overviews")
+
+
+def calculate_overview_factors(width, height):
+    """Calculate appropriate overview factors based on image size."""
+    factors = []
+    max_dim = max(width, height)
+    factor = 2
+    while max_dim / factor > 256:  # Continue until smallest overview is ~256 pixels
+        factors.append(factor)
+        factor *= 2
+    return factors if factors else [2, 4, 8]
 
 
 def calculate_transform_parameters(src, dst_crs='EPSG:4326'):
@@ -311,3 +329,10 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
         # Aggressive GC after each band
         if chunk_config.get('aggressive_gc', False):
             gc.collect()
+
+    # Build overviews after all bands are processed
+    print(f"   [OVERVIEWS] Building overviews...")
+    factors = calculate_overview_factors(width, height)
+    dst.build_overviews(factors, Resampling.average)
+    dst.update_tags(ns='rio_overview', resampling='average')
+    print(f"   [OVERVIEWS] ✅ Overviews built with factors: {factors}")
