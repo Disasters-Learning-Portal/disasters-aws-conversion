@@ -16,22 +16,19 @@ def get_chunk_config(file_size_gb=0, memory_limit_mb=500):
         dict: Chunk configuration
     """
     if file_size_gb > 7:
-        # Ultra-large files
+        # Ultra-large files (>7GB)
         return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=150)
     elif file_size_gb > 3:
-        # Large files
+        # Large files (3-7GB)
         return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=250)
-    elif file_size_gb > 1:
-        # Medium files (1-3GB) - use smaller fixed chunks
+    elif file_size_gb > 1.5:
+        # Medium files (1.5-3GB) - use fixed chunks
         return get_fixed_chunk_config(chunk_size=512, memory_limit_mb=300)
-    elif file_size_gb > 0.5:
-        # Small-medium files (0.5-1GB) - use smaller fixed chunks
-        return get_fixed_chunk_config(chunk_size=256, memory_limit_mb=300)
     else:
-        # Small files (<0.5GB) - process whole file without chunking
+        # Small-medium files (<1.5GB) - process whole file without chunking
         return {
             'use_whole_file_processing': True,  # Process entire file at once
-            'default_chunk_size': 128,  # Fallback if whole-file fails
+            'default_chunk_size': 256,  # Fallback if whole-file fails
             'memory_limit_mb': memory_limit_mb,
             'show_progress': True,
             'enable_memory_monitoring': False,  # Not needed for whole-file

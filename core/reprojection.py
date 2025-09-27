@@ -15,8 +15,8 @@ from core.validation import check_and_fix_nan_values
 
 def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src_nodata):
     """
-    Process entire file at once without chunking - for small files only.
-    Much faster than chunked processing for files under 0.5GB.
+    Process entire file at once without chunking - for small to medium files.
+    Much faster than chunked processing for files under 1.5GB.
 
     Args:
         src: Source dataset

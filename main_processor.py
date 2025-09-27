@@ -162,8 +162,8 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             # Check if we should use whole-file processing for small files
             use_whole_file = chunk_config.get('use_whole_file_processing', False)
 
-            if use_whole_file and file_size_gb < 0.5:
-                print(f"   [WHOLE-FILE] Small file detected ({file_size_gb:.2f} GB), processing without chunks")
+            if use_whole_file and file_size_gb < 1.5:
+                print(f"   [WHOLE-FILE] Small/medium file detected ({file_size_gb:.2f} GB), processing without chunks")
             else:
                 # Get chunk size based on configuration
                 chunk_size = chunk_config.get('default_chunk_size', 512)
@@ -173,7 +173,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                     print(f"   [CHUNKS] Using adaptive chunk size starting at: {chunk_size}x{chunk_size}")
 
             # Calculate reprojection parameters
-            if use_whole_file and file_size_gb < 0.5:
+            if use_whole_file and file_size_gb < 1.5:
                 print(f"   [REPROJECT] Converting to EPSG:4326 using whole-file processing...")
             else:
                 print(f"   [REPROJECT] Converting to EPSG:4326 using fixed-grid chunked processing...")
@@ -217,7 +217,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
 
             # Process based on file size
             with rasterio.open(reproject_filename, 'w', **kwargs) as dst:
-                if use_whole_file and file_size_gb < 0.5:
+                if use_whole_file and file_size_gb < 1.5:
                     # Import the whole-file processing function
                     from core.reprojection import process_whole_file
                     process_whole_file(
