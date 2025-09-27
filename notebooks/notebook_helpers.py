@@ -325,6 +325,7 @@ class SimpleProcessor:
     def _get_output_dir(self, category: str) -> str:
         """
         Get output directory for category.
+        First checks user-provided configuration, then falls back to defaults.
 
         Args:
             category: Category name
@@ -332,8 +333,13 @@ class SimpleProcessor:
         Returns:
             Output directory path
         """
-        # Map categories to output directories
-        dir_mapping = {
+        # First check if user provided output directories in config
+        user_output_dirs = self.config.get('output_dirs', {})
+        if category in user_output_dirs:
+            return user_output_dirs[category]
+
+        # Fall back to default mappings
+        default_dirs = {
             'trueColor': 'imagery/trueColor',
             'colorInfrared': 'imagery/colorIR',
             'naturalColor': 'imagery/naturalColor',
@@ -344,7 +350,7 @@ class SimpleProcessor:
             'other': 'misc'
         }
 
-        return dir_mapping.get(category, 'misc')
+        return default_dirs.get(category, 'misc')
 
     def _generate_filename(self, original_path: str, _: str = None) -> str:
         """
