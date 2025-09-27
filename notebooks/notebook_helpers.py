@@ -283,10 +283,11 @@ class SimpleProcessor:
 
                 if exists and not self.config.get('overwrite', False):
                     results.append({
-                        'file': os.path.basename(file_path),
+                        'source_file': os.path.basename(file_path),
                         'category': category,
                         'status': 'skipped',
                         'reason': 'already exists',
+                        'output_path': f"s3://{self.config['bucket']}/{output_key}",
                         'time_seconds': 0
                     })
                     print(f"  ⏭️ Skipped: {os.path.basename(file_path)} (exists)")
@@ -318,10 +319,11 @@ class SimpleProcessor:
                 )
 
                 results.append({
-                    'file': os.path.basename(file_path),
+                    'source_file': os.path.basename(file_path),
                     'category': category,
                     'status': 'success',
-                    'output': cog_filename,
+                    'output_filename': cog_filename,
+                    'output_path': f"s3://{self.config['bucket']}/{self.config['destination_base']}/{output_dir}/{cog_filename}",
                     'time_seconds': (datetime.now() - start).total_seconds()
                 })
 
@@ -329,7 +331,7 @@ class SimpleProcessor:
 
             except Exception as e:
                 results.append({
-                    'file': os.path.basename(file_path),
+                    'source_file': os.path.basename(file_path),
                     'category': category,
                     'status': 'failed',
                     'error': str(e),
@@ -464,14 +466,17 @@ class SimpleProcessor:
                 avg_time = success_df['time_seconds'].mean()
                 print(f"Average per file: {avg_time:.1f} seconds")
 
-        # Save results
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        output_dir = f"output/{self.config['event_name']}"
-        os.makedirs(output_dir, exist_ok=True)
+        # Save results if configured
+        if self.config.get('save_results', True):  # Default to True for backward compatibility
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            output_dir = f"output/{self.config['event_name']}"
+            os.makedirs(output_dir, exist_ok=True)
 
-        csv_path = f"{output_dir}/results_{timestamp}.csv"
-        self.results.to_csv(csv_path, index=False)
-        print(f"\n📁 Results saved to: {csv_path}")
+            csv_path = f"{output_dir}/results_{timestamp}.csv"
+            self.results.to_csv(csv_path, index=False)
+            print(f"\n📁 Results saved to: {csv_path}")
+        else:
+            print("\n💡 Results not saved to CSV (SAVE_RESULTS=False)")
 
         print("="*60)
 
