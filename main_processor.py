@@ -10,7 +10,7 @@ import rasterio
 import numpy as np
 from datetime import datetime
 
-# Try to import rio-cogeo for optimized processing
+# Try to import optimization methods
 try:
     from rio_cogeo import cog_translate
     from rio_cogeo.profiles import cog_profiles as rio_cog_profiles
@@ -18,6 +18,14 @@ try:
 except ImportError:
     HAS_RIO_COGEO = False
     print("Warning: rio-cogeo not available, using fallback method")
+
+# Try to import our optimized GDAL processor
+try:
+    from core.gdal_cog_processor import create_cog_gdal, process_file_optimized
+    HAS_GDAL_PROCESSOR = True
+except ImportError:
+    HAS_GDAL_PROCESSOR = False
+    print("Warning: GDAL COG processor not available")
 
 # Import core modules
 from core.s3_operations import (
@@ -167,7 +175,65 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                 else:
                     raise Exception("Failed to download file from S3")
 
-        # Step 6: Use optimized rio-cogeo path if available
+        # Step 6: Use best available optimization method
+        # Priority: 1) GDAL COG driver, 2) rio-cogeo, 3) fallback
+
+        if HAS_GDAL_PROCESSOR and file_size_gb < 10.0:  # Use GDAL for files under 10GB
+            print(f"   [OPTIMIZED] Using GDAL COG driver for maximum performance")
+            cog_output_path = f"cog_{cog_filename}"
+            temp_files.append(cog_output_path)
+
+            # Get nodata value
+            with rasterio.open(input_path) as src:
+                if manual_nodata is not None:
+                    src_nodata = manual_nodata
+                    print(f"   [NODATA] Using manual no-data value: {manual_nodata}")
+                elif src.nodata is not None:
+                    src_nodata = src.nodata
+                    print(f"   [NODATA] Using existing no-data value: {src.nodata}")
+                else:
+                    src_nodata = set_nodata_value_src(src, manual_nodata)
+
+            # Use GDAL COG processor
+            success = process_file_optimized(
+                input_path,
+                cog_output_path,
+                nodata=src_nodata,
+                file_size_gb=file_size_gb,
+                reproject=True,  # Reproject to EPSG:4326
+                verbose=True
+            )
+
+            if success:
+                print(f"   [GDAL-COG] ✅ COG created successfully")
+
+                # Upload to S3
+                if upload_to_s3(s3_client, cog_output_path, cog_data_bucket, s3_key):
+                    # Save locally if requested
+                    if local_output_dir:
+                        os.makedirs(local_output_dir, exist_ok=True)
+                        local_path = os.path.join(local_output_dir, cog_filename)
+                        import shutil
+                        shutil.copy2(cog_output_path, local_path)
+                        print(f"   [LOCAL] Saved to {local_path}")
+                else:
+                    raise Exception("Failed to upload COG to S3")
+
+                # Report performance
+                final_memory = get_memory_usage()
+                print(f"   [MEMORY] Final: {final_memory:.1f} MB (Change: {final_memory - initial_memory:+.1f} MB)")
+                total_time = (datetime.now() - start_time).total_seconds()
+                print(f"   [TIME] Total processing time: {total_time:.1f} seconds")
+
+                # Clean up and return early
+                cleanup_temp_files(*temp_files)
+                gc.collect()
+                return
+
+            else:
+                print(f"   [GDAL-COG] Failed, trying rio-cogeo fallback...")
+
+        # Fallback to rio-cogeo if GDAL processor failed or not available
         if HAS_RIO_COGEO and file_size_gb < 5.0:  # Use rio-cogeo for files under 5GB
             print(f"   [OPTIMIZED] Using rio-cogeo for single-pass COG creation")
             cog_output_path = f"cog_{cog_filename}"
