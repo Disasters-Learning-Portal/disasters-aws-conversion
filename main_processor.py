@@ -204,18 +204,27 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
 
             print(f"   [COG] Creating COG with reprojection in single pass...")
 
-            # Use rio-cogeo to create COG with reprojection in one pass
-            cog_translate(
-                input_path,
-                cog_output_path,
-                output_profile,
-                dst_crs="EPSG:4326",  # Reproject to WGS84
-                nodata=src_nodata,
-                overview_level=5,  # Create 5 levels of overviews
-                overview_resampling="average",
-                config=config,
-                quiet=False
-            )
+            # For reprojection, we need to use WarpedVRT first
+            from rasterio.vrt import WarpedVRT
+            from rasterio.enums import Resampling
+
+            with rasterio.open(input_path) as src:
+                with WarpedVRT(src, crs='EPSG:4326',
+                              resampling=Resampling.bilinear,
+                              nodata=src_nodata) as vrt:
+                    # Now use cog_translate with the reprojected VRT
+                    cog_translate(
+                        vrt,
+                        cog_output_path,
+                        output_profile,
+                        nodata=src_nodata,
+                        overview_level=5,  # Create 5 levels of overviews
+                        overview_resampling="average",
+                        config=config,
+                        quiet=False,
+                        in_memory=False,  # Don't load entire file into memory
+                        use_cog_driver=False  # Use standard GTiff driver with COG structure
+                    )
 
             print(f"   [COG] ✅ COG created successfully")
 
