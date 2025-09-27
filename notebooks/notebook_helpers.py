@@ -122,6 +122,7 @@ class SimpleProcessor:
     def _categorize_files(self, file_list: List[str]) -> Dict[str, List[str]]:
         """
         Automatically categorize files by product type.
+        Uses notebook-provided patterns first, then falls back to defaults.
 
         Args:
             file_list: List of file paths
@@ -131,8 +132,11 @@ class SimpleProcessor:
         """
         categories = {}
 
-        # Common patterns to detect
-        patterns = {
+        # Use notebook-provided patterns if available, otherwise use defaults
+        user_patterns = self.config.get('categorization_patterns', {})
+
+        # Default patterns as fallback
+        default_patterns = {
             'trueColor': r'trueColor|truecolor|true_color',
             'colorInfrared': r'colorInfrared|colorIR|color_infrared',
             'naturalColor': r'naturalColor|natural_color',
@@ -141,6 +145,12 @@ class SimpleProcessor:
             'SAR': r'SAR|sar|Sentinel-1|sentinel1',
             'optical': r'B\d+\.tif|band\d+',
         }
+
+        # Merge patterns - user patterns take precedence
+        patterns = {**default_patterns, **user_patterns}
+
+        # Track uncategorized files for warning
+        uncategorized_files = []
 
         # Categorize each file
         for file_path in file_list:
@@ -155,11 +165,18 @@ class SimpleProcessor:
                     categorized = True
                     break
 
-            # If no pattern matches, use generic category
+            # Track files that don't match any pattern
             if not categorized:
-                if 'other' not in categories:
-                    categories['other'] = []
-                categories['other'].append(file_path)
+                uncategorized_files.append(filename)
+
+        # Warn about uncategorized files
+        if uncategorized_files:
+            print(f"\n⚠️ Warning: {len(uncategorized_files)} files don't match any category pattern:")
+            for f in uncategorized_files[:5]:  # Show first 5
+                print(f"   • {f}")
+            if len(uncategorized_files) > 5:
+                print(f"   ... and {len(uncategorized_files) - 5} more")
+            print("\n   These files will be skipped. Add patterns to 'categorization_patterns' in your notebook to process them.")
 
         return categories
 
@@ -346,11 +363,11 @@ class SimpleProcessor:
             'NDVI': 'indices/NDVI',
             'MNDWI': 'indices/MNDWI',
             'SAR': 'SAR/processed',
-            'optical': 'optical/bands',
-            'other': 'misc'
+            'optical': 'optical/bands'
         }
 
-        return default_dirs.get(category, 'misc')
+        # If category not in defaults, use the category name itself as directory
+        return default_dirs.get(category, f'uncategorized/{category}')
 
     def _generate_filename(self, original_path: str, _: str = None) -> str:
         """
