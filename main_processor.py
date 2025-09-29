@@ -181,6 +181,12 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         if HAS_GDAL_PROCESSOR and file_size_gb < 10.0:  # Use GDAL for files under 10GB
             print(f"   [OPTIMIZED] Using GDAL COG driver for maximum performance")
             cog_output_path = f"cog_{cog_filename}"
+
+            # Ensure output directory exists
+            output_dir = os.path.dirname(cog_output_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+
             temp_files.append(cog_output_path)
 
             # Get nodata value
@@ -237,6 +243,12 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         if HAS_RIO_COGEO and file_size_gb < 5.0:  # Use rio-cogeo for files under 5GB
             print(f"   [OPTIMIZED] Using rio-cogeo for single-pass COG creation")
             cog_output_path = f"cog_{cog_filename}"
+
+            # Ensure output directory exists
+            output_dir = os.path.dirname(cog_output_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+
             temp_files.append(cog_output_path)
 
             # Get nodata value

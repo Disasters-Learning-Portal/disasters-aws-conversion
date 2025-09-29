@@ -117,6 +117,10 @@ def create_cog_gdal(
         True if successful, False otherwise
     """
     try:
+        # Ensure output directory exists
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         if verbose:
             print(f"   [GDAL-COG] Creating COG with native GDAL driver...")
 
@@ -202,6 +206,10 @@ def create_cog_with_reprojection(
     """
     temp_file = None
     try:
+        # Ensure output directory exists
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         # Create temp file for reprojected data in local directory
         temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_gdal'))
         os.makedirs(temp_base, exist_ok=True)
@@ -307,8 +315,9 @@ def build_gdal_translate_command(
     ]
 
     # Add compression-specific options
+    # Note: COG driver doesn't support ZSTD_LEVEL, it's only for GTiff driver
+    # COG driver uses ZSTD compression but with default settings
     if compress == 'ZSTD':
-        cmd.extend(['-co', f'ZSTD_LEVEL={compress_level}'])
         cmd.extend(['-co', 'PREDICTOR=YES'])  # Auto-select predictor
     elif compress == 'LZW' or compress == 'DEFLATE':
         cmd.extend(['-co', 'PREDICTOR=2'])  # Horizontal differencing
