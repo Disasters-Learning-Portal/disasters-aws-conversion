@@ -568,29 +568,3 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
         # Cleanup temporary files
         cleanup_temp_files(*temp_files)
         gc.collect()
-
-
-# Wrapper for backwards compatibility
-def convert_to_proper_CRS_and_cogify_improved_fixed(name, BUCKET, cog_filename,
-                                                    cog_data_bucket, cog_data_prefix,
-                                                    s3_client, COG_PROFILE=None,
-                                                    local_output_dir=None,
-                                                    chunk_config=None,
-                                                    manual_nodata=None,
-                                                    overwrite=False):
-    """
-    Wrapper function for backwards compatibility with existing notebooks.
-    """
-    return convert_to_cog(
-        name=name,
-        bucket=BUCKET,
-        cog_filename=cog_filename,
-        cog_data_bucket=cog_data_bucket,
-        cog_data_prefix=cog_data_prefix,
-        s3_client=s3_client,
-        cog_profile=COG_PROFILE,
-        local_output_dir=local_output_dir,
-        chunk_config=chunk_config,
-        manual_nodata=manual_nodata,
-        overwrite=overwrite
-    )
