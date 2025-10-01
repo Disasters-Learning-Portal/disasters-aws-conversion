@@ -13,7 +13,7 @@ from utils.memory_management import get_memory_usage
 from core.validation import check_and_fix_nan_values
 
 
-def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src_nodata):
+def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src_nodata, dst_nodata=None):
     """
     Process entire file at once without chunking - for small to medium files.
     Much faster than chunked processing for files under 1.5GB.
@@ -26,12 +26,19 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
         transform: Destination transform
         width: Destination width
         height: Destination height
-        src_nodata: Nodata value
+        src_nodata: Source nodata value
+        dst_nodata: Destination nodata value (optional, defaults to src_nodata)
 
     Returns:
         None
     """
+    # Default dst_nodata to src_nodata if not specified
+    if dst_nodata is None:
+        dst_nodata = src_nodata
+
     print(f"   [WHOLE-FILE] Processing entire file at once ({width}x{height} pixels)")
+    if src_nodata != dst_nodata and src_nodata is not None:
+        print(f"   [WHOLE-FILE] Remapping nodata: {src_nodata} → {dst_nodata}")
 
     # Process each band
     for band_idx in range(1, src.count + 1):
@@ -40,7 +47,7 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
         # Create destination array for the whole band
         dst_array = np.full(
             (height, width),
-            src_nodata if src_nodata is not None else 0,
+            dst_nodata if dst_nodata is not None else 0,
             dtype=src.dtypes[0]
         )
 
@@ -55,13 +62,13 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
                 dst_crs=dst_crs,
                 resampling=Resampling.nearest,
                 src_nodata=src_nodata,
-                dst_nodata=src_nodata
+                dst_nodata=dst_nodata
             )
 
             # Check and fix NaN values if needed
             if np.isnan(dst_array).any():
                 print(f"      [FIX] Found NaN values in band {band_idx}, replacing with nodata")
-                dst_array = np.nan_to_num(dst_array, nan=src_nodata)
+                dst_array = np.nan_to_num(dst_array, nan=dst_nodata)
 
             # Write to destination
             dst.write(dst_array, band_idx)
@@ -77,6 +84,7 @@ def process_whole_file(src, dst, src_crs, dst_crs, transform, width, height, src
 
     # For COGs, we need to close and reopen to add overviews properly
     print(f"   [WHOLE-FILE] ✅ Processing complete")
+
 
 # Re-open file to add overviews in COG-compliant way
 def add_cog_overviews(file_path, verbose=True):
@@ -161,7 +169,7 @@ def reproject_chunk(src, band_idx, src_window, dst_window, src_transform,
 
 
 def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, height,
-                             chunk_size, src_nodata, chunk_config, initial_memory):
+                             chunk_size, src_nodata, chunk_config, initial_memory, dst_nodata=None):
     """
     Process file with FIXED chunk size throughout the entire operation.
     This prevents the striping issue caused by changing chunk sizes mid-loop.
@@ -175,16 +183,24 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
         width: Destination width
         height: Destination height
         chunk_size: FIXED chunk size to use
-        src_nodata: Nodata value
+        src_nodata: Source nodata value
         chunk_config: Chunk configuration
         initial_memory: Initial memory usage
+        dst_nodata: Destination nodata value (optional, defaults to src_nodata)
 
     Returns:
         None
     """
+    # Default dst_nodata to src_nodata if not specified
+    if dst_nodata is None:
+        dst_nodata = src_nodata
+
     # Ensure chunk_size stays fixed
     FIXED_CHUNK_SIZE = chunk_size
     print(f"   [CHUNKS] Using FIXED chunk size: {FIXED_CHUNK_SIZE}x{FIXED_CHUNK_SIZE}")
+
+    if src_nodata != dst_nodata and src_nodata is not None:
+        print(f"   [CHUNKS] Remapping nodata: {src_nodata} → {dst_nodata}")
 
     # Calculate total chunks
     total_chunks_x = (width + FIXED_CHUNK_SIZE - 1) // FIXED_CHUNK_SIZE
@@ -228,7 +244,7 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
                             # Initialize chunk
                             chunk_data = np.full(
                                 (sub_win_height, sub_win_width),
-                                src_nodata if src_nodata is not None else 0,
+                                dst_nodata if dst_nodata is not None else 0,
                                 dtype=src.dtypes[0]
                             )
 
@@ -243,7 +259,7 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
                                     dst_crs=dst_crs,
                                     resampling=Resampling.nearest,
                                     src_nodata=src_nodata,
-                                    dst_nodata=src_nodata
+                                    dst_nodata=dst_nodata
                                 )
                             except Exception as reproject_error:
                                 print(f"\n   [CHUNK ERROR] Failed at chunk ({x}, {y}) window ({sub_x}, {sub_y})")
@@ -257,11 +273,11 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
 
                                 # Try to recover by filling with nodata
                                 print(f"   [CHUNK RECOVERY] Filling failed chunk with nodata value")
-                                chunk_data.fill(src_nodata if src_nodata is not None else 0)
+                                chunk_data.fill(dst_nodata if dst_nodata is not None else 0)
 
                             # Fix NaN values
                             chunk_data, _ = check_and_fix_nan_values(
-                                chunk_data, src_nodata, src.dtypes[0], band_idx=None
+                                chunk_data, dst_nodata, src.dtypes[0], band_idx=None
                             )
 
                             # Write sub-chunk
@@ -276,7 +292,7 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
                     # Initialize chunk
                     chunk_data = np.full(
                         (win_height, win_width),
-                        src_nodata if src_nodata is not None else 0,
+                        dst_nodata if dst_nodata is not None else 0,
                         dtype=src.dtypes[0]
                     )
 
@@ -291,7 +307,7 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
                             dst_crs=dst_crs,
                             resampling=Resampling.nearest,
                             src_nodata=src_nodata,
-                            dst_nodata=src_nodata
+                            dst_nodata=dst_nodata
                         )
                     except Exception as reproject_error:
                         print(f"\n   [CHUNK ERROR] Failed at chunk ({chunk_x}, {chunk_y}), band {band_idx}")
@@ -311,11 +327,11 @@ def process_with_fixed_chunks(src, dst, src_crs, dst_crs, transform, width, heig
 
                         # Try to recover by filling with nodata
                         print(f"   [CHUNK RECOVERY] Attempting recovery by filling with nodata")
-                        chunk_data.fill(src_nodata if src_nodata is not None else 0)
+                        chunk_data.fill(dst_nodata if dst_nodata is not None else 0)
 
                     # Fix NaN values
                     chunk_data, _ = check_and_fix_nan_values(
-                        chunk_data, src_nodata, src.dtypes[0], band_idx=None
+                        chunk_data, dst_nodata, src.dtypes[0], band_idx=None
                     )
 
                     # Write chunk

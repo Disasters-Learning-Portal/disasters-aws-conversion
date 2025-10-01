@@ -8,6 +8,7 @@ import rasterio
 from rasterio.enums import Resampling
 import numpy as np
 import uuid
+from core.reprojection import calculate_overview_factors
 
 
 def create_cog_with_overviews(input_path, output_path, compression_config, verbose=True):
@@ -125,28 +126,6 @@ def optimize_cog_structure(src_path, dst_path, compression_config):
     except Exception as e:
         print(f"   [OPTIMIZE] Failed to optimize COG: {e}")
         return False
-
-
-def calculate_overview_factors(width, height):
-    """
-    Calculate appropriate overview factors based on image size.
-
-    Args:
-        width: Image width
-        height: Image height
-
-    Returns:
-        list: Overview factors
-    """
-    factors = []
-    max_dim = max(width, height)
-
-    factor = 2
-    while max_dim / factor > 256:  # Continue until smallest overview is ~256 pixels
-        factors.append(factor)
-        factor *= 2
-
-    return factors if factors else [2, 4, 8]
 
 
 def write_cog_from_array(data, profile, output_path, overviews=True, verbose=True):
