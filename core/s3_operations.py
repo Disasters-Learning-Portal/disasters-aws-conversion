@@ -148,6 +148,47 @@ def check_s3_file_exists(s3_client, bucket, key):
         raise
 
 
+def check_s3_cog_status(s3_client, bucket, key, verbose=False):
+    """
+    Check if a file exists in S3 and whether it's already a valid COG.
+
+    Args:
+        s3_client: Boto3 S3 client
+        bucket: S3 bucket name
+        key: S3 object key
+        verbose: Print status messages
+
+    Returns:
+        dict: Status information with keys:
+            - exists (bool): True if file exists in S3
+            - is_cog (bool): True if file is a valid COG (None if doesn't exist)
+            - file_size_mb (float): File size in MB (0 if doesn't exist)
+            - validation_details (dict): COG validation details
+    """
+    from core.validation import is_s3_file_cog
+
+    # First check if file exists
+    exists = check_s3_file_exists(s3_client, bucket, key)
+
+    if not exists:
+        return {
+            'exists': False,
+            'is_cog': None,
+            'file_size_mb': 0,
+            'validation_details': {}
+        }
+
+    # File exists, check if it's a valid COG
+    is_cog, validation_details = is_s3_file_cog(s3_client, bucket, key, verbose=verbose)
+
+    return {
+        'exists': True,
+        'is_cog': is_cog,
+        'file_size_mb': validation_details.get('file_size_mb', 0),
+        'validation_details': validation_details
+    }
+
+
 def download_from_s3(s3_client, bucket, key, local_path, verbose=True):
     """
     Download a file from S3 to local storage.

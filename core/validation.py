@@ -3,6 +3,8 @@ Validation module - handles COG validation and data integrity checks.
 Single responsibility: Data and format validation.
 """
 
+import os
+import tempfile
 import numpy as np
 import rasterio
 from rio_cogeo.cogeo import cog_validate
@@ -71,6 +73,97 @@ def check_cog_with_warnings(file_path, verbose=True):
                     print(f"      - {warning}")
 
     return is_valid
+
+
+def is_s3_file_cog(s3_client, bucket, key, verbose=False):
+    """
+    Check if a file in S3 is already a valid Cloud Optimized GeoTIFF.
+
+    Downloads the file temporarily to validate its COG structure.
+
+    Args:
+        s3_client: boto3 S3 client
+        bucket: S3 bucket name
+        key: S3 key (file path within bucket)
+        verbose: Print validation messages
+
+    Returns:
+        tuple: (is_valid, validation_details)
+            - is_valid (bool): True if file is a valid COG
+            - validation_details (dict): Details about validation including:
+                - valid: bool
+                - errors: list of error messages
+                - warnings: list of warning messages
+                - file_size_mb: float (file size in MB)
+    """
+    temp_file = None
+    try:
+        if verbose:
+            print(f"   [COG-CHECK] Downloading file from S3 for validation...")
+
+        # Get file size first
+        try:
+            response = s3_client.head_object(Bucket=bucket, Key=key)
+            file_size_bytes = response['ContentLength']
+            file_size_mb = file_size_bytes / (1024 * 1024)
+        except Exception as e:
+            return False, {
+                'valid': False,
+                'errors': [f"Failed to get file info: {str(e)}"],
+                'warnings': [],
+                'file_size_mb': 0
+            }
+
+        # Create temporary file
+        suffix = os.path.splitext(key)[1] or '.tif'
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+            temp_file = tmp.name
+
+        # Download file
+        try:
+            s3_client.download_file(bucket, key, temp_file)
+        except Exception as e:
+            return False, {
+                'valid': False,
+                'errors': [f"Failed to download file: {str(e)}"],
+                'warnings': [],
+                'file_size_mb': file_size_mb
+            }
+
+        if verbose:
+            print(f"   [COG-CHECK] Downloaded {file_size_mb:.2f} MB, validating...")
+
+        # Validate the COG
+        is_valid, validation_details = validate_cog(temp_file)
+        validation_details['file_size_mb'] = file_size_mb
+
+        if verbose:
+            if is_valid:
+                print(f"   [COG-CHECK] ✅ File is a valid COG")
+            else:
+                print(f"   [COG-CHECK] ❌ File is NOT a valid COG")
+                for error in validation_details.get('errors', []):
+                    print(f"      - {error}")
+
+        return is_valid, validation_details
+
+    except Exception as e:
+        if verbose:
+            print(f"   [COG-CHECK] ❌ Error during validation: {str(e)}")
+        return False, {
+            'valid': False,
+            'errors': [f"Validation error: {str(e)}"],
+            'warnings': [],
+            'file_size_mb': 0
+        }
+
+    finally:
+        # Clean up temporary file
+        if temp_file and os.path.exists(temp_file):
+            try:
+                os.unlink(temp_file)
+            except:
+                pass
 
 
 def check_and_fix_nan_values(data, nodata_value, dtype, band_idx=None, verbose=False):
