@@ -22,35 +22,35 @@ except ImportError:
 
 # Try to import our optimized GDAL processor
 try:
-    from core.gdal_cog_processor import create_cog_gdal, process_file_optimized
+    from lib.core.gdal_cog_processor import create_cog_gdal, process_file_optimized
     HAS_GDAL_PROCESSOR = True
 except ImportError:
     HAS_GDAL_PROCESSOR = False
     print("Warning: GDAL COG processor not available")
 
 # Import core modules
-from core.s3_operations import (
+from lib.core.s3_operations import (
     check_s3_file_exists,
     download_from_s3,
     upload_to_s3,
     setup_vsi_credentials,
     get_file_size_from_s3
 )
-from core.validation import check_cog_with_warnings
-from core.compression import set_nodata_value_src, get_predictor_for_dtype
-from core.reprojection import calculate_transform_parameters, process_with_fixed_chunks
+from lib.core.validation import check_cog_with_warnings
+from lib.core.compression import set_nodata_value_src, get_predictor_for_dtype
+from lib.core.reprojection import calculate_transform_parameters, process_with_fixed_chunks
 
 # Import utils
-from utils.memory_management import get_memory_usage, get_available_memory_mb
-from utils.error_handling import cleanup_temp_files, setup_temp_directory
-from utils.logging import print_status
+from lib.utils.memory_management import get_memory_usage, get_available_memory_mb
+from lib.utils.error_handling import cleanup_temp_files, setup_temp_directory
+from lib.utils.logging import print_status
 
 # Import processors
-from processors.cog_creator import create_cog_with_overviews
+from lib.processors.cog_creator import create_cog_with_overviews
 
 # Import configs
-from configs.profiles import select_profile_by_size, get_compression_profile
-from configs.chunk_configs import get_chunk_config
+from lib.configs.profiles import select_profile_by_size, get_compression_profile
+from lib.configs.chunk_configs import get_chunk_config
 
 # Import COG profiles - use the correct import path
 try:
@@ -291,7 +291,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
 
             # If remapping is needed, process through temporary file with pixel remapping
             if needs_remapping:
-                from core.compression import remap_nodata_value
+                from lib.core.compression import remap_nodata_value
                 from rasterio.enums import Resampling
 
                 print(f"   [COG] Creating COG with nodata remapping and reprojection...")
@@ -470,7 +470,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
             with rasterio.open(reproject_filename, 'w', **kwargs) as dst:
                 if use_whole_file and file_size_gb < 1.5:
                     # Import the whole-file processing function
-                    from core.reprojection import process_whole_file
+                    from lib.core.reprojection import process_whole_file
                     process_whole_file(
                         src, dst, src.crs, dst_crs, transform,
                         width, height, original_nodata, src_nodata
@@ -485,7 +485,7 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
                     )
 
         # Add overviews to make it a valid COG
-        from core.reprojection import add_cog_overviews
+        from lib.core.reprojection import add_cog_overviews
         add_cog_overviews(reproject_filename)
 
         temp_files.append(reproject_filename)

@@ -18,7 +18,7 @@ from tqdm import tqdm
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from tools.geotiff_analyzer import analyze_geotiff, analyze_s3_geotiff
+from lib.analysis.geotiff_analyzer import analyze_geotiff, analyze_s3_geotiff
 from lib.core.s3_operations import initialize_s3_client, list_s3_files
 
 

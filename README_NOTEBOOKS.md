@@ -2,36 +2,68 @@
 
 This guide helps you get started with converting disaster satellite imagery to Cloud Optimized GeoTIFFs (COGs).
 
-## Quick Start
+## Quick Start - Two Workflows
 
-### 🚀 Option 1: Simple Template (Recommended for Most Users)
+### 🚀 Route 1: Single Script (Recommended for Most Users)
 
-Use `templates/simple_disaster_template.ipynb` for a streamlined experience with just 5 cells:
+Use [templates/simple_disaster_template.ipynb](templates/simple_disaster_template.ipynb) for an all-in-one streamlined experience:
+
+**Best for:** Quick processing, single events, simple workflows
 
 1. **Open the notebook**
    ```bash
    jupyter notebook templates/simple_disaster_template.ipynb
    ```
 
-2. **Configure your event** (Cell 1)
-   - Set `EVENT_NAME` (e.g., '202408_TropicalStorm_Debby')
-   - Set `PRODUCT_NAME` (e.g., 'landsat8')
-   - Modify filename functions to control output names
+2. **Configure your event** (Step 1)
+   - Set `EVENT_NAME` (e.g., '202510_Flood_AK')
+   - Set `SUB_PRODUCT_NAME` (e.g., 'sentinel2')
+   - Set `SOURCE_PATH` to your S3 location
 
-3. **Run the cells in order**
-   - Cell 2: Imports and initializes
-   - Cell 3: Discovers files and shows preview
-   - Cell 4: Processes all files
-   - Cell 5: Reviews results
+3. **See your files** (Step 2)
+   - Lists all .tif files in your S3 path
+   - Shows file names and sizes to help configure transformations
 
-### 🎛️ Option 2: Advanced Template (For Power Users)
+4. **Define filename transformations** (Step 3)
+   - Set categorization patterns (regex to identify file types)
+   - Define filename creator functions (how to rename files)
+   - Configure output directories (where to save each category)
+   - Preview transformations before processing
 
-Use `templates/disaster_processing_template.ipynb` for full control over:
-- Memory management
-- Chunk configurations
-- Processing parameters
-- Verification options
-- Detailed error handling
+5. **Process all files** (Step 4-5)
+   - Processes all files to COGs with new filenames
+   - Automatic verification and results tracking
+
+### 📋 Route 2: Two-Step Workflow (For Complex Renaming)
+
+Use two notebooks for more control over filename mapping:
+
+**Best for:** Complex renaming, batch processing, CSV-based workflows
+
+#### Step 1: Create Filename Mapping
+Use [templates/renaming_file_template.ipynb](templates/renaming_file_template.ipynb):
+- Lists all files from S3
+- Define categorization and filename transformation functions
+- Generates a CSV mapping file with:
+  - Original S3 paths
+  - New filenames
+  - Categories
+  - Nodata values
+  - File sizes
+- Review and validate the CSV before processing
+
+#### Step 2: Process from CSV
+Use [templates/process_from_csv_template.ipynb](templates/process_from_csv_template.ipynb):
+- Loads the CSV mapping created in Step 1
+- Previews all transformations
+- Processes files to COGs using the CSV mappings
+- Tracks results and saves processing statistics
+
+**Why use this route?**
+- Separate filename planning from processing
+- Review and edit CSV mappings before processing
+- Reuse mappings across multiple processing runs
+- Better for large batches with complex naming rules
 
 ## Configuration Examples
 
@@ -166,17 +198,15 @@ OUTPUT_DIRS = {
    - Intelligent resampling based on data type
 
 3. **Parallel Processing**
-   - For batch processing multiple events, use:
-   ```python
-   from batch_processor_parallel import process_files_parallel
-   ```
+   - The system automatically optimizes processing for your files
+   - Files are processed sequentially with smart memory management
 
 ## Advanced Features
 
 ### Using the Helper Module Directly
 
 ```python
-from notebooks.notebook_helpers import quick_process
+from lib.notebook_helpers import quick_process
 
 results = quick_process({
     'event_name': '202408_TropicalStorm_Debby',
