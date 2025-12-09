@@ -165,7 +165,7 @@ def check_s3_cog_status(s3_client, bucket, key, verbose=False):
             - file_size_mb (float): File size in MB (0 if doesn't exist)
             - validation_details (dict): COG validation details
     """
-    from core.validation import is_s3_file_cog
+    from lib.core.validation import is_s3_file_cog
 
     # First check if file exists
     exists = check_s3_file_exists(s3_client, bucket, key)

@@ -39,7 +39,7 @@ def process_single_file(s3_client, bucket, source_key, dest_key,
     try:
         # Step 1: Check if source is already a valid COG
         if check_source_is_cog:
-            from core.validation import is_s3_file_cog
+            from lib.core.validation import is_s3_file_cog
 
             if verbose:
                 print(f"   [COG-CHECK] Checking if source is already a valid COG...")
@@ -134,7 +134,7 @@ def process_single_file(s3_client, bucket, source_key, dest_key,
 
             # Step 4: Verify COG if requested
             if verify:
-                from core.validation import validate_cog
+                from lib.core.validation import validate_cog
 
                 if verbose:
                     print(f"   [VALIDATE] Verifying COG...")
