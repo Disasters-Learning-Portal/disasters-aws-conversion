@@ -110,10 +110,10 @@ def process_single_file(s3_client, bucket, source_key, dest_key,
                 '--overview-resampling', 'nearest',
                 '--blocksize', '512',
                 # Set compression level to 22 (maximum) as per configs/profiles.py
-                '-co', 'ZSTD_LEVEL=22',
-                '-co', 'PREDICTOR=2',
-                '-co', 'NUM_THREADS=ALL_CPUS',
-                '-co', 'BIGTIFF=IF_SAFER'
+                '--co', 'ZSTD_LEVEL=22',
+                '--co', 'PREDICTOR=2',
+                '--co', 'NUM_THREADS=ALL_CPUS',
+                '--co', 'BIGTIFF=IF_SAFER'
             ]
 
             # Add nodata if specified
