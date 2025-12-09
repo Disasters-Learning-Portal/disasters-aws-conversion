@@ -4,26 +4,6 @@ Single responsibility: Configuration profiles management.
 """
 
 
-def get_cog_profile():
-    """
-    Get standard COG profile.
-
-    Returns:
-        dict: COG profile configuration
-    """
-    return {
-        'driver': 'GTiff',
-        'compress': 'ZSTD',
-        'zstd_level': 22,
-        'predictor': 2,
-        'tiled': True,
-        'blockxsize': 512,
-        'blockysize': 512,
-        'bigtiff': 'IF_SAFER',
-        'num_threads': 'ALL_CPUS'
-    }
-
-
 def get_compression_profile(dtype='float32', file_size_gb=0):
     """
     Get compression profile based on data type and file size.
