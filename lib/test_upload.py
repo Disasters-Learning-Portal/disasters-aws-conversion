@@ -3,7 +3,7 @@ Quick test script to verify S3 upload permissions with external ID.
 This creates a test.txt file and uploads it to the nasa-disasters bucket.
 """
 
-from core.s3_operations import initialize_s3_client, upload_to_s3
+from lib.core.s3_operations import initialize_s3_client, upload_to_s3
 import tempfile
 import os
 from datetime import datetime
