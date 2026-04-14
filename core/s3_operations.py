@@ -8,10 +8,23 @@ import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 import fsspec
 
+# Try to import credentials for upload permissions
+try:
+    from aws_credentials import EXTERNAL_ID, UPLOAD_ROLE_ARN
+    HAS_UPLOAD_CREDENTIALS = True
+except ImportError:
+    HAS_UPLOAD_CREDENTIALS = False
+    EXTERNAL_ID = None
+    UPLOAD_ROLE_ARN = None
+
 
 def initialize_s3_client(bucket_name='nasa-disasters', verbose=True):
     """
     Initialize AWS S3 client with automatic credential detection.
+
+    Tries two authentication methods in order:
+    1. External ID + STS assume role (if aws_credentials.py exists) - for upload permissions
+    2. Default credentials (environment/config) - for read-only access
 
     Args:
         bucket_name: Name of the S3 bucket
@@ -20,24 +33,86 @@ def initialize_s3_client(bucket_name='nasa-disasters', verbose=True):
     Returns:
         tuple: (s3_client, fs_read) or (None, None) if initialization fails
     """
-    try:
-        # Try to create S3 client with default credentials
-        s3_client = boto3.client('s3')
+    s3_client = None
 
-        # Test access
+    # Method 1: Try to use external ID for upload permissions
+    if HAS_UPLOAD_CREDENTIALS and EXTERNAL_ID and UPLOAD_ROLE_ARN:
         try:
-            s3_client.head_bucket(Bucket=bucket_name)
             if verbose:
-                print(f"✅ S3 client initialized with full access to {bucket_name}")
-        except ClientError as e:
-            error_code = int(e.response['Error']['Code'])
-            if error_code == 403:
-                if verbose:
-                    print(f"⚠️ S3 client initialized (limited bucket list access)")
-            else:
-                raise
+                print("🔑 Attempting to authenticate with external ID for upload permissions...")
 
-        # Create fsspec filesystem
+            sts = boto3.client('sts')
+
+            # Assume role with the external ID
+            response = sts.assume_role(
+                RoleArn=UPLOAD_ROLE_ARN,
+                RoleSessionName='disaster-upload-session',
+                ExternalId=EXTERNAL_ID
+            )
+
+            # Create S3 client with temporary credentials
+            creds = response['Credentials']
+            s3_client = boto3.client(
+                's3',
+                aws_access_key_id=creds['AccessKeyId'],
+                aws_secret_access_key=creds['SecretAccessKey'],
+                aws_session_token=creds['SessionToken']
+            )
+
+            # Test access
+            try:
+                s3_client.head_bucket(Bucket=bucket_name)
+                if verbose:
+                    print(f"✅ S3 client initialized with UPLOAD permissions via external ID")
+            except ClientError as e:
+                error_code = int(e.response['Error']['Code'])
+                if error_code == 403:
+                    if verbose:
+                        print(f"⚠️ S3 client initialized via external ID (limited bucket list access)")
+                else:
+                    raise
+
+        except Exception as e:
+            if verbose:
+                print(f"⚠️ Failed to authenticate with external ID: {e}")
+                print("   Falling back to default credentials...")
+            s3_client = None
+
+    # Method 2: Fall back to default credentials (read-only)
+    if s3_client is None:
+        try:
+            # Try to create S3 client with default credentials
+            s3_client = boto3.client('s3')
+
+            # Test access
+            try:
+                s3_client.head_bucket(Bucket=bucket_name)
+                if verbose:
+                    print(f"✅ S3 client initialized with default credentials (read-only access)")
+            except ClientError as e:
+                error_code = int(e.response['Error']['Code'])
+                if error_code == 403:
+                    if verbose:
+                        print(f"⚠️ S3 client initialized (limited bucket list access)")
+                else:
+                    raise
+
+        except NoCredentialsError:
+            if verbose:
+                print("❌ No AWS credentials found")
+                print("\nTo configure credentials:")
+                print("  1. For upload permissions: Create aws_credentials.py with EXTERNAL_ID")
+                print("  2. For read-only: AWS CLI: aws configure")
+                print("  3. Environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY")
+                print("  4. IAM role (if on EC2)")
+            return None, None
+        except Exception as e:
+            if verbose:
+                print(f"❌ Failed to initialize S3 client: {e}")
+            return None, None
+
+    # Create fsspec filesystem (works with both auth methods)
+    try:
         fs_read = fsspec.filesystem('s3', anon=False)
 
         if verbose:
@@ -46,17 +121,9 @@ def initialize_s3_client(bucket_name='nasa-disasters', verbose=True):
 
         return s3_client, fs_read
 
-    except NoCredentialsError:
-        if verbose:
-            print("❌ No AWS credentials found")
-            print("\nTo configure credentials:")
-            print("  1. AWS CLI: aws configure")
-            print("  2. Environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY")
-            print("  3. IAM role (if on EC2)")
-        return None, None
     except Exception as e:
         if verbose:
-            print(f"❌ Failed to initialize S3 client: {e}")
+            print(f"❌ Failed to initialize fsspec filesystem: {e}")
         return None, None
 
 
