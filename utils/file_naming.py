@@ -25,7 +25,7 @@ def convert_date(date_str):
     month = date_str[4:6]
     day = date_str[6:8]
 
-    return f"{year}-{month}-{day}"
+    return f"{year}{month}{day}"
 
 
 def extract_date_from_filename(filename):
