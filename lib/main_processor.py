@@ -112,6 +112,10 @@ def convert_to_cog(name, bucket, cog_filename, cog_data_bucket, cog_data_prefix,
     Returns:
         None (raises exception on error)
     """
+    # Normalize target_crs: treat string 'None'/'none' and empty string as actual None
+    if isinstance(target_crs, str) and target_crs.strip().lower() in ('none', ''):
+        target_crs = None
+
     # Initialize
     start_time = datetime.now()
     s3_key = f"{cog_data_prefix}/{cog_filename}"
