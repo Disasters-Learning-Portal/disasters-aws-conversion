@@ -3,7 +3,6 @@ Configuration modules for disaster AWS conversion.
 """
 
 from .profiles import (
-    get_cog_profile,
     get_compression_profile,
     get_standard_profile,
     get_large_file_profile,
@@ -19,7 +18,6 @@ from .chunk_configs import (
 
 __all__ = [
     # Profiles
-    'get_cog_profile',
     'get_compression_profile',
     'get_standard_profile',
     'get_large_file_profile',

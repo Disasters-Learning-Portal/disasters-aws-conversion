@@ -209,6 +209,8 @@ class SimpleProcessor:
 
         print("\nSettings:")
         print(f"  • Compression: ZSTD level 22")
+        target_crs = self.config.get('target_crs', 'EPSG:4326')
+        print(f"  • Target CRS: {target_crs if target_crs else 'Keep original (no reprojection)'}")
         print(f"  • Overwrite existing: {self.config.get('overwrite', False)}")
         print(f"  • Verify results: {self.config.get('verify', True)}")
         print("="*60)
@@ -315,7 +317,8 @@ class SimpleProcessor:
                     cog_data_prefix=f"{self.config['destination_base']}/{output_dir}",
                     s3_client=self.s3_client,
                     manual_nodata=nodata,
-                    overwrite=self.config.get('overwrite', False)
+                    overwrite=self.config.get('overwrite', False),
+                    target_crs=self.config.get('target_crs', 'EPSG:4326')
                 )
 
                 results.append({
