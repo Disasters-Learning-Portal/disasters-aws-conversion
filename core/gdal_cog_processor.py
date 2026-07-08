@@ -117,6 +117,10 @@ def create_cog_gdal(
         True if successful, False otherwise
     """
     try:
+        # Ensure output directory exists
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         if verbose:
             print(f"   [GDAL-COG] Creating COG with native GDAL driver...")
 
@@ -199,13 +203,28 @@ def create_cog_with_reprojection(
     Stage 2: gdal_translate for COG creation
 
     Uses appropriate resampling based on data type.
+    Handles nodata remapping: detects original nodata and remaps to specified value.
     """
     temp_file = None
     try:
+        # Ensure output directory exists
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         # Create temp file for reprojected data in local directory
         temp_base = os.environ.get('COG_TEMP_DIR', os.path.join(os.getcwd(), 'temp_gdal'))
         os.makedirs(temp_base, exist_ok=True)
         temp_file = os.path.join(temp_base, f"reproj_{uuid.uuid4().hex}.tif")
+
+        # Detect original nodata value for proper remapping
+        original_nodata = None
+        try:
+            with rasterio.open(input_path) as src:
+                original_nodata = src.nodata
+                if verbose and original_nodata is not None:
+                    print(f"   [GDAL-COG] Detected original nodata: {original_nodata}")
+        except:
+            pass
 
         if verbose:
             print(f"   [GDAL-COG] Stage 1: Reprojecting to EPSG:4326 using {resampling} resampling...")
@@ -224,9 +243,23 @@ def create_cog_with_reprojection(
             '-co', 'COMPRESS=NONE',  # No compression for temp file (faster)
         ]
 
+        # Handle nodata remapping properly
         if nodata is not None:
-            warp_cmd.extend(['-srcnodata', str(nodata)])
-            warp_cmd.extend(['-dstnodata', str(nodata)])
+            # If we detected an original nodata that differs from desired nodata, remap it
+            if original_nodata is not None and original_nodata != nodata:
+                if verbose:
+                    print(f"   [GDAL-COG] Remapping nodata: {original_nodata} → {nodata}")
+                warp_cmd.extend(['-srcnodata', str(original_nodata)])
+                warp_cmd.extend(['-dstnodata', str(nodata)])
+            else:
+                # Just set the nodata value
+                warp_cmd.extend(['-dstnodata', str(nodata)])
+                if original_nodata is not None:
+                    warp_cmd.extend(['-srcnodata', str(original_nodata)])
+        elif original_nodata is not None:
+            # Preserve original nodata
+            warp_cmd.extend(['-srcnodata', str(original_nodata)])
+            warp_cmd.extend(['-dstnodata', str(original_nodata)])
 
         warp_cmd.extend([input_path, temp_file])
 
@@ -307,8 +340,9 @@ def build_gdal_translate_command(
     ]
 
     # Add compression-specific options
+    # Note: COG driver doesn't support ZSTD_LEVEL, it's only for GTiff driver
+    # COG driver uses ZSTD compression but with default settings
     if compress == 'ZSTD':
-        cmd.extend(['-co', f'ZSTD_LEVEL={compress_level}'])
         cmd.extend(['-co', 'PREDICTOR=YES'])  # Auto-select predictor
     elif compress == 'LZW' or compress == 'DEFLATE':
         cmd.extend(['-co', 'PREDICTOR=2'])  # Horizontal differencing

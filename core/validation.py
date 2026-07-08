@@ -4,6 +4,7 @@ Single responsibility: Data and format validation.
 """
 
 import numpy as np
+import rasterio
 from rio_cogeo.cogeo import cog_validate
 from rio_cogeo.cogeo import cog_info
 
@@ -171,3 +172,65 @@ def validate_data_integrity(data, expected_shape=None, expected_dtype=None, verb
             print(f"      - {issue}")
 
     return results
+
+
+def validate_nodata_value(file_path, expected_nodata, verbose=True):
+    """
+    Validate that a COG file has the correct nodata value set.
+
+    Args:
+        file_path: Path to the COG file
+        expected_nodata: Expected nodata value
+        verbose: Print validation messages
+
+    Returns:
+        dict: Validation results with keys:
+            - nodata_matches: True if nodata matches expected
+            - file_nodata: Actual nodata value in file
+            - expected_nodata: Expected nodata value
+            - sample_values: Sample of actual values in the file
+    """
+    try:
+        with rasterio.open(file_path) as src:
+            file_nodata = src.nodata
+
+            # Read a small sample of data to check actual values
+            sample_size = min(512, src.width, src.height)
+            sample_data = src.read(1, window=((0, sample_size), (0, sample_size)))
+
+            # Check for presence of both old and new nodata values
+            unique_values = np.unique(sample_data)
+
+            results = {
+                'nodata_matches': file_nodata == expected_nodata,
+                'file_nodata': file_nodata,
+                'expected_nodata': expected_nodata,
+                'sample_unique_values': unique_values[:10].tolist(),  # First 10 unique values
+                'sample_has_expected_nodata': expected_nodata in sample_data if expected_nodata is not None else False
+            }
+
+            if verbose:
+                print(f"   [NODATA-VALIDATE] File nodata: {file_nodata}")
+                print(f"   [NODATA-VALIDATE] Expected nodata: {expected_nodata}")
+
+                if results['nodata_matches']:
+                    print(f"   [NODATA-VALIDATE] ✅ Nodata value matches")
+                else:
+                    print(f"   [NODATA-VALIDATE] ❌ Nodata mismatch!")
+
+                # Check if we find the expected nodata in the data
+                if expected_nodata is not None:
+                    count_expected = np.sum(np.isclose(sample_data, expected_nodata, rtol=1e-9))
+                    print(f"   [NODATA-VALIDATE] Found {count_expected} pixels with expected nodata value in sample")
+
+            return results
+
+    except Exception as e:
+        if verbose:
+            print(f"   [NODATA-VALIDATE] ❌ Error validating: {e}")
+        return {
+            'nodata_matches': False,
+            'file_nodata': None,
+            'expected_nodata': expected_nodata,
+            'error': str(e)
+        }

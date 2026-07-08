@@ -216,3 +216,41 @@ def export_cog_profile():
         'bigtiff': 'IF_SAFER',
         'num_threads': 'ALL_CPUS'
     }
+
+
+def remap_nodata_value(data, original_nodata, new_nodata, dtype):
+    """
+    Remap nodata values in an array from original to new value.
+
+    Args:
+        data: numpy array with data
+        original_nodata: Original nodata value (can be None)
+        new_nodata: New nodata value to set
+        dtype: Data type of the array
+
+    Returns:
+        numpy array with remapped nodata values
+    """
+    if original_nodata is None or original_nodata == new_nodata:
+        return data
+
+    # Create a copy to avoid modifying original
+    remapped_data = data.copy()
+
+    # Handle NaN for float types
+    dtype_str = str(dtype)
+    if 'float' in dtype_str:
+        if np.isnan(original_nodata):
+            # Replace NaN with new nodata
+            mask = np.isnan(remapped_data)
+            remapped_data[mask] = new_nodata
+        else:
+            # Replace original nodata value
+            mask = np.isclose(remapped_data, original_nodata, rtol=1e-9, atol=1e-9)
+            remapped_data[mask] = new_nodata
+    else:
+        # For integer types, direct comparison
+        mask = (remapped_data == original_nodata)
+        remapped_data[mask] = new_nodata
+
+    return remapped_data
