@@ -2,20 +2,17 @@ name: LOE Capacity Report
 
 # Reads the POC project board, joins each Objective issue's LOE/FTE table (issue
 # body) with its Program Increment + Start/End dates (project fields), and writes
-# a per-PI capacity report to reports/. Each phase is its own descriptive step.
+# a per-PI capacity report. Each phase is its own descriptive step.
 #
-# Project data lives in an org/user Projects v2 board, which the default
-# GITHUB_TOKEN cannot read -> this workflow uses a project-scoped PAT stored as
-# the repo secret PROJECT_TOKEN (classic PAT with `project` + `repo`).
+# main is a PROTECTED branch, so the report is NOT pushed to main. Instead each
+# run publishes to a dedicated per-PI branch (loe-report/<pi>) where commits
+# accumulate; open a PR from that branch to main whenever you want to keep a
+# snapshot. The report is also in the run Summary and uploaded as an artifact.
 #
-# The `push` trigger runs this on the POC branch itself. workflow_dispatch adds an
-# insertable `pi` input to calculate a single PI. schedule/issues activate once
-# this file is on the default branch (main).
+# Project data lives in a Projects v2 board that the default GITHUB_TOKEN cannot
+# read, so this uses a classic PAT (scopes: repo + read:org + project) stored as
+# the repo secret PROJECT_TOKEN.
 on:
-  push:
-    branches: [poc/loe-report]
-    paths-ignore:
-      - 'reports/**'
   workflow_dispatch:
     inputs:
       pi:
@@ -33,7 +30,7 @@ on:
     types: [opened, edited, closed, reopened]
 
 permissions:
-  contents: write
+  contents: write   # push report to the per-PI branch
   issues: read
 
 env:
@@ -45,35 +42,41 @@ jobs:
     name: Build LOE capacity report
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}   # needs `project` scope to read the board
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}   # for `gh project` (needs project + read:org)
     steps:
       - name: "1 · Checkout repository"
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so per-PI branches can be based/pushed
 
       - name: "2 · Set up Python 3.12"
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: "3 · Show run context"
+      - name: "3 · Resolve PI filter + target branch"
+        id: cfg
         run: |
-          echo "Repository : $GITHUB_REPOSITORY"
-          echo "Event      : $GITHUB_EVENT_NAME"
-          echo "PI filter  : '${{ github.event.inputs.pi }}'  (blank = all PIs)"
-          echo "Project    : $POC_PROJECT_OWNER / #$POC_PROJECT_NUMBER"
-          echo "Python     : $(python --version)"
+          PI_INPUT="${{ github.event.inputs.pi }}"
+          if [ "$PI_INPUT" = "All PIs" ]; then PI_INPUT=""; fi        # dropdown default / other triggers
+          LABEL="${PI_INPUT:-all PIs}"
+          SLUG="$(echo "${PI_INPUT:-all-pis}" | tr ' ' '-' | tr -cd 'A-Za-z0-9._-')"
+          echo "pi=$PI_INPUT"                >> "$GITHUB_OUTPUT"
+          echo "label=$LABEL"                >> "$GITHUB_OUTPUT"
+          echo "slug=$SLUG"                  >> "$GITHUB_OUTPUT"
+          echo "branch=loe-report/$SLUG"     >> "$GITHUB_OUTPUT"
+          echo "Event: $GITHUB_EVENT_NAME | PI: '$LABEL' | target branch: loe-report/$SLUG"
 
       - name: "4 · Verify PROJECT_TOKEN is present"
         run: |
           if [ -z "${{ secrets.PROJECT_TOKEN }}" ]; then
-            echo "::error::PROJECT_TOKEN secret is not set. Add a classic PAT with 'project'+'repo' scope."
+            echo "::error::PROJECT_TOKEN secret not set (classic PAT: repo + read:org + project)."
             exit 1
           fi
           echo "PROJECT_TOKEN present."
 
       - name: "5 · Fetch project items (PI + Start/End + issue bodies)"
         run: |
-          echo "Calling: gh project item-list $POC_PROJECT_NUMBER --owner $POC_PROJECT_OWNER --format json"
           gh project item-list "$POC_PROJECT_NUMBER" --owner "$POC_PROJECT_OWNER" \
             --format json --limit 800 > items.json
           echo "Items on board: $(jq '.items | length' items.json)"
@@ -86,47 +89,41 @@ jobs:
 
       - name: "7 · Generate LOE capacity report (per PI, raw + weighted FTE)"
         run: |
-          PI_INPUT="${{ github.event.inputs.pi }}"
-          # "All PIs" (dropdown default) and empty (push/schedule/issues) => no filter
-          if [ "$PI_INPUT" = "All PIs" ]; then PI_INPUT=""; fi
-          echo "PI filter: '${PI_INPUT:-<all PIs>}'"
+          echo "PI filter: '${{ steps.cfg.outputs.label }}'"
           python .github/scripts/generate_loe_report.py \
             --project-json items.json \
-            --pi "$PI_INPUT" \
+            --pi "${{ steps.cfg.outputs.pi }}" \
             --out-dir reports \
             --now "$(date -u +%FT%TZ)"
+          mkdir -p "$RUNNER_TEMP/out" && cp -R reports/. "$RUNNER_TEMP/out/"   # stash for the branch step
 
-      - name: "8 · Show generated report files"
-        run: |
-          ls -la reports/
-          echo "----- reports/loe_by_person.csv (head) -----"
-          head -n 20 reports/loe_by_person.csv
-
-      - name: "9 · Publish report to the run summary"
+      - name: "8 · Publish report to the run summary"
         run: cat reports/loe_summary.md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: "10 · Detect report changes"
-        id: changes
+      - name: "9 · Commit report to the per-PI branch"
         run: |
-          git add reports
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No changes in reports/."
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            git diff --cached --stat
-          fi
-
-      - name: "11 · Commit & push updated report"
-        if: steps.changes.outputs.changed == 'true'
-        run: |
+          BR="${{ steps.cfg.outputs.branch }}"
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: update LOE capacity report [skip ci]"
-          git push
+          # Continue the per-PI branch if it exists (so commits accumulate), else start it from main.
+          git fetch origin "$BR" || true
+          if git rev-parse --verify --quiet "origin/$BR"; then
+            git checkout -B "$BR" "origin/$BR"
+          else
+            git checkout -B "$BR"
+          fi
+          rm -rf reports && mkdir reports && cp -R "$RUNNER_TEMP/out/." reports/
+          git add -f reports
+          if git diff --cached --quiet; then
+            echo "No report changes for $BR."
+          else
+            git commit -m "LOE report — ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}) [skip ci]"
+            git push origin "$BR"
+            echo "Report pushed to branch: $BR  (open a PR to main to keep it)"
+          fi
 
-      - name: "12 · Upload report as build artifact"
+      - name: "10 · Upload report as build artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: loe-report
+          name: loe-report-${{ steps.cfg.outputs.slug }}
           path: reports/
