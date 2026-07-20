@@ -1,0 +1,132 @@
+name: LOE Capacity Report
+
+# Reads the POC project board, joins each Objective issue's LOE/FTE table (issue
+# body) with its Program Increment + Start/End dates (project fields), and writes
+# a per-PI capacity report to reports/. Each phase is its own descriptive step.
+#
+# Project data lives in an org/user Projects v2 board, which the default
+# GITHUB_TOKEN cannot read -> this workflow uses a project-scoped PAT stored as
+# the repo secret PROJECT_TOKEN (classic PAT with `project` + `repo`).
+#
+# The `push` trigger runs this on the POC branch itself. workflow_dispatch adds an
+# insertable `pi` input to calculate a single PI. schedule/issues activate once
+# this file is on the default branch (main).
+on:
+  push:
+    branches: [poc/loe-report]
+    paths-ignore:
+      - 'reports/**'
+  workflow_dispatch:
+    inputs:
+      pi:
+        description: 'Program Increment to report on'
+        type: choice
+        required: true
+        default: 'All PIs'
+        options:
+          - 'All PIs'
+          - 'PI 26.4'
+          - 'PI 27.2'
+  schedule:
+    - cron: '0 13 * * 1'   # Mondays 13:00 UTC
+  issues:
+    types: [opened, edited, closed, reopened]
+
+permissions:
+  contents: write
+  issues: read
+
+env:
+  POC_PROJECT_OWNER: kyle-lesinger
+  POC_PROJECT_NUMBER: '1'
+
+jobs:
+  loe-report:
+    name: Build LOE capacity report
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}   # needs `project` scope to read the board
+    steps:
+      - name: "1 · Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "2 · Set up Python 3.12"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: "3 · Show run context"
+        run: |
+          echo "Repository : $GITHUB_REPOSITORY"
+          echo "Event      : $GITHUB_EVENT_NAME"
+          echo "PI filter  : '${{ github.event.inputs.pi }}'  (blank = all PIs)"
+          echo "Project    : $POC_PROJECT_OWNER / #$POC_PROJECT_NUMBER"
+          echo "Python     : $(python --version)"
+
+      - name: "4 · Verify PROJECT_TOKEN is present"
+        run: |
+          if [ -z "${{ secrets.PROJECT_TOKEN }}" ]; then
+            echo "::error::PROJECT_TOKEN secret is not set. Add a classic PAT with 'project'+'repo' scope."
+            exit 1
+          fi
+          echo "PROJECT_TOKEN present."
+
+      - name: "5 · Fetch project items (PI + Start/End + issue bodies)"
+        run: |
+          echo "Calling: gh project item-list $POC_PROJECT_NUMBER --owner $POC_PROJECT_OWNER --format json"
+          gh project item-list "$POC_PROJECT_NUMBER" --owner "$POC_PROJECT_OWNER" \
+            --format json --limit 800 > items.json
+          echo "Items on board: $(jq '.items | length' items.json)"
+
+      - name: "6 · Filter to Objective tickets (visibility)"
+        run: |
+          jq -r '.items[] | select(.content.title // "" | ascii_downcase | contains("objective"))
+                 | "  #\(.content.number)  [\(.["program Increment"] // "no PI")]  \(.content.title)"' items.json
+          echo "Objective tickets: $(jq '[.items[] | select(.content.title // "" | ascii_downcase | contains("objective"))] | length' items.json)"
+
+      - name: "7 · Generate LOE capacity report (per PI, raw + weighted FTE)"
+        run: |
+          PI_INPUT="${{ github.event.inputs.pi }}"
+          # "All PIs" (dropdown default) and empty (push/schedule/issues) => no filter
+          if [ "$PI_INPUT" = "All PIs" ]; then PI_INPUT=""; fi
+          echo "PI filter: '${PI_INPUT:-<all PIs>}'"
+          python .github/scripts/generate_loe_report.py \
+            --project-json items.json \
+            --pi "$PI_INPUT" \
+            --out-dir reports \
+            --now "$(date -u +%FT%TZ)"
+
+      - name: "8 · Show generated report files"
+        run: |
+          ls -la reports/
+          echo "----- reports/loe_by_person.csv (head) -----"
+          head -n 20 reports/loe_by_person.csv
+
+      - name: "9 · Publish report to the run summary"
+        run: cat reports/loe_summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: "10 · Detect report changes"
+        id: changes
+        run: |
+          git add reports
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes in reports/."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --cached --stat
+          fi
+
+      - name: "11 · Commit & push updated report"
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update LOE capacity report [skip ci]"
+          git push
+
+      - name: "12 · Upload report as build artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: loe-report
+          path: reports/

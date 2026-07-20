@@ -1,0 +1,252 @@
+[
+  {
+    "number": 10,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/10",
+    "title": "[Comms]-[Objective 1]: COG pipeline hardening"
+  },
+  {
+    "number": 11,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/11",
+    "title": "[Geospatial]-[Objective 2]: S3 ingestion API v2"
+  },
+  {
+    "number": 12,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/12",
+    "title": "[Frontend]-[Objective 3]: Disaster dashboard redesign"
+  },
+  {
+    "number": 13,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/13",
+    "title": "[Data Curator]-[Objective 4]: Flood extent model"
+  },
+  {
+    "number": 14,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/14",
+    "title": "[Designer]-[Objective 5]: CSDA catalog automation"
+  },
+  {
+    "number": 15,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/15",
+    "title": "[Frontend]-[Objective 6]: Stakeholder reporting portal"
+  },
+  {
+    "number": 16,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/16",
+    "title": "[Frontend]-[Objective 7]: Notebook environment upgrade"
+  },
+  {
+    "number": 17,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/17",
+    "title": "[Backend]-[Objective 8]: Reprojection service scaling"
+  },
+  {
+    "number": 18,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/18",
+    "title": "[Frontend]-[Objective 9]: Auth & access control"
+  },
+  {
+    "number": 19,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/19",
+    "title": "[Designer]-[Objective 10]: Data QA automation"
+  },
+  {
+    "number": 20,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/20",
+    "title": "[Frontend]-[Objective 11]: Tile server migration"
+  },
+  {
+    "number": 21,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/21",
+    "title": "[Geospatial]-[Objective 12]: Metadata schema v3"
+  },
+  {
+    "number": 22,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/22",
+    "title": "[Jupyterhub]-[Objective 13]: Alerting pipeline"
+  },
+  {
+    "number": 23,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/23",
+    "title": "[Jupyterhub]-[Objective 14]: Cloud cost monitoring"
+  },
+  {
+    "number": 24,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/24",
+    "title": "[Frontend]-[Objective 15]: Wildfire severity model"
+  },
+  {
+    "number": 25,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/25",
+    "title": "[Designer]-[Objective 16]: Public API documentation"
+  },
+  {
+    "number": 26,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/26",
+    "title": "[ML]-[Objective 17]: Onboarding revamp"
+  },
+  {
+    "number": 27,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/27",
+    "title": "[ML]-[Objective 18]: STAC catalog buildout"
+  },
+  {
+    "number": 28,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/28",
+    "title": "[Geospatial]-[Objective 19]: Imagery mosaicking"
+  },
+  {
+    "number": 29,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/29",
+    "title": "[Designer]-[Objective 20]: Latency profiling"
+  },
+  {
+    "number": 30,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/30",
+    "title": "[PM]-[Objective 21]: Nodata standardization"
+  },
+  {
+    "number": 31,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/31",
+    "title": "[Geospatial]-[Objective 22]: Hurricane track ingestion"
+  },
+  {
+    "number": 32,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/32",
+    "title": "[ML]-[Objective 23]: Access log analytics"
+  },
+  {
+    "number": 33,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/33",
+    "title": "[Data Curator]-[Objective 24]: Model retraining harness"
+  },
+  {
+    "number": 34,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/34",
+    "title": "[PM]-[Objective 25]: Colormap library"
+  },
+  {
+    "number": 35,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/35",
+    "title": "[ML]-[Objective 26]: Region-of-interest tooling"
+  },
+  {
+    "number": 36,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/36",
+    "title": "[Geospatial]-[Objective 27]: Backfill orchestration"
+  },
+  {
+    "number": 37,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/37",
+    "title": "[Frontend]-[Objective 28]: Vector tile support"
+  },
+  {
+    "number": 38,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/38",
+    "title": "[Geospatial]-[Objective 29]: Search relevance tuning"
+  },
+  {
+    "number": 39,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/39",
+    "title": "[Jupyterhub]-[Objective 30]: Incident runbook automation"
+  },
+  {
+    "number": 40,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40",
+    "title": "[Jupyterhub]-[Objective 31]: COG pipeline hardening"
+  },
+  {
+    "number": 41,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/41",
+    "title": "[Designer]-[Objective 32]: S3 ingestion API v2"
+  },
+  {
+    "number": 42,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/42",
+    "title": "[Jupyterhub]-[Objective 33]: Disaster dashboard redesign"
+  },
+  {
+    "number": 43,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/43",
+    "title": "[Jupyterhub]-[Objective 34]: Flood extent model"
+  },
+  {
+    "number": 44,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/44",
+    "title": "[Frontend]-[Objective 35]: CSDA catalog automation"
+  },
+  {
+    "number": 45,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/45",
+    "title": "[Comms]-[Objective 36]: Stakeholder reporting portal"
+  },
+  {
+    "number": 46,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/46",
+    "title": "[PM]-[Objective 37]: Notebook environment upgrade"
+  },
+  {
+    "number": 47,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/47",
+    "title": "[Geospatial]-[Objective 38]: Reprojection service scaling"
+  },
+  {
+    "number": 48,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/48",
+    "title": "[Data Curator]-[Objective 39]: Auth & access control"
+  },
+  {
+    "number": 49,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/49",
+    "title": "[PM]-[Objective 40]: Data QA automation"
+  },
+  {
+    "number": 50,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/50",
+    "title": "[Frontend]-[Objective 41]: Tile server migration"
+  },
+  {
+    "number": 51,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/51",
+    "title": "[Geospatial]-[Objective 42]: Metadata schema v3"
+  },
+  {
+    "number": 52,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/52",
+    "title": "[Data Curator]-[Objective 43]: Alerting pipeline"
+  },
+  {
+    "number": 53,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/53",
+    "title": "[Data Curator]-[Objective 44]: Cloud cost monitoring"
+  },
+  {
+    "number": 54,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/54",
+    "title": "[Designer]-[Objective 45]: Wildfire severity model"
+  },
+  {
+    "number": 55,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/55",
+    "title": "[Geospatial]-[Objective 46]: Public API documentation"
+  },
+  {
+    "number": 56,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/56",
+    "title": "[Geospatial]-[Objective 47]: Onboarding revamp"
+  },
+  {
+    "number": 57,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/57",
+    "title": "[Frontend]-[Objective 48]: STAC catalog buildout"
+  },
+  {
+    "number": 58,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/58",
+    "title": "[ML]-[Objective 49]: Imagery mosaicking"
+  },
+  {
+    "number": 59,
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/59",
+    "title": "[Jupyterhub]-[Objective 50]: Latency profiling"
+  }
+]

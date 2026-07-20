@@ -70,3 +70,8 @@ aws_credentials.py
 # Cache
 .cache/
 *.cache
+
+# LOE capacity POC — keep report outputs + demo tracking files despite the
+# global *.csv / *.json ignores above (so the Action can commit reports/ too).
+!reports/*.csv
+!loe-poc/*.json
