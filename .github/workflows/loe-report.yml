@@ -19,9 +19,14 @@ on:
   workflow_dispatch:
     inputs:
       pi:
-        description: 'Program Increment to report on (e.g. "PI 26.4"). Leave blank for all PIs.'
-        required: false
-        default: ''
+        description: 'Program Increment to report on'
+        type: choice
+        required: true
+        default: 'All PIs'
+        options:
+          - 'All PIs'
+          - 'PI 26.4'
+          - 'PI 27.2'
   schedule:
     - cron: '0 13 * * 1'   # Mondays 13:00 UTC
   issues:
@@ -81,9 +86,13 @@ jobs:
 
       - name: "7 · Generate LOE capacity report (per PI, raw + weighted FTE)"
         run: |
+          PI_INPUT="${{ github.event.inputs.pi }}"
+          # "All PIs" (dropdown default) and empty (push/schedule/issues) => no filter
+          if [ "$PI_INPUT" = "All PIs" ]; then PI_INPUT=""; fi
+          echo "PI filter: '${PI_INPUT:-<all PIs>}'"
           python .github/scripts/generate_loe_report.py \
             --project-json items.json \
-            --pi "${{ github.event.inputs.pi }}" \
+            --pi "$PI_INPUT" \
             --out-dir reports \
             --now "$(date -u +%FT%TZ)"
 
