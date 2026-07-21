@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:53:35Z_
+_Generated: 2026-07-21T19:53:39Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -8,13 +8,13 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Program Increments (PIs):** 2
 - **Partial-window objectives:** 17
 - **Missing / empty LOE:** 4
-- **Total allocated FTE (raw):** 70.05
+- **Total allocated FTE (raw):** 69.85
 - **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
-- Objectives: 31 | People: 16 | Raw FTE: 42.45 | Weighted FTE: 35.46 | Partial: 10 | Missing LOE: 2
+- Objectives: 31 | People: 16 | Raw FTE: 42.25 | Weighted FTE: 35.42 | Partial: 10 | Missing LOE: 2
 
-**Over-allocated this PI:** Nadia Hassan (4.15), Devon Lee (3.65), Alice Nguyen (3.5), Carla Diaz (3.4), Owen Clark (3.2), Jordan Kim (3.2), Bob Martinez (2.5), Liam Walsh (2.4), Morgan Reyes (2.35), Taylor Brooks (2.35), Yuki Tanaka (2.35), Sam Okoro (2.15), Priya Patel (2.0), Sofia Rossi (1.9), Rae Thompson (1.75), Elena Petrova (1.6)
+**Over-allocated this PI:** Nadia Hassan (4.25), Devon Lee (3.65), Alice Nguyen (3.5), Carla Diaz (3.4), Owen Clark (3.2), Jordan Kim (3.2), Bob Martinez (2.5), Liam Walsh (2.4), Morgan Reyes (2.35), Taylor Brooks (2.35), Yuki Tanaka (2.35), Sam Okoro (2.15), Priya Patel (2.0), Rae Thompson (1.75), Elena Petrova (1.6), Sofia Rossi (1.6)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
@@ -26,20 +26,20 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Jordan Kim | 3.2 | 3.0 | 8 | Designer | ⚠️ yes |
 | Liam Walsh | 2.4 | 1.86 | 5 | Data Curator | ⚠️ yes |
 | Morgan Reyes | 2.35 | 1.58 | 5 | Jupyterhub | ⚠️ yes |
-| Nadia Hassan | 4.15 | 3.66 | 8 | Backend | ⚠️ yes |
+| Nadia Hassan | 4.25 | 3.7 | 9 | Backend | ⚠️ yes |
 | Owen Clark | 3.2 | 2.7 | 6 | Geospatial | ⚠️ yes |
 | Priya Patel | 2.0 | 1.93 | 5 | PM;Data Curator | ⚠️ yes |
 | Rae Thompson | 1.75 | 1.33 | 4 | Frontend | ⚠️ yes |
 | Sam Okoro | 2.15 | 2.01 | 5 | Data Curator;ML | ⚠️ yes |
-| Sofia Rossi | 1.9 | 1.31 | 4 | PM | ⚠️ yes |
+| Sofia Rossi | 1.6 | 1.23 | 3 | PM | ⚠️ yes |
 | Taylor Brooks | 2.35 | 2.14 | 8 | Comms | ⚠️ yes |
 | Yuki Tanaka | 2.35 | 1.92 | 4 | ML | ⚠️ yes |
 
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
-| PM | 4.1 | 2.87 | 3 | 8 |
+| PM | 3.8 | 2.79 | 3 | 7 |
 | Frontend | 4.4 | 3.42 | 2 | 8 |
-| Backend | 8.05 | 7.07 | 3 | 18 |
+| Backend | 8.15 | 7.11 | 3 | 19 |
 | Geospatial | 6.6 | 5.33 | 2 | 13 |
 | Data Curator | 4.8 | 4.26 | 3 | 10 |
 | Comms | 2.35 | 2.14 | 1 | 8 |
@@ -63,7 +63,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#22](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/22) — [Designer]-[Objective 13]: Alerting pipeline — 3 ppl · 0.5 FTE
 - [#23](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/23) — [Frontend]-[Objective 14]: Cloud cost monitoring — 3 ppl · 1.5 FTE
 - [#24](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/24) — [Backend]-[Objective 15]: Wildfire severity model — 5 ppl · 1.9 FTE
-- [#25](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/25) — [Jupyterhub]-[Objective 16]: Public API documentation — 1 ppl · 0.3 FTE
+- [#25](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/25) — [Designer]-[Objective 16]: Public API documentation — 1 ppl · 0.1 FTE
 - [#26](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/26) — [Frontend]-[Objective 17]: Onboarding revamp — 3 ppl · 1.45 FTE
 - [#27](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/27) — [Jupyterhub]-[Objective 18]: STAC catalog buildout — 4 ppl · 1.3 FTE
 - [#28](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/28) — [ML]-[Objective 19]: Imagery mosaicking — 4 ppl · 1.4 FTE
