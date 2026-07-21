@@ -1,9 +1,9 @@
 pi,person,total_fte,weighted_fte,num_objectives,roles,over_allocated
 PI 26.4,Alice Nguyen,3.5,2.72,6,PM;Backend,true
-PI 26.4,Bob Martinez,2.85,2.29,7,Backend,true
+PI 26.4,Bob Martinez,2.85,2.56,7,Backend,true
 PI 26.4,Carla Diaz,3.4,2.63,7,Geospatial,true
 PI 26.4,Devon Lee,3.65,3.09,6,Frontend;Designer,true
-PI 26.4,Elena Petrova,2.0,1.61,5,Designer,true
+PI 26.4,Elena Petrova,2.0,1.76,5,Designer,true
 PI 26.4,Jordan Kim,2.9,2.81,7,Designer,true
 PI 26.4,Liam Walsh,2.4,1.86,5,Data Curator,true
 PI 26.4,Morgan Reyes,2.15,1.46,4,Jupyterhub,true

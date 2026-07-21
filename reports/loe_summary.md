@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:53:43Z_
+_Generated: 2026-07-21T19:53:45Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -12,17 +12,17 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
-- Objectives: 31 | People: 16 | Raw FTE: 40.95 | Weighted FTE: 34.25 | Partial: 9 | Missing LOE: 2
+- Objectives: 31 | People: 16 | Raw FTE: 40.95 | Weighted FTE: 34.67 | Partial: 9 | Missing LOE: 2
 
 **Over-allocated this PI:** Nadia Hassan (3.95), Devon Lee (3.65), Alice Nguyen (3.5), Carla Diaz (3.4), Owen Clark (3.2), Jordan Kim (2.9), Bob Martinez (2.85), Liam Walsh (2.4), Yuki Tanaka (2.35), Morgan Reyes (2.15), Sam Okoro (2.15), Taylor Brooks (2.15), Elena Petrova (2.0), Sofia Rossi (1.6), Rae Thompson (1.45), Priya Patel (1.25)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
 | Alice Nguyen | 3.5 | 2.72 | 6 | PM;Backend | ⚠️ yes |
-| Bob Martinez | 2.85 | 2.29 | 7 | Backend | ⚠️ yes |
+| Bob Martinez | 2.85 | 2.56 | 7 | Backend | ⚠️ yes |
 | Carla Diaz | 3.4 | 2.63 | 7 | Geospatial | ⚠️ yes |
 | Devon Lee | 3.65 | 3.09 | 6 | Frontend;Designer | ⚠️ yes |
-| Elena Petrova | 2.0 | 1.61 | 5 | Designer | ⚠️ yes |
+| Elena Petrova | 2.0 | 1.76 | 5 | Designer | ⚠️ yes |
 | Jordan Kim | 2.9 | 2.81 | 7 | Designer | ⚠️ yes |
 | Liam Walsh | 2.4 | 1.86 | 5 | Data Curator | ⚠️ yes |
 | Morgan Reyes | 2.15 | 1.46 | 4 | Jupyterhub | ⚠️ yes |
@@ -39,12 +39,12 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | --- | --- | --- | --- | --- |
 | PM | 3.8 | 2.79 | 3 | 7 |
 | Frontend | 4.1 | 3.35 | 2 | 8 |
-| Backend | 8.2 | 6.94 | 3 | 18 |
+| Backend | 8.2 | 7.21 | 3 | 18 |
 | Geospatial | 6.6 | 5.33 | 2 | 13 |
 | Data Curator | 4.05 | 3.51 | 3 | 9 |
 | Comms | 2.15 | 2.02 | 1 | 7 |
 | ML | 4.0 | 3.43 | 2 | 8 |
-| Designer | 5.9 | 5.42 | 3 | 14 |
+| Designer | 5.9 | 5.57 | 3 | 14 |
 | Jupyterhub | 2.15 | 1.46 | 1 | 4 |
 
 ### Objectives (click to open)
