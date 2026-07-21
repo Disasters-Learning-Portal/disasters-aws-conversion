@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:53:51Z_
+_Generated: 2026-07-21T19:53:53Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -12,7 +12,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
-- Objectives: 31 | People: 16 | Raw FTE: 38.6 | Weighted FTE: 32.97 | Partial: 8 | Missing LOE: 2
+- Objectives: 31 | People: 16 | Raw FTE: 38.6 | Weighted FTE: 32.94 | Partial: 8 | Missing LOE: 2
 
 **Over-allocated this PI:** Nadia Hassan (3.95), Devon Lee (3.35), Owen Clark (3.2), Alice Nguyen (3.0), Jordan Kim (2.9), Taylor Brooks (2.75), Bob Martinez (2.65), Carla Diaz (2.65), Liam Walsh (2.4), Sam Okoro (2.15), Elena Petrova (1.9), Yuki Tanaka (1.75), Rae Thompson (1.7), Sofia Rossi (1.6), Morgan Reyes (1.4), Priya Patel (1.25)
 
@@ -29,7 +29,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Nadia Hassan | 3.95 | 3.46 | 8 | Backend | ⚠️ yes |
 | Owen Clark | 3.2 | 2.7 | 6 | Geospatial | ⚠️ yes |
 | Priya Patel | 1.25 | 1.18 | 4 | PM;Data Curator | ⚠️ yes |
-| Rae Thompson | 1.7 | 1.35 | 5 | Frontend | ⚠️ yes |
+| Rae Thompson | 1.7 | 1.32 | 5 | Frontend | ⚠️ yes |
 | Sam Okoro | 2.15 | 2.01 | 5 | Data Curator;ML | ⚠️ yes |
 | Sofia Rossi | 1.6 | 1.23 | 3 | PM | ⚠️ yes |
 | Taylor Brooks | 2.75 | 2.62 | 7 | Comms | ⚠️ yes |
@@ -38,7 +38,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
 | PM | 3.3 | 2.29 | 3 | 6 |
-| Frontend | 4.05 | 3.26 | 2 | 8 |
+| Frontend | 4.05 | 3.23 | 2 | 8 |
 | Backend | 8.0 | 7.1 | 3 | 17 |
 | Geospatial | 5.85 | 4.88 | 2 | 12 |
 | Data Curator | 4.05 | 3.51 | 3 | 9 |
@@ -68,7 +68,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#27](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/27) — [Geospatial]-[Objective 18]: STAC catalog buildout — 2 ppl · 1.15 FTE
 - [#28](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/28) — [Geospatial]-[Objective 19]: Imagery mosaicking — 1 ppl · 0.8 FTE
 - [#29](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/29) — [Frontend]-[Objective 20]: Latency profiling — 1 ppl · 0.25 FTE
-- [#30](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/30) — [Jupyterhub]-[Objective 21]: Nodata standardization — ⚠️ no LOE table
+- [#30](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/30) — [ML]-[Objective 21]: Nodata standardization — ⚠️ no LOE table
 - [#31](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/31) — [Frontend]-[Objective 22]: Hurricane track ingestion — 1 ppl · 0.25 FTE
 - [#32](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/32) — [ML]-[Objective 23]: Access log analytics — 2 ppl · 0.35 FTE
 - [#33](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/33) — [ML]-[Objective 24]: Model retraining harness — 4 ppl · 2.1 FTE
