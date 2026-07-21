@@ -104,7 +104,6 @@ jobs:
         run: cat reports/loe_summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: "9 · Commit report to the per-PI branch"
-        id: commit
         run: |
           BR="${{ steps.cfg.outputs.branch }}"
           git config user.name  "github-actions[bot]"
@@ -120,11 +119,9 @@ jobs:
           git add -f reports
           if git diff --cached --quiet; then
             echo "No report changes for $BR."
-            echo "pushed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "LOE report — ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}) [skip ci]"
             git push origin "$BR"
-            echo "pushed=true" >> "$GITHUB_OUTPUT"
             echo "Report pushed to branch: $BR"
           fi
 
@@ -135,14 +132,18 @@ jobs:
           path: reports/
 
       - name: "11 · Open the PR to main (review + Netlify Deploy Preview)"
-        if: steps.commit.outputs.pushed == 'true'
         run: |
           BR="${{ steps.cfg.outputs.branch }}"
-          # One living PR per PI branch: create it once; later runs just push new
-          # commits, which update the PR and refresh its Netlify Deploy Preview.
+          git fetch origin main "$BR" --quiet || true
+          # Ensure a living PR exists whenever the per-PI branch has report commits
+          # ahead of main (create once; later runs' commits refresh it + its preview).
+          if [ "$(git rev-list --count "origin/main..origin/$BR" 2>/dev/null || echo 0)" = "0" ]; then
+            echo "$BR has no commits ahead of main — nothing to PR."
+            exit 0
+          fi
           existing="$(gh pr list --head "$BR" --base main --state open --json number --jq '.[0].number // empty')"
           if [ -n "$existing" ]; then
-            echo "PR #$existing already open for $BR — the new commit updates it and its Deploy Preview automatically."
+            echo "PR #$existing already open for $BR — new commits refresh it and its Deploy Preview automatically."
           else
             gh pr create --head "$BR" --base main \
               --title "LOE report — ${{ steps.cfg.outputs.label }}" \
