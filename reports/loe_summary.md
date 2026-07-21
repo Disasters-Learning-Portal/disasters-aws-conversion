@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:54:23Z_
+_Generated: 2026-07-21T19:54:25Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -12,13 +12,13 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
-- Objectives: 31 | People: 16 | Raw FTE: 41.5 | Weighted FTE: 36.31 | Partial: 9 | Missing LOE: 2
+- Objectives: 31 | People: 16 | Raw FTE: 41.5 | Weighted FTE: 36.21 | Partial: 9 | Missing LOE: 2
 
 **Over-allocated this PI:** Nadia Hassan (4.7), Bob Martinez (4.05), Alice Nguyen (3.75), Taylor Brooks (3.4), Devon Lee (3.35), Carla Diaz (3.15), Liam Walsh (2.4), Owen Clark (2.4), Priya Patel (2.25), Sam Okoro (2.0), Sofia Rossi (1.8), Elena Petrova (1.8), Yuki Tanaka (1.75), Morgan Reyes (1.7), Jordan Kim (1.55), Rae Thompson (1.45)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
-| Alice Nguyen | 3.75 | 2.92 | 8 | PM;Backend | ⚠️ yes |
+| Alice Nguyen | 3.75 | 2.89 | 8 | PM;Backend | ⚠️ yes |
 | Bob Martinez | 4.05 | 3.43 | 8 | Backend | ⚠️ yes |
 | Carla Diaz | 3.15 | 2.68 | 7 | Geospatial | ⚠️ yes |
 | Devon Lee | 3.35 | 3.35 | 5 | Frontend;Designer | ⚠️ yes |
@@ -31,19 +31,19 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Priya Patel | 2.25 | 1.76 | 5 | PM;Data Curator | ⚠️ yes |
 | Rae Thompson | 1.45 | 1.26 | 4 | Frontend | ⚠️ yes |
 | Sam Okoro | 2.0 | 1.91 | 5 | Data Curator;ML | ⚠️ yes |
-| Sofia Rossi | 1.8 | 1.33 | 5 | PM | ⚠️ yes |
-| Taylor Brooks | 3.4 | 3.1 | 8 | Comms | ⚠️ yes |
-| Yuki Tanaka | 1.75 | 1.4 | 2 | ML | ⚠️ yes |
+| Sofia Rossi | 1.8 | 1.32 | 5 | PM | ⚠️ yes |
+| Taylor Brooks | 3.4 | 3.08 | 8 | Comms | ⚠️ yes |
+| Yuki Tanaka | 1.75 | 1.36 | 2 | ML | ⚠️ yes |
 
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
-| PM | 3.2 | 2.18 | 3 | 9 |
+| PM | 3.2 | 2.14 | 3 | 9 |
 | Frontend | 3.8 | 3.61 | 2 | 7 |
 | Backend | 11.2 | 9.74 | 3 | 22 |
 | Geospatial | 5.55 | 4.79 | 2 | 12 |
 | Data Curator | 5.05 | 4.56 | 3 | 10 |
-| Comms | 3.4 | 3.1 | 1 | 8 |
-| ML | 3.25 | 2.81 | 2 | 6 |
+| Comms | 3.4 | 3.08 | 1 | 8 |
+| ML | 3.25 | 2.77 | 2 | 6 |
 | Designer | 4.35 | 4.21 | 3 | 9 |
 | Jupyterhub | 1.7 | 1.31 | 1 | 4 |
 

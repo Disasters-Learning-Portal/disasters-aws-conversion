@@ -1,5 +1,5 @@
 pi,person,total_fte,weighted_fte,num_objectives,roles,over_allocated
-PI 26.4,Alice Nguyen,3.75,2.92,8,PM;Backend,true
+PI 26.4,Alice Nguyen,3.75,2.89,8,PM;Backend,true
 PI 26.4,Bob Martinez,4.05,3.43,8,Backend,true
 PI 26.4,Carla Diaz,3.15,2.68,7,Geospatial,true
 PI 26.4,Devon Lee,3.35,3.35,5,Frontend;Designer,true
@@ -12,9 +12,9 @@ PI 26.4,Owen Clark,2.4,2.11,5,Geospatial,true
 PI 26.4,Priya Patel,2.25,1.76,5,PM;Data Curator,true
 PI 26.4,Rae Thompson,1.45,1.26,4,Frontend,true
 PI 26.4,Sam Okoro,2.0,1.91,5,Data Curator;ML,true
-PI 26.4,Sofia Rossi,1.8,1.33,5,PM,true
-PI 26.4,Taylor Brooks,3.4,3.1,8,Comms,true
-PI 26.4,Yuki Tanaka,1.75,1.4,2,ML,true
+PI 26.4,Sofia Rossi,1.8,1.32,5,PM,true
+PI 26.4,Taylor Brooks,3.4,3.08,8,Comms,true
+PI 26.4,Yuki Tanaka,1.75,1.36,2,ML,true
 PI 27.2,Alice Nguyen,1.9,1.28,4,PM,true
 PI 27.2,Bob Martinez,0.2,0.2,2,Backend,false
 PI 27.2,Carla Diaz,2.1,1.76,4,Geospatial,true
