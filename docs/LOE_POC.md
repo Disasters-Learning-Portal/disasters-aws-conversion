@@ -29,6 +29,7 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
 | `loe-poc/generate_sample_issues.py` | Seeded generator → `loe-poc/sample_issues.json` (issue body + a `project` block with PI/dates). |
 | `loe-poc/create_issues.py` | Opens the demo issues via `gh`; records `loe-poc/created_issues.json`. |
 | `loe-poc/setup_project.py` | Adds issues to the board + sets PI/Start/End fields. Resumable/idempotent (reuses existing board items; retries transient errors); records `loe-poc/project_items.json`. |
+| `loe-poc/setup_board_grouping.py` | Creates the **Project / Initiative / Team** SINGLE_SELECT fields on the POC board (idempotent) + sets each item's values from the sample's `project` block (touches only those 3 fields, not titles/bodies). Needed so the dashboard's Capacity Matrix groups by real board data. `--dry-run` / `--limit N`. |
 | `loe-poc/cleanup_issues.py` | Closes/deletes the demo issues (by tracking file or `poc-loe` label). |
 
 ## Data flow (the Action)
