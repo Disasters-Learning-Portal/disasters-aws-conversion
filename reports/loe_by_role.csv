@@ -1,9 +1,9 @@
 pi,role,total_fte,weighted_fte,num_people,num_allocations
-PI 26.4,PM,4.2,3.04,3,9
-PI 26.4,Frontend,5.05,4.07,2,9
-PI 26.4,Backend,6.65,5.88,3,15
+PI 26.4,PM,4.2,2.97,3,9
+PI 26.4,Frontend,4.3,3.32,2,8
+PI 26.4,Backend,7.85,6.87,3,17
 PI 26.4,Geospatial,6.6,5.33,2,13
-PI 26.4,Data Curator,5.0,4.53,3,10
+PI 26.4,Data Curator,4.8,4.26,3,10
 PI 26.4,Comms,2.35,2.14,1,8
 PI 26.4,ML,4.0,3.43,2,8
 PI 26.4,Designer,5.0,4.56,3,12
