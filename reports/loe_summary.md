@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:54:34Z_
+_Generated: 2026-07-21T19:54:35Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -8,7 +8,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Program Increments (PIs):** 2
 - **Partial-window objectives:** 15
 - **Missing / empty LOE:** 4
-- **Total allocated FTE (raw):** 66.1
+- **Total allocated FTE (raw):** 65.3
 - **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
@@ -81,46 +81,46 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#40](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40) — [Data Curator]-[Objective 31]: COG pipeline hardening — 4 ppl · 2.4 FTE
 
 ## PI 27.2 — 2026-10-18 to 2027-01-16
-- Objectives: 19 | People: 16 | Raw FTE: 24.6 | Weighted FTE: 18.49 | Partial: 6 | Missing LOE: 2
+- Objectives: 19 | People: 16 | Raw FTE: 23.8 | Weighted FTE: 18.2 | Partial: 6 | Missing LOE: 2
 
-**Over-allocated this PI:** Elena Petrova (2.65), Yuki Tanaka (2.65), Sam Okoro (2.15), Liam Walsh (2.05), Taylor Brooks (1.85), Alice Nguyen (1.8), Sofia Rossi (1.75), Morgan Reyes (1.5), Carla Diaz (1.4), Priya Patel (1.4), Jordan Kim (1.3), Rae Thompson (1.3)
+**Over-allocated this PI:** Yuki Tanaka (2.65), Sam Okoro (2.15), Elena Petrova (2.05), Liam Walsh (1.95), Taylor Brooks (1.85), Alice Nguyen (1.8), Morgan Reyes (1.5), Sofia Rossi (1.5), Carla Diaz (1.4), Jordan Kim (1.3), Rae Thompson (1.3), Priya Patel (1.2)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
 | Alice Nguyen | 1.8 | 1.24 | 3 | PM | ⚠️ yes |
-| Bob Martinez | 0.2 | 0.2 | 2 | Backend | no |
+| Bob Martinez | 0.8 | 0.41 | 3 | Backend | no |
 | Carla Diaz | 1.4 | 1.4 | 2 | Geospatial | ⚠️ yes |
 | Devon Lee | 0.9 | 0.4 | 2 | Frontend | no |
-| Elena Petrova | 2.65 | 2.05 | 7 | Designer | ⚠️ yes |
+| Elena Petrova | 2.05 | 1.84 | 6 | Designer | ⚠️ yes |
 | Jordan Kim | 1.3 | 1.08 | 3 | Designer | ⚠️ yes |
-| Liam Walsh | 2.05 | 1.36 | 5 | Data Curator | ⚠️ yes |
+| Liam Walsh | 1.95 | 1.32 | 4 | Data Curator | ⚠️ yes |
 | Morgan Reyes | 1.5 | 1.09 | 3 | Jupyterhub | ⚠️ yes |
 | Nadia Hassan | 0.95 | 0.65 | 3 | Backend | no |
-| Owen Clark | 0.75 | 0.59 | 2 | Geospatial | no |
-| Priya Patel | 1.4 | 0.83 | 3 | Data Curator | ⚠️ yes |
+| Owen Clark | 0.5 | 0.5 | 1 | Geospatial | no |
+| Priya Patel | 1.2 | 0.76 | 3 | Data Curator | ⚠️ yes |
 | Rae Thompson | 1.3 | 1.15 | 3 | Frontend | ⚠️ yes |
 | Sam Okoro | 2.15 | 1.94 | 5 | ML | ⚠️ yes |
-| Sofia Rossi | 1.75 | 0.9 | 4 | PM | ⚠️ yes |
+| Sofia Rossi | 1.5 | 0.81 | 3 | PM | ⚠️ yes |
 | Taylor Brooks | 1.85 | 1.29 | 3 | Comms | ⚠️ yes |
 | Yuki Tanaka | 2.65 | 2.32 | 7 | ML | ⚠️ yes |
 
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
-| PM | 3.55 | 2.14 | 2 | 7 |
+| PM | 3.3 | 2.05 | 2 | 6 |
 | Frontend | 2.2 | 1.55 | 2 | 5 |
-| Backend | 1.15 | 0.85 | 2 | 5 |
-| Geospatial | 2.15 | 1.99 | 2 | 4 |
-| Data Curator | 3.45 | 2.19 | 2 | 8 |
+| Backend | 1.75 | 1.06 | 2 | 6 |
+| Geospatial | 1.9 | 1.9 | 2 | 3 |
+| Data Curator | 3.15 | 2.08 | 2 | 7 |
 | Comms | 1.85 | 1.29 | 1 | 3 |
 | ML | 4.8 | 4.26 | 2 | 12 |
-| Designer | 3.95 | 3.13 | 2 | 10 |
+| Designer | 3.35 | 2.92 | 2 | 9 |
 | Jupyterhub | 1.5 | 1.09 | 1 | 3 |
 
 ### Objectives (click to open)
 - [#41](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/41) — [Jupyterhub]-[Objective 32]: S3 ingestion API v2 — 3 ppl · 0.9 FTE
 - [#42](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/42) — [Geospatial]-[Objective 33]: Disaster dashboard redesign — 3 ppl · 0.8 FTE
 - [#43](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/43) — [Backend]-[Objective 34]: Flood extent model — 1 ppl · 0.5 FTE
-- [#44](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/44) — [PM]-[Objective 35]: CSDA catalog automation — 5 ppl · 1.6 FTE
+- [#44](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/44) — [ML]-[Objective 35]: CSDA catalog automation — 2 ppl · 0.8 FTE
 - [#45](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/45) — [Comms]-[Objective 36]: Stakeholder reporting portal — 1 ppl · 0.3 FTE
 - [#46](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/46) — [Geospatial]-[Objective 37]: Notebook environment upgrade — ⚠️ no LOE table
 - [#47](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/47) — [Frontend]-[Objective 38]: Reprojection service scaling — 5 ppl · 1.45 FTE
