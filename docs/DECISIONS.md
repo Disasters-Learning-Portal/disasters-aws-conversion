@@ -2,6 +2,15 @@
 
 Short decision records. Newest first. Scope: LOE/FTE capacity-report POC + dashboard.
 
+## ADR-11: Report Action auto-opens a living PR to main (for the Netlify Deploy Preview)
+The Action now opens (once) and then updates a PR from `loe-report/<pi>` → `main` after each
+run (workflow step 11, `gh pr create`/`pr list`, `pull-requests: write`). Because the dashboard
+lives on `main` and the per-PI branch is based on it, that PR gets a Netlify **Deploy Preview**
+of the dashboard rendered with the run's data — a clickable review link that refreshes on every
+re-run (new commit → new preview). One living PR per PI; not auto-merged (merge to snapshot into
+main). Requires Netlify production branch = `main` + Deploy Previews on. Supersedes the "open a
+PR manually" note in ADR-3.
+
 ## ADR-10: Dashboard reuses the generator's per-row weighted FTE (no recompute for unedited rows)
 `loe_allocations.csv` stores `pi_fraction` rounded to 2 dp, but the generator computed each
 row's `weighted_fte` from the **full-precision** fraction. Recomputing `fte × pi_fraction` in
