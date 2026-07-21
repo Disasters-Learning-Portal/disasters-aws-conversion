@@ -6,10 +6,10 @@ name: LOE Capacity Report
 #
 # main is a PROTECTED branch, so the report is NOT pushed to main. Instead each
 # run publishes to a dedicated per-PI branch (loe-report/<pi>) where commits
-# accumulate, and opens/updates a PR from that branch to main. That PR gets a
-# Netlify Deploy Preview of the dashboard (rendered with this report's data);
-# re-running refreshes the same PR + preview. Merge the PR to snapshot into main.
-# The report is also in the run Summary and uploaded as an artifact.
+# accumulate, and opens a PR from that branch to main. That PR links to the live
+# dashboard (DASHBOARD_URL), which renders this report's data (fetched live), so a
+# per-PR Netlify preview isn't needed. Merge the PR to snapshot into main. The
+# report is also in the run Summary and uploaded as an artifact.
 #
 # Project data lives in a Projects v2 board that the default GITHUB_TOKEN cannot
 # read, so this uses a classic PAT (scopes: repo + read:org + project) stored as
@@ -39,6 +39,7 @@ permissions:
 env:
   POC_PROJECT_OWNER: kyle-lesinger
   POC_PROJECT_NUMBER: '1'
+  DASHBOARD_URL: "https://veda-fte-test.netlify.app"   # live LOE dashboard (Netlify, prod=main)
 
 jobs:
   loe-report:
@@ -135,22 +136,26 @@ jobs:
           name: loe-report-${{ steps.cfg.outputs.slug }}
           path: reports/
 
-      - name: "11 · Open the PR to main (review + Netlify Deploy Preview)"
+      - name: "11 · Open the PR to main (with live dashboard link)"
         run: |
           BR="${{ steps.cfg.outputs.branch }}"
           git fetch origin main "$BR" --quiet || true
           # Ensure a living PR exists whenever the per-PI branch has report commits
-          # ahead of main (create once; later runs' commits refresh it + its preview).
+          # ahead of main (create once; later runs' commits refresh the data live).
           if [ "$(git rev-list --count "origin/main..origin/$BR" 2>/dev/null || echo 0)" = "0" ]; then
             echo "$BR has no commits ahead of main — nothing to PR."
             exit 0
           fi
           existing="$(gh pr list --head "$BR" --base main --state open --json number --jq '.[0].number // empty')"
           if [ -n "$existing" ]; then
-            echo "PR #$existing already open for $BR — new commits refresh it and its Deploy Preview automatically."
+            echo "PR #$existing already open for $BR — its body links to the dashboard ($DASHBOARD_URL); new commits refresh the data automatically."
           else
+            # Lead with the live dashboard link (reliable); the per-PR Netlify preview is
+            # redundant (dashboard reads all-pis data live) and gets auto-canceled on rapid
+            # runs. printf keeps the markdown body free of leading indentation.
+            body="$(printf 'Automated LOE/FTE capacity report for %s (run %s).\n\n📊 **Dashboard:** %s — interactive view of the latest all-PIs report (over-allocation, per-person / per-role FTE, and in-browser what-if editing). It reads the report data live, so it always reflects the newest run.\n\nReport files are in `reports/` on this branch. Merge to snapshot this report into `main`, or leave open as a living view.' "${{ steps.cfg.outputs.label }}" "${{ github.run_id }}" "$DASHBOARD_URL")"
             gh pr create --head "$BR" --base main \
               --title "LOE report — ${{ steps.cfg.outputs.label }}" \
-              --body "Automated LOE/FTE capacity report for ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}). The Netlify Deploy Preview on this PR renders the dashboard with this report's data; re-running the report pushes a new commit here and refreshes the preview. Merge to snapshot this report into main, or leave open as a living view."
-            echo "Opened a PR from $BR to main."
+              --body "$body"
+            echo "Opened a PR from $BR to main (dashboard: $DASHBOARD_URL)."
           fi
