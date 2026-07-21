@@ -6,8 +6,10 @@ name: LOE Capacity Report
 #
 # main is a PROTECTED branch, so the report is NOT pushed to main. Instead each
 # run publishes to a dedicated per-PI branch (loe-report/<pi>) where commits
-# accumulate; open a PR from that branch to main whenever you want to keep a
-# snapshot. The report is also in the run Summary and uploaded as an artifact.
+# accumulate, and opens/updates a PR from that branch to main. That PR gets a
+# Netlify Deploy Preview of the dashboard (rendered with this report's data);
+# re-running refreshes the same PR + preview. Merge the PR to snapshot into main.
+# The report is also in the run Summary and uploaded as an artifact.
 #
 # Project data lives in a Projects v2 board that the default GITHUB_TOKEN cannot
 # read, so this uses a classic PAT (scopes: repo + read:org + project) stored as
@@ -30,8 +32,9 @@ on:
     types: [opened, edited, closed, reopened]
 
 permissions:
-  contents: write   # push report to the per-PI branch
+  contents: write        # push report to the per-PI branch
   issues: read
+  pull-requests: write   # open/update the PR to main (for review + Netlify preview)
 
 env:
   POC_PROJECT_OWNER: kyle-lesinger
@@ -101,6 +104,7 @@ jobs:
         run: cat reports/loe_summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: "9 · Commit report to the per-PI branch"
+        id: commit
         run: |
           BR="${{ steps.cfg.outputs.branch }}"
           git config user.name  "github-actions[bot]"
@@ -116,10 +120,12 @@ jobs:
           git add -f reports
           if git diff --cached --quiet; then
             echo "No report changes for $BR."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "LOE report — ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}) [skip ci]"
             git push origin "$BR"
-            echo "Report pushed to branch: $BR  (open a PR to main to keep it)"
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+            echo "Report pushed to branch: $BR"
           fi
 
       - name: "10 · Upload report as build artifact"
@@ -127,3 +133,19 @@ jobs:
         with:
           name: loe-report-${{ steps.cfg.outputs.slug }}
           path: reports/
+
+      - name: "11 · Open the PR to main (review + Netlify Deploy Preview)"
+        if: steps.commit.outputs.pushed == 'true'
+        run: |
+          BR="${{ steps.cfg.outputs.branch }}"
+          # One living PR per PI branch: create it once; later runs just push new
+          # commits, which update the PR and refresh its Netlify Deploy Preview.
+          existing="$(gh pr list --head "$BR" --base main --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            echo "PR #$existing already open for $BR — the new commit updates it and its Deploy Preview automatically."
+          else
+            gh pr create --head "$BR" --base main \
+              --title "LOE report — ${{ steps.cfg.outputs.label }}" \
+              --body "Automated LOE/FTE capacity report for ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}). The Netlify Deploy Preview on this PR renders the dashboard with this report's data; re-running the report pushes a new commit here and refreshes the preview. Merge to snapshot this report into main, or leave open as a living view."
+            echo "Opened a PR from $BR to main."
+          fi
