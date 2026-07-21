@@ -1,19 +1,19 @@
 pi,person,total_fte,weighted_fte,num_objectives,roles,over_allocated
 PI 26.4,Alice Nguyen,3.9,3.33,5,PM;Backend,true
 PI 26.4,Bob Martinez,2.9,2.62,7,Backend,true
-PI 26.4,Carla Diaz,3.35,2.58,7,Geospatial,true
+PI 26.4,Carla Diaz,3.6,2.83,8,Geospatial,true
 PI 26.4,Devon Lee,3.8,3.24,6,Frontend;Designer,true
-PI 26.4,Elena Petrova,0.6,0.36,3,Designer,false
+PI 26.4,Elena Petrova,1.6,1.36,4,Designer,true
 PI 26.4,Jordan Kim,3.8,3.6,7,Designer,true
 PI 26.4,Liam Walsh,2.3,1.83,4,Data Curator,true
 PI 26.4,Morgan Reyes,2.35,1.58,4,Jupyterhub,true
-PI 26.4,Nadia Hassan,2.55,1.95,6,Backend,true
+PI 26.4,Nadia Hassan,3.35,2.75,7,Backend,true
 PI 26.4,Owen Clark,2.3,1.8,6,Geospatial,true
-PI 26.4,Priya Patel,2.5,2.5,4,Data Curator,true
+PI 26.4,Priya Patel,2.0,2.0,3,Data Curator,true
 PI 26.4,Rae Thompson,1.65,1.23,4,Frontend,true
-PI 26.4,Sam Okoro,1.65,1.51,4,ML,true
+PI 26.4,Sam Okoro,2.15,2.01,5,Data Curator;ML,true
 PI 26.4,Sofia Rossi,2.7,1.56,5,PM,true
-PI 26.4,Taylor Brooks,2.85,2.64,9,Comms,true
+PI 26.4,Taylor Brooks,3.65,3.44,10,Comms,true
 PI 26.4,Yuki Tanaka,2.6,2.17,5,ML,true
 PI 27.2,Alice Nguyen,1.9,1.28,4,PM,true
 PI 27.2,Bob Martinez,0.2,0.2,2,Backend,false
