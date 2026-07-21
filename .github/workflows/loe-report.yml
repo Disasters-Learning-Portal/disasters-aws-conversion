@@ -109,11 +109,13 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Continue the per-PI branch if it exists (so commits accumulate), else start it from main.
+          # -f: step 7 regenerated reports/ (tracked files), dirtying the tree; the fresh report
+          # is safely stashed in $RUNNER_TEMP/out, so force the switch and re-copy it below.
           git fetch origin "$BR" || true
           if git rev-parse --verify --quiet "origin/$BR"; then
-            git checkout -B "$BR" "origin/$BR"
+            git checkout -f -B "$BR" "origin/$BR"
           else
-            git checkout -B "$BR"
+            git checkout -f -B "$BR"
           fi
           rm -rf reports && mkdir reports && cp -R "$RUNNER_TEMP/out/." reports/
           git add -f reports
