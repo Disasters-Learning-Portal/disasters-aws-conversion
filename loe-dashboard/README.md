@@ -1,11 +1,27 @@
 # LOE / FTE Capacity Dashboard
 
 An interactive dashboard for the LOE (Level of Effort) / FTE capacity reports produced by
-the `loe-report` GitHub Action. It turns the generated CSVs into charts, filterable tables,
-and an in-browser **what-if editor** so PMs can visualize over-allocation and model
-re-balances without touching GitHub.
+the `loe-report` GitHub Action. It turns the generated CSVs into a spreadsheet-style
+**capacity matrix**, charts, filterable tables, and an in-browser **what-if editor** so PMs
+can visualize over-allocation and model re-balances without touching GitHub.
 
 Static single-page app (Vite + React + TypeScript). No backend, no secrets.
+
+## Two tabs (switch bottom-left)
+
+1. **Capacity Matrix** (default, read-only) — a **people × objectives** pivot. Objective
+   columns are grouped into **collapsible Initiative groups** (click the header to fold a
+   group into a single `Σ Initiative` subtotal column); a **Project** dropdown scopes the
+   view. A person who holds more than one role gets **one row per role**: the **Per role**
+   column sums that role and the bold **Per person** column (a merged cell spanning the
+   person's role rows) sums all of them. Footer rows give **Total per objective** and **Total
+   per initiative**. Each objective header links to its GitHub ticket.
+2. **What-if Dashboard** — the original headline cards, per-person / per-role charts, and the
+   editable allocations table (below). Reset/Export live in the header on this tab only.
+
+Grouping comes from the `project` / `initiative` / `team` columns in `loe_allocations.csv`
+(read from the board by the generator). CSVs written before those columns existed group under
+**"Unspecified"** rather than breaking.
 
 ## How it gets data
 

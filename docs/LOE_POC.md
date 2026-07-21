@@ -10,6 +10,11 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
   Jupyterhub). Rows with any other role or non-numeric FTE are skipped and warned.
 - **Project board fields** hold **Program Increment** (which PI) and **Start Date / End Date**
   (the objective's own window inside the PI). These are deliberately **not** in the issue body.
+- **Grouping fields** — **Project**, **Initiative**, **Team** — are also read from the board
+  (generic `_item_field`, blank if the field is absent) and written as `project` / `initiative`
+  / `team` columns in `loe_allocations.csv`. They are per-objective and drive the dashboard's
+  Capacity Matrix (grouped by Initiative, filtered by Project). Sample data assigns them
+  deterministically by index in `loe-poc/generate_sample_issues.py`.
 - **PI window**: on the real org board (`Disasters-Learning-Portal` project **#5**) PI is an
   **iteration** field (window = `startDate` + `duration`). On the POC board it is a
   **single-select**, so the window is looked up from `PI_WINDOWS` in the parser. The parser
@@ -24,6 +29,7 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
 | `loe-poc/generate_sample_issues.py` | Seeded generator → `loe-poc/sample_issues.json` (issue body + a `project` block with PI/dates). |
 | `loe-poc/create_issues.py` | Opens the demo issues via `gh`; records `loe-poc/created_issues.json`. |
 | `loe-poc/setup_project.py` | Adds issues to the board + sets PI/Start/End fields. Resumable/idempotent (reuses existing board items; retries transient errors); records `loe-poc/project_items.json`. |
+| `loe-poc/setup_board_grouping.py` | Creates the **Project / Initiative / Team** SINGLE_SELECT fields on the POC board (idempotent) + sets each item's values from the sample's `project` block (touches only those 3 fields, not titles/bodies). Needed so the dashboard's Capacity Matrix groups by real board data. `--dry-run` / `--limit N`. |
 | `loe-poc/cleanup_issues.py` | Closes/deletes the demo issues (by tracking file or `poc-loe` label). |
 
 ## Data flow (the Action)
@@ -43,11 +49,16 @@ for both raw and weighted (weighted is rounded per-allocation so it reconciles t
 
 ## Dashboard
 `loe-dashboard/` is a static Vite+React SPA (Netlify) that visualizes these reports and adds
-browser-only **what-if** editing. It fetches the CSVs at runtime from the public
-`loe-report/all-pis` branch (snapshot fallback in `public/data/`), so new reports appear on
-reload with no redeploy. It **reuses each row's `weighted_fte` from `loe_allocations.csv`** for
-unedited rows (the CSV's `pi_fraction` is only 2-dp rounded) so it reconciles exactly with the
-generator; only edited rows recompute. Full detail + Netlify setup in `loe-dashboard/README.md`.
+browser-only **what-if** editing. Two tabs (switch bottom-left): a read-only **Capacity
+Matrix** (people × objectives, columns grouped into collapsible **Initiative** groups, a
+**Project** filter, one row per person·role with `Per role` + `Per person` totals, and
+`Total per objective` / `Total per initiative` footer rows; objective headers link to the
+ticket) and the original **What-if Dashboard** (charts + editable allocations). It fetches the
+CSVs at runtime from the public `loe-report/all-pis` branch (snapshot fallback in
+`public/data/`), so new reports appear on reload with no redeploy. It **reuses each row's
+`weighted_fte` from `loe_allocations.csv`** for unedited rows (the CSV's `pi_fraction` is only
+2-dp rounded) so it reconciles exactly with the generator; only edited rows recompute. Full
+detail + Netlify setup in `loe-dashboard/README.md`.
 
 ## Current deployment state
 - POC board: **`kyle-lesinger/projects/1`** (id `PVT_kwHOC5zXJc4Bd9S1`). Fields: **Program

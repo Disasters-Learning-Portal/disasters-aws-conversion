@@ -1,19 +1,19 @@
 pi,role,total_fte,weighted_fte,num_people,num_allocations
-PI 26.4,PM,5.6,3.89,2,9
-PI 26.4,Frontend,5.85,4.87,2,10
-PI 26.4,Backend,5.2,4.32,2,12
-PI 26.4,Geospatial,4.4,3.13,2,12
-PI 26.4,Data Curator,5.35,4.88,2,8
-PI 26.4,Comms,3.15,2.94,1,9
-PI 26.4,ML,4.1,3.53,2,9
-PI 26.4,Designer,4.0,3.56,2,9
-PI 26.4,Jupyterhub,2.35,1.58,1,4
-PI 27.2,PM,4.15,2.39,2,9
-PI 27.2,Frontend,3.0,2.35,2,6
-PI 27.2,Backend,1.15,0.85,2,5
-PI 27.2,Geospatial,3.15,2.65,2,6
-PI 27.2,Data Curator,4.15,2.53,2,8
-PI 27.2,Comms,1.35,1.15,1,2
-PI 27.2,ML,5.05,4.58,2,11
-PI 27.2,Designer,3.5,2.84,2,9
-PI 27.2,Jupyterhub,2.1,1.35,1,4
+PI 26.4,PM,3.2,2.14,3,9
+PI 26.4,Frontend,3.8,3.61,2,7
+PI 26.4,Backend,11.2,9.74,3,22
+PI 26.4,Geospatial,5.55,4.79,2,12
+PI 26.4,Data Curator,5.05,4.56,3,10
+PI 26.4,Comms,3.4,3.08,1,8
+PI 26.4,ML,3.25,2.77,2,6
+PI 26.4,Designer,4.35,4.21,3,9
+PI 26.4,Jupyterhub,1.7,1.31,1,4
+PI 27.2,PM,2.2,1.82,2,4
+PI 27.2,Frontend,2.1,2.03,2,7
+PI 27.2,Backend,6.0,5.97,3,11
+PI 27.2,Geospatial,1.9,1.9,2,4
+PI 27.2,Data Curator,4.05,3.86,3,8
+PI 27.2,Comms,2.05,1.69,1,4
+PI 27.2,ML,0.75,0.68,2,3
+PI 27.2,Designer,3.1,2.61,2,8
+PI 27.2,Jupyterhub,3.25,3.25,1,5

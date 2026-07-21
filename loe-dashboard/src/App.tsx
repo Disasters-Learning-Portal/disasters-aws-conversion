@@ -4,6 +4,8 @@ import HeadlineCards from "./components/HeadlineCards";
 import PersonView from "./components/PersonView";
 import RoleView from "./components/RoleView";
 import AllocationsTable from "./components/AllocationsTable";
+import MatrixView from "./components/MatrixView";
+import TabSwitcher, { type Tab } from "./components/TabSwitcher";
 import { computeHeadline, computePersonAggs, computeRoleAggs, validateBaseline } from "./compute";
 import { allocationsToCsv, downloadCsv, personsToCsv, rolesToCsv } from "./csv";
 import { loadDataset } from "./data";
@@ -14,6 +16,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [allocations, setAllocations] = useState<Allocation[]>([]);
   const [piFilter, setPiFilter] = useState("ALL");
+  const [activeTab, setActiveTab] = useState<Tab>("matrix"); // Capacity Matrix is the default view
 
   useEffect(() => {
     loadDataset()
@@ -86,16 +89,25 @@ export default function App() {
         edited={edited}
         onReset={reset}
         onExport={onExport}
+        showEditControls={activeTab === "dashboard"}
       />
 
-      <HeadlineCards headline={headline} context={dataset.context} />
+      {activeTab === "matrix" ? (
+        <MatrixView allocations={filtered} overKeys={overKeys} showPi={showPi} />
+      ) : (
+        <>
+          <HeadlineCards headline={headline} context={dataset.context} />
 
-      <div className="grid-2">
-        <PersonView persons={persons} showPi={showPi} />
-        <RoleView roles={roles} showPi={showPi} />
-      </div>
+          <div className="grid-2">
+            <PersonView persons={persons} showPi={showPi} />
+            <RoleView roles={roles} showPi={showPi} />
+          </div>
 
-      <AllocationsTable allocations={filtered} overKeys={overKeys} showPi={showPi} onFte={setFte} />
+          <AllocationsTable allocations={filtered} overKeys={overKeys} showPi={showPi} onFte={setFte} />
+        </>
+      )}
+
+      <TabSwitcher active={activeTab} onChange={setActiveTab} />
 
       <div className="footer">
         Data source: <span className="mono">{dataset.source === "live" ? "loe-report/all-pis branch (live)" : "bundled snapshot"}</span>

@@ -209,6 +209,11 @@ def load_project_items(path):
             "pi_title": pi_title, "pi_start": pi_start, "pi_end": pi_end,
             "obj_start": parse_date(_item_field(it, "start date")),
             "obj_end": parse_date(_item_field(it, "end date")),
+            # Board grouping fields (per-objective). Read generically; blank if the field
+            # does not exist on the board. Initiative is the matrix column-grouping key.
+            "project": _item_field(it, "project") or "",
+            "initiative": _item_field(it, "initiative") or "",
+            "team": _item_field(it, "team") or "",
         })
     return issues
 
@@ -218,14 +223,18 @@ def load_issues_json(path):
     for it in json.load(open(path, encoding="utf-8")):
         rec = {"number": it.get("number"), "title": it.get("title", ""),
                "url": it.get("url", ""), "state": it.get("state", "open"),
-               "body": it.get("body", "") or ""}
+               "body": it.get("body", "") or "",
+               "project": "", "initiative": "", "team": ""}
         proj = it.get("project")
         if proj:
             rec.update({"pi_title": proj.get("pi", UNSPECIFIED_PI),
                         "pi_start": parse_date(proj.get("pi_start")),
                         "pi_end": parse_date(proj.get("pi_end")),
                         "obj_start": parse_date(proj.get("start")),
-                        "obj_end": parse_date(proj.get("end"))})
+                        "obj_end": parse_date(proj.get("end")),
+                        "project": proj.get("project", ""),
+                        "initiative": proj.get("initiative", ""),
+                        "team": proj.get("team", "")})
         issues.append(rec)
     return issues
 
@@ -333,11 +342,14 @@ def write_csvs(rep, out_dir):
     with open(os.path.join(out_dir, "loe_allocations.csv"), "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["pi", "pi_window", "issue_number", "issue_title", "issue_url",
+                    "project", "initiative", "team",
                     "person", "role", "fte", "obj_start", "obj_end", "pi_fraction", "weighted_fte"])
         for pi_id, b in rep["pis"]:
             for a in sorted(b["allocations"], key=lambda a: (a["issue"]["number"] or 0, a["person"])):
-                w.writerow([pi_id, b["window"], a["issue"]["number"], a["issue"]["title"],
-                            a["issue"]["url"], a["person"], a["role"], r2(a["fte"]),
+                iss = a["issue"]
+                w.writerow([pi_id, b["window"], iss["number"], iss["title"], iss["url"],
+                            iss.get("project", ""), iss.get("initiative", ""), iss.get("team", ""),
+                            a["person"], a["role"], r2(a["fte"]),
                             d2s(a["obj_start"]), d2s(a["obj_end"]), r2(a["fraction"]), r2(a["wfte"])])
 
     with open(os.path.join(out_dir, "loe_by_person.csv"), "w", newline="", encoding="utf-8") as fh:

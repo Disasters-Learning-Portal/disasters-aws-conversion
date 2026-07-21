@@ -2,9 +2,9 @@
   {
     "number": 1,
     "title": "[Comms]-[Objective 1]: COG pipeline hardening",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/1",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **COG pipeline hardening** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cog pipeline hardening.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.25 | — |\n| Liam Walsh | Data Curator | 0.8 | — |\n| Sam Okoro | ML | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **COG pipeline hardening** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cog pipeline hardening.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.25 | — |\n| Liam Walsh | Data Curator | 0.8 | — |\n| Sam Okoro | ML | 0.25 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -14,15 +14,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Disasters",
+      "project": "Disasters",
+      "team": "Front-end"
     }
   },
   {
     "number": 2,
-    "title": "[Backend]-[Objective 2]: S3 ingestion API v2",
-    "url": "",
+    "title": "[Designer]-[Objective 2]: S3 ingestion API v2",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/2",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **S3 ingestion API v2** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for s3 ingestion api v2.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.1 | — |\n| Sam Okoro | ML | 0.3 | — |\n| Owen Clark | Geospatial | 0.1 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **S3 ingestion API v2** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for s3 ingestion api v2.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.3 | — |\n| Sam Okoro | ML | 0.5 | — |\n| Owen Clark | Geospatial | 0.6 | — |\n| Jordan Kim | Designer | 0.4 | — |\n| Alice Nguyen | Backend | 1.0 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -32,33 +35,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "AIR4US",
+      "project": "HLS",
+      "team": "Back-end"
     }
   },
   {
     "number": 3,
     "title": "[Comms]-[Objective 3]: Disaster dashboard redesign",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/3",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Disaster dashboard redesign** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for disaster dashboard redesign.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Devon Lee | Frontend | 1.0 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 4,
-    "title": "[Comms]-[Objective 4]: Flood extent model",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Flood extent model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for flood extent model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.8 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Bob Martinez | Backend | 0.4 | — |\n| Nadia Hassan | Backend | 1.0 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Disaster dashboard redesign** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for disaster dashboard redesign.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.8 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Bob Martinez | Backend | 0.4 | — |\n| Nadia Hassan | Backend | 1.0 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -68,15 +56,39 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-08-12",
-      "end": "2026-09-30"
+      "end": "2026-09-30",
+      "initiative": "Water Insights",
+      "project": "MAAP",
+      "team": "Geospatial"
+    }
+  },
+  {
+    "number": 4,
+    "title": "[ML]-[Objective 4]: Flood extent model",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/4",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Flood extent model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for flood extent model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Yuki Tanaka | ML | 0.75 | — |\n| Nadia Hassan | Backend | 0.2 | — |\n| Bob Martinez | Backend | 0.1 | — |\n| Priya Patel | Data Curator | 0.25 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "Plugins",
+      "project": "CSDA",
+      "team": "Data Services"
     }
   },
   {
     "number": 5,
-    "title": "[ML]-[Objective 5]: CSDA catalog automation",
-    "url": "",
+    "title": "[Backend]-[Objective 5]: CSDA catalog automation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/5",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **CSDA catalog automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for csda catalog automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Yuki Tanaka | ML | 0.75 | — |\n| Nadia Hassan | Backend | 0.2 | — |\n| Bob Martinez | Backend | 0.1 | — |\n| Priya Patel | Data Curator | 0.2 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **CSDA catalog automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for csda catalog automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.75 | — |\n| Devon Lee | Frontend | 0.8 | — |\n| Taylor Brooks | Comms | 0.1 | — |\n| Liam Walsh | Data Curator | 0.2 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -86,15 +98,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "CMS",
+      "project": "AQ Portal",
+      "team": "Plugins"
     }
   },
   {
     "number": 6,
-    "title": "[Backend]-[Objective 6]: Stakeholder reporting portal",
-    "url": "",
+    "title": "[Jupyterhub]-[Objective 6]: Stakeholder reporting portal",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/6",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Stakeholder reporting portal** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stakeholder reporting portal.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.75 | — |\n| Devon Lee | Frontend | 0.8 | — |\n| Taylor Brooks | Comms | 0.4 | — |\n| Liam Walsh | Data Curator | 0.8 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Stakeholder reporting portal** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stakeholder reporting portal.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Nadia Hassan | Backend | 0.25 | — |\n| Carla Diaz | Geospatial | 0.75 | — |\n| Devon Lee | Designer | 0.4 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -104,15 +119,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "EIE",
+      "project": "Disasters",
+      "team": "ODD"
     }
   },
   {
     "number": 7,
-    "title": "[PM]-[Objective 7]: Notebook environment upgrade",
-    "url": "",
+    "title": "[Jupyterhub]-[Objective 7]: Notebook environment upgrade",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/7",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Notebook environment upgrade** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for notebook environment upgrade.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Notebook environment upgrade** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for notebook environment upgrade.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Nadia Hassan | Backend | 0.8 | — |\n| Elena Petrova | Designer | 1.0 | — |\n| Sam Okoro | Data Curator | 0.5 | — |\n| Carla Diaz | Geospatial | 0.25 | — |\n| Taylor Brooks | Comms | 0.8 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -122,13 +140,16 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "TiTiler-CMR",
+      "project": "HLS",
+      "team": "EIE"
     }
   },
   {
     "number": 8,
-    "title": "[Frontend]-[Objective 8]: Reprojection service scaling",
-    "url": "",
+    "title": "[Jupyterhub]-[Objective 8]: Reprojection service scaling",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/8",
     "state": "open",
     "body": "## Context\n\n### Motivation\nDeliver **Reprojection service scaling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for reprojection service scaling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n|  |  |  |  |",
     "labels": [
@@ -140,15 +161,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Science Support",
+      "project": "MAAP",
+      "team": "Front-end"
     }
   },
   {
     "number": 9,
-    "title": "[Data Curator]-[Objective 9]: Auth & access control",
-    "url": "",
+    "title": "[PM]-[Objective 9]: Auth & access control",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/9",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Auth & access control** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for auth & access control.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | PM | 0.8 | — |\n| Yuki Tanaka | ML | 0.25 | — |\n| Taylor Brooks | Comms | 0.8 | — |\n| Carla Diaz | Geospatial | 0.2 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Auth & access control** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for auth & access control.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | Backend | 0.1 | — |\n| Sofia Rossi | PM | 0.3 | — |\n| Owen Clark | Geospatial | 1.0 | — |\n| Jordan Kim | Designer | 0.2 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -158,15 +182,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Cloud-Optimized R+D",
+      "project": "CSDA",
+      "team": "Back-end"
     }
   },
   {
     "number": 10,
-    "title": "[Data Curator]-[Objective 10]: Data QA automation",
-    "url": "",
+    "title": "[Frontend]-[Objective 10]: Data QA automation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/10",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Data QA automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for data qa automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Devon Lee | Frontend | 0.8 | — |\n| Bob Martinez | Backend | 0.8 | — |\n| Owen Clark | Geospatial | 0.1 | — |\n| Jordan Kim | Designer | 1.0 | — |\n| Taylor Brooks | Comms | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Data QA automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for data qa automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.25 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -176,33 +203,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Disasters",
+      "project": "AQ Portal",
+      "team": "Geospatial"
     }
   },
   {
     "number": 11,
     "title": "[Designer]-[Objective 11]: Tile server migration",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/11",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Tile server migration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for tile server migration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 1.0 | — |\n| Nadia Hassan | Backend | 0.2 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-08-04",
-      "end": "2026-09-16"
-    }
-  },
-  {
-    "number": 12,
-    "title": "[Frontend]-[Objective 12]: Metadata schema v3",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Metadata schema v3** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for metadata schema v3.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.25 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Tile server migration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for tile server migration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 0.6 | — |\n| Morgan Reyes | Jupyterhub | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -212,69 +224,39 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "AIR4US",
+      "project": "Disasters",
+      "team": "Data Services"
+    }
+  },
+  {
+    "number": 12,
+    "title": "[Jupyterhub]-[Objective 12]: Metadata schema v3",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/12",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Metadata schema v3** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for metadata schema v3.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Liam Walsh | Data Curator | 0.5 | — |\n| Devon Lee | Frontend | 0.8 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "Water Insights",
+      "project": "HLS",
+      "team": "Plugins"
     }
   },
   {
     "number": 13,
     "title": "[Designer]-[Objective 13]: Alerting pipeline",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/13",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Alerting pipeline** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for alerting pipeline.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 1.0 | — |\n| Morgan Reyes | Jupyterhub | 0.6 | — |\n| Chris DevOps | DevOps | 0.3 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 14,
-    "title": "[Jupyterhub]-[Objective 14]: Cloud cost monitoring",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Cloud cost monitoring** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cloud cost monitoring.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Liam Walsh | Data Curator | 0.5 | — |\n| Devon Lee | Frontend | 0.75 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 15,
-    "title": "[Jupyterhub]-[Objective 15]: Wildfire severity model",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Wildfire severity model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for wildfire severity model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.5 | — |\n| Sofia Rossi | PM | 0.1 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 16,
-    "title": "[Jupyterhub]-[Objective 16]: Public API documentation",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Public API documentation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for public api documentation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Alerting pipeline** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for alerting pipeline.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | Backend | 0.3 | — |\n| Liam Walsh | Data Curator | 0.1 | — |\n| Priya Patel | PM | 0.1 | — |\n| Chris DevOps | DevOps | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -284,15 +266,81 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-26",
-      "end": "2026-08-19"
+      "end": "2026-08-23",
+      "initiative": "Plugins",
+      "project": "MAAP",
+      "team": "ODD"
+    }
+  },
+  {
+    "number": 14,
+    "title": "[Frontend]-[Objective 14]: Cloud cost monitoring",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/14",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Cloud cost monitoring** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cloud cost monitoring.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.4 | — |\n| Priya Patel | Data Curator | 0.3 | — |\n| Nadia Hassan | Backend | 0.8 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "CMS",
+      "project": "CSDA",
+      "team": "EIE"
+    }
+  },
+  {
+    "number": 15,
+    "title": "[Backend]-[Objective 15]: Wildfire severity model",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/15",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Wildfire severity model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for wildfire severity model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Morgan Reyes | Jupyterhub | 0.3 | — |\n| Nadia Hassan | Backend | 0.2 | — |\n| Jordan Kim | Designer | 0.2 | — |\n| Rae Thompson | Frontend | 0.6 | — |\n| Devon Lee | Designer | 0.6 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "EIE",
+      "project": "AQ Portal",
+      "team": "Front-end"
+    }
+  },
+  {
+    "number": 16,
+    "title": "[Designer]-[Objective 16]: Public API documentation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/16",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Public API documentation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for public api documentation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Nadia Hassan | Backend | 0.1 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "TiTiler-CMR",
+      "project": "Disasters",
+      "team": "Back-end"
     }
   },
   {
     "number": 17,
-    "title": "[Frontend]-[Objective 17]: Onboarding revamp",
-    "url": "",
+    "title": "[ML]-[Objective 17]: Onboarding revamp",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/17",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Onboarding revamp** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for onboarding revamp.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Bob Martinez | Backend | 0.4 | — |\n| Priya Patel | Data Curator | 0.75 | — |\n| Nadia Hassan | Backend | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Onboarding revamp** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for onboarding revamp.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -302,33 +350,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Science Support",
+      "project": "HLS",
+      "team": "Geospatial"
     }
   },
   {
     "number": 18,
-    "title": "[Jupyterhub]-[Objective 18]: STAC catalog buildout",
-    "url": "",
+    "title": "[Geospatial]-[Objective 18]: STAC catalog buildout",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/18",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **STAC catalog buildout** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stac catalog buildout.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.6 | — |\n| Jordan Kim | Designer | 0.3 | — |\n| Morgan Reyes | Jupyterhub | 0.2 | — |\n| Taylor Brooks | Comms | 0.2 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-08-17",
-      "end": "2026-10-16"
-    }
-  },
-  {
-    "number": 19,
-    "title": "[ML]-[Objective 19]: Imagery mosaicking",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Imagery mosaicking** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for imagery mosaicking.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.2 | — |\n| Elena Petrova | Designer | 0.1 | — |\n| Yuki Tanaka | ML | 0.6 | — |\n| Alice Nguyen | PM | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **STAC catalog buildout** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stac catalog buildout.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Elena Petrova | Designer | 0.4 | — |\n| Bob Martinez | Backend | 0.75 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -338,15 +371,39 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Cloud-Optimized R+D",
+      "project": "MAAP",
+      "team": "Data Services"
+    }
+  },
+  {
+    "number": 19,
+    "title": "[Geospatial]-[Objective 19]: Imagery mosaicking",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/19",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Imagery mosaicking** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for imagery mosaicking.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.8 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "Disasters",
+      "project": "CSDA",
+      "team": "Plugins"
     }
   },
   {
     "number": 20,
     "title": "[Frontend]-[Objective 20]: Latency profiling",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/20",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Latency profiling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for latency profiling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.75 | — |\n| Devon Lee | Frontend | 0.3 | — |\n| Bob Martinez | Backend | 0.2 | — |\n| Morgan Reyes | Jupyterhub | 0.75 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Latency profiling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for latency profiling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.25 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -355,14 +412,17 @@
       "pi": "PI 26.4",
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
-      "start": "2026-07-24",
-      "end": "2026-09-20"
+      "start": "2026-08-15",
+      "end": "2026-09-08",
+      "initiative": "AIR4US",
+      "project": "AQ Portal",
+      "team": "ODD"
     }
   },
   {
     "number": 21,
-    "title": "[Jupyterhub]-[Objective 21]: Nodata standardization",
-    "url": "",
+    "title": "[ML]-[Objective 21]: Nodata standardization",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/21",
     "state": "open",
     "body": "## Context\n\n### Motivation\nDeliver **Nodata standardization** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for nodata standardization.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n|  |  |  |  |",
     "labels": [
@@ -374,15 +434,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Water Insights",
+      "project": "Disasters",
+      "team": "EIE"
     }
   },
   {
     "number": 22,
-    "title": "[Frontend]-[Objective 22]: Hurricane track ingestion",
-    "url": "",
+    "title": "[Designer]-[Objective 22]: Hurricane track ingestion",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/22",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Hurricane track ingestion** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for hurricane track ingestion.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.25 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Hurricane track ingestion** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for hurricane track ingestion.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 0.6 | — |\n| Bob Martinez | Backend | 0.4 | — |\n| Devon Lee | Frontend | 0.75 | — |\n| Alice Nguyen | Backend | 0.8 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -391,16 +454,19 @@
       "pi": "PI 26.4",
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
-      "start": "2026-08-15",
-      "end": "2026-09-08"
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "Plugins",
+      "project": "HLS",
+      "team": "Front-end"
     }
   },
   {
     "number": 23,
-    "title": "[ML]-[Objective 23]: Access log analytics",
-    "url": "",
+    "title": "[Designer]-[Objective 23]: Access log analytics",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/23",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Access log analytics** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for access log analytics.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Jordan Kim | Designer | 0.1 | — |\n| Taylor Brooks | Comms | 0.25 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Access log analytics** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for access log analytics.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 0.5 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -409,16 +475,19 @@
       "pi": "PI 26.4",
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
+      "start": "2026-07-30",
+      "end": "2026-09-05",
+      "initiative": "CMS",
+      "project": "MAAP",
+      "team": "Back-end"
     }
   },
   {
     "number": 24,
-    "title": "[ML]-[Objective 24]: Model retraining harness",
-    "url": "",
+    "title": "[PM]-[Objective 24]: Model retraining harness",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/24",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Model retraining harness** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for model retraining harness.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Liam Walsh | Data Curator | 0.8 | — |\n| Devon Lee | Frontend | 0.75 | — |\n| Yuki Tanaka | ML | 0.25 | — |\n| Elena Petrova | Designer | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Model retraining harness** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for model retraining harness.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Owen Clark | Geospatial | 0.2 | — |\n| Alice Nguyen | PM | 0.3 | — |\n| Priya Patel | Data Curator | 1.0 | — |\n| Sofia Rossi | PM | 0.3 | — |\n| Bob Martinez | Backend | 1.0 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -427,34 +496,19 @@
       "pi": "PI 26.4",
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
-      "start": "2026-08-05",
-      "end": "2026-09-14"
+      "start": "2026-08-11",
+      "end": "2026-10-06",
+      "initiative": "EIE",
+      "project": "CSDA",
+      "team": "Geospatial"
     }
   },
   {
     "number": 25,
-    "title": "[Data Curator]-[Objective 25]: Colormap library",
-    "url": "",
+    "title": "[PM]-[Objective 25]: Colormap library",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/25",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Colormap library** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for colormap library.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 1.0 | — |\n| Yuki Tanaka | ML | 0.75 | — |\n| Owen Clark | Geospatial | 0.8 | — |\n| Alice Nguyen | PM | 0.8 | — |\n| Jordan Kim | Designer | 0.25 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-15",
-      "end": "2026-09-14"
-    }
-  },
-  {
-    "number": 26,
-    "title": "[PM]-[Objective 26]: Region-of-interest tooling",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Region-of-interest tooling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for region-of-interest tooling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Owen Clark | Geospatial | 0.2 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Colormap library** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for colormap library.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.5 | — |\n| Taylor Brooks | Comms | 0.3 | — |\n| Carla Diaz | Geospatial | 0.4 | — |\n| Nadia Hassan | Backend | 0.6 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -464,69 +518,39 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-12",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "TiTiler-CMR",
+      "project": "AQ Portal",
+      "team": "Data Services"
+    }
+  },
+  {
+    "number": 26,
+    "title": "[Backend]-[Objective 26]: Region-of-interest tooling",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/26",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Region-of-interest tooling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for region-of-interest tooling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.2 | — |\n| Owen Clark | Geospatial | 0.1 | — |\n| Jordan Kim | Designer | 0.75 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "Science Support",
+      "project": "Disasters",
+      "team": "Plugins"
     }
   },
   {
     "number": 27,
     "title": "[Frontend]-[Objective 27]: Backfill orchestration",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/27",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Backfill orchestration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for backfill orchestration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Jordan Kim | Designer | 1.0 | — |\n| Sofia Rossi | PM | 0.3 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 28,
-    "title": "[PM]-[Objective 28]: Vector tile support",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Vector tile support** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for vector tile support.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.5 | — |\n| Taylor Brooks | Comms | 0.3 | — |\n| Carla Diaz | Geospatial | 0.4 | — |\n| Nadia Hassan | Backend | 0.6 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 29,
-    "title": "[Backend]-[Objective 29]: Search relevance tuning",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Search relevance tuning** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for search relevance tuning.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.2 | — |\n| Owen Clark | Geospatial | 0.1 | — |\n| Jordan Kim | Designer | 0.75 | — |\n| Jamie Ops | Backend | TBD | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 26.4",
-      "pi_start": "2026-07-12",
-      "pi_end": "2026-10-17",
-      "start": "2026-07-12",
-      "end": "2026-10-17"
-    }
-  },
-  {
-    "number": 30,
-    "title": "[Frontend]-[Objective 30]: Incident runbook automation",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Incident runbook automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for incident runbook automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.2 | — |\n| Taylor Brooks | Comms | 0.3 | — |\n| Owen Clark | Geospatial | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Backfill orchestration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for backfill orchestration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.2 | — |\n| Taylor Brooks | Comms | 0.3 | — |\n| Owen Clark | Geospatial | 0.5 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -536,15 +560,18 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-07-25",
-      "end": "2026-09-19"
+      "end": "2026-09-19",
+      "initiative": "Cloud-Optimized R+D",
+      "project": "HLS",
+      "team": "ODD"
     }
   },
   {
-    "number": 31,
-    "title": "[Data Curator]-[Objective 31]: COG pipeline hardening",
-    "url": "",
+    "number": 28,
+    "title": "[Data Curator]-[Objective 28]: Vector tile support",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/28",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **COG pipeline hardening** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cog pipeline hardening.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | PM | 0.8 | — |\n| Sam Okoro | ML | 0.4 | — |\n| Elena Petrova | Designer | 0.2 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Vector tile support** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for vector tile support.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | PM | 0.2 | — |\n| Sam Okoro | ML | 0.25 | — |\n| Elena Petrova | Designer | 0.4 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -554,15 +581,81 @@
       "pi_start": "2026-07-12",
       "pi_end": "2026-10-17",
       "start": "2026-08-15",
-      "end": "2026-10-17"
+      "end": "2026-10-17",
+      "initiative": "Disasters",
+      "project": "MAAP",
+      "team": "EIE"
+    }
+  },
+  {
+    "number": 29,
+    "title": "[Frontend]-[Objective 29]: Search relevance tuning",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/29",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Search relevance tuning** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for search relevance tuning.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.5 | — |\n| Morgan Reyes | Jupyterhub | 0.3 | — |\n| Taylor Brooks | Comms | 0.4 | — |\n| Liam Walsh | Data Curator | 0.8 | — |\n| Nadia Hassan | Backend | 0.75 | — |\n| Pat Analyst | Analyst | 0.2 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-07-12",
+      "end": "2026-10-17",
+      "initiative": "AIR4US",
+      "project": "CSDA",
+      "team": "Front-end"
+    }
+  },
+  {
+    "number": 30,
+    "title": "[PM]-[Objective 30]: Incident runbook automation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/30",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Incident runbook automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for incident runbook automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | Backend | 0.25 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-08-08",
+      "end": "2026-09-18",
+      "initiative": "Water Insights",
+      "project": "AQ Portal",
+      "team": "Back-end"
+    }
+  },
+  {
+    "number": 31,
+    "title": "[Data Curator]-[Objective 31]: COG pipeline hardening",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/31",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **COG pipeline hardening** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cog pipeline hardening.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Alice Nguyen | PM | 0.8 | — |\n| Sofia Rossi | PM | 0.1 | — |\n| Taylor Brooks | Comms | 0.5 | — |\n| Yuki Tanaka | ML | 1.0 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 26.4",
+      "pi_start": "2026-07-12",
+      "pi_end": "2026-10-17",
+      "start": "2026-08-09",
+      "end": "2026-10-07",
+      "initiative": "Plugins",
+      "project": "Disasters",
+      "team": "Geospatial"
     }
   },
   {
     "number": 32,
-    "title": "[Backend]-[Objective 32]: S3 ingestion API v2",
-    "url": "",
+    "title": "[Jupyterhub]-[Objective 32]: S3 ingestion API v2",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/32",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **S3 ingestion API v2** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for s3 ingestion api v2.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 1.0 | — |\n| Carla Diaz | Geospatial | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **S3 ingestion API v2** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for s3 ingestion api v2.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Yuki Tanaka | ML | 0.1 | — |\n| Taylor Brooks | Comms | 0.5 | — |\n| Jordan Kim | Designer | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -571,16 +664,19 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-10-24",
-      "end": "2026-12-20"
+      "start": "2026-10-26",
+      "end": "2026-11-19",
+      "initiative": "CMS",
+      "project": "HLS",
+      "team": "Data Services"
     }
   },
   {
     "number": 33,
-    "title": "[Comms]-[Objective 33]: Disaster dashboard redesign",
-    "url": "",
+    "title": "[Geospatial]-[Objective 33]: Disaster dashboard redesign",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/33",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Disaster dashboard redesign** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for disaster dashboard redesign.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Morgan Reyes | Jupyterhub | 0.6 | — |\n| Carla Diaz | Geospatial | 0.4 | — |\n| Elena Petrova | Designer | 0.1 | — |\n| Alice Nguyen | PM | 0.1 | — |\n| Sofia Rossi | PM | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Disaster dashboard redesign** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for disaster dashboard redesign.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Elena Petrova | Designer | 0.25 | — |\n| Liam Walsh | Data Curator | 0.3 | — |\n| Yuki Tanaka | ML | 0.25 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -589,16 +685,19 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-11-27",
-      "end": "2027-01-04"
+      "start": "2026-10-18",
+      "end": "2027-01-16",
+      "initiative": "EIE",
+      "project": "MAAP",
+      "team": "Plugins"
     }
   },
   {
     "number": 34,
     "title": "[Backend]-[Objective 34]: Flood extent model",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/34",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Flood extent model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for flood extent model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Owen Clark | Geospatial | 0.8 | — |\n| Yuki Tanaka | ML | 0.6 | — |\n| Rae Thompson | Frontend | 0.8 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Flood extent model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for flood extent model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Owen Clark | Geospatial | 0.5 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -608,33 +707,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "TiTiler-CMR",
+      "project": "CSDA",
+      "team": "ODD"
     }
   },
   {
     "number": 35,
-    "title": "[PM]-[Objective 35]: CSDA catalog automation",
-    "url": "",
+    "title": "[ML]-[Objective 35]: CSDA catalog automation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/35",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **CSDA catalog automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for csda catalog automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sofia Rossi | PM | 0.25 | — |\n| Elena Petrova | Designer | 0.6 | — |\n| Owen Clark | Geospatial | 0.25 | — |\n| Liam Walsh | Data Curator | 0.1 | — |\n| Priya Patel | Data Curator | 0.4 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 27.2",
-      "pi_start": "2026-10-18",
-      "pi_end": "2027-01-16",
-      "start": "2026-12-01",
-      "end": "2027-01-01"
-    }
-  },
-  {
-    "number": 36,
-    "title": "[Comms]-[Objective 36]: Stakeholder reporting portal",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Stakeholder reporting portal** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stakeholder reporting portal.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Yuki Tanaka | ML | 0.3 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **CSDA catalog automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for csda catalog automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 0.2 | — |\n| Bob Martinez | Backend | 0.6 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -644,13 +728,37 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Science Support",
+      "project": "AQ Portal",
+      "team": "EIE"
+    }
+  },
+  {
+    "number": 36,
+    "title": "[PM]-[Objective 36]: Stakeholder reporting portal",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/36",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Stakeholder reporting portal** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stakeholder reporting portal.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Devon Lee | Frontend | 0.5 | — |\n| Elena Petrova | Designer | 0.4 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 27.2",
+      "pi_start": "2026-10-18",
+      "pi_end": "2027-01-16",
+      "start": "2026-10-18",
+      "end": "2027-01-16",
+      "initiative": "Cloud-Optimized R+D",
+      "project": "Disasters",
+      "team": "Front-end"
     }
   },
   {
     "number": 37,
     "title": "[Geospatial]-[Objective 37]: Notebook environment upgrade",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/37",
     "state": "open",
     "body": "## Context\n\n### Motivation\nDeliver **Notebook environment upgrade** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for notebook environment upgrade.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n|  |  |  |  |",
     "labels": [
@@ -662,15 +770,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Disasters",
+      "project": "HLS",
+      "team": "Back-end"
     }
   },
   {
     "number": 38,
-    "title": "[Frontend]-[Objective 38]: Reprojection service scaling",
-    "url": "",
+    "title": "[Geospatial]-[Objective 38]: Reprojection service scaling",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/38",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Reprojection service scaling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for reprojection service scaling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Elena Petrova | Designer | 0.25 | — |\n| Liam Walsh | Data Curator | 0.25 | — |\n| Yuki Tanaka | ML | 0.6 | — |\n| Bob Martinez | Backend | 0.1 | — |\n| Nadia Hassan | Backend | 0.25 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Reprojection service scaling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for reprojection service scaling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 0.4 | — |\n| Elena Petrova | Designer | 0.5 | — |\n| Sofia Rossi | PM | 0.8 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -679,16 +790,19 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-10-18",
-      "end": "2027-01-16"
+      "start": "2026-10-30",
+      "end": "2026-12-16",
+      "initiative": "AIR4US",
+      "project": "MAAP",
+      "team": "Geospatial"
     }
   },
   {
     "number": 39,
-    "title": "[Comms]-[Objective 39]: Auth & access control",
-    "url": "",
+    "title": "[ML]-[Objective 39]: Auth & access control",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/39",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Auth & access control** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for auth & access control.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.2 | — |\n| Carla Diaz | Geospatial | 0.6 | — |\n| Bob Martinez | Backend | 0.1 | — |\n| Jordan Kim | Designer | 0.75 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Auth & access control** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for auth & access control.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.4 | — |\n| Alice Nguyen | Backend | 1.0 | — |\n| Sofia Rossi | PM | 0.6 | — |\n| Carla Diaz | Geospatial | 0.5 | — |\n| Bob Martinez | Backend | 0.5 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -698,15 +812,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Water Insights",
+      "project": "CSDA",
+      "team": "Data Services"
     }
   },
   {
     "number": 40,
-    "title": "[Geospatial]-[Objective 40]: Data QA automation",
-    "url": "",
+    "title": "[ML]-[Objective 40]: Data QA automation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Data QA automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for data qa automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.3 | — |\n| Nadia Hassan | Backend | 0.6 | — |\n| Alice Nguyen | PM | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Data QA automation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for data qa automation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Nadia Hassan | Backend | 0.1 | — |\n| Devon Lee | Frontend | 0.1 | — |\n| Liam Walsh | Data Curator | 0.8 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Carla Diaz | Geospatial | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -715,16 +832,19 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-11-16",
-      "end": "2026-12-30"
+      "start": "2026-10-18",
+      "end": "2027-01-16",
+      "initiative": "Plugins",
+      "project": "AQ Portal",
+      "team": "Plugins"
     }
   },
   {
     "number": 41,
-    "title": "[Data Curator]-[Objective 41]: Tile server migration",
-    "url": "",
+    "title": "[Comms]-[Objective 41]: Tile server migration",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/41",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Tile server migration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for tile server migration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Yuki Tanaka | ML | 0.6 | — |\n| Sam Okoro | ML | 0.8 | — |\n| Priya Patel | Data Curator | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Tile server migration** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for tile server migration.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | Data Curator | 0.4 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Elena Petrova | Designer | 0.4 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -734,15 +854,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "CMS",
+      "project": "Disasters",
+      "team": "ODD"
     }
   },
   {
     "number": 42,
-    "title": "[PM]-[Objective 42]: Metadata schema v3",
-    "url": "",
+    "title": "[ML]-[Objective 42]: Metadata schema v3",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/42",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Metadata schema v3** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for metadata schema v3.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Priya Patel | Data Curator | 0.5 | — |\n| Alice Nguyen | PM | 0.5 | — |\n| Sofia Rossi | PM | 0.6 | — |\n| Liam Walsh | Data Curator | 1.0 | — |\n| Devon Lee | Frontend | 0.8 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Metadata schema v3** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for metadata schema v3.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Carla Diaz | Geospatial | 0.6 | — |\n| Nadia Hassan | Backend | 0.25 | — |\n| Devon Lee | Frontend | 0.4 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -751,16 +874,19 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-11-03",
-      "end": "2026-12-06"
+      "start": "2026-10-18",
+      "end": "2027-01-16",
+      "initiative": "EIE",
+      "project": "HLS",
+      "team": "EIE"
     }
   },
   {
     "number": 43,
-    "title": "[Frontend]-[Objective 43]: Alerting pipeline",
-    "url": "",
+    "title": "[ML]-[Objective 43]: Alerting pipeline",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/43",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Alerting pipeline** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for alerting pipeline.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Devon Lee | Frontend | 0.1 | — |\n| Carla Diaz | Geospatial | 0.8 | — |\n| Alice Nguyen | PM | 0.8 | — |\n| Yuki Tanaka | ML | 0.3 | — |\n| Morgan Reyes | Jupyterhub | 0.5 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Alerting pipeline** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for alerting pipeline.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Liam Walsh | Data Curator | 0.4 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -770,33 +896,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "TiTiler-CMR",
+      "project": "MAAP",
+      "team": "Front-end"
     }
   },
   {
     "number": 44,
-    "title": "[ML]-[Objective 44]: Cloud cost monitoring",
-    "url": "",
+    "title": "[Geospatial]-[Objective 44]: Cloud cost monitoring",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/44",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Cloud cost monitoring** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cloud cost monitoring.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.4 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Elena Petrova | Designer | 0.4 | — |\n| Sofia Rossi | PM | 0.6 | — |\n| Yuki Tanaka | ML | 0.5 | — |\n| Pat Analyst | Analyst | 0.2 | — |",
-    "labels": [
-      "Objective",
-      "poc-loe"
-    ],
-    "project": {
-      "pi": "PI 27.2",
-      "pi_start": "2026-10-18",
-      "pi_end": "2027-01-16",
-      "start": "2026-11-29",
-      "end": "2027-01-11"
-    }
-  },
-  {
-    "number": 45,
-    "title": "[Data Curator]-[Objective 45]: Wildfire severity model",
-    "url": "",
-    "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Wildfire severity model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for wildfire severity model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Elena Petrova | Designer | 0.6 | — |\n| Sam Okoro | ML | 0.25 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Cloud cost monitoring** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for cloud cost monitoring.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | Data Curator | 0.75 | — |\n| Rae Thompson | Frontend | 0.25 | — |\n| Taylor Brooks | Comms | 0.2 | — |\n| Elena Petrova | Designer | 0.4 | — |\n| Morgan Reyes | Jupyterhub | 0.8 | — |\n| Jamie Ops | Backend | TBD | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -806,13 +917,37 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Science Support",
+      "project": "CSDA",
+      "team": "Back-end"
+    }
+  },
+  {
+    "number": 45,
+    "title": "[Comms]-[Objective 45]: Wildfire severity model",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/45",
+    "state": "open",
+    "body": "## Context\n\n### Motivation\nDeliver **Wildfire severity model** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for wildfire severity model.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Rae Thompson | Frontend | 0.25 | — |\n| Jordan Kim | Designer | 0.1 | — |\n| Nadia Hassan | Backend | 0.1 | — |",
+    "labels": [
+      "Objective",
+      "poc-loe"
+    ],
+    "project": {
+      "pi": "PI 27.2",
+      "pi_start": "2026-10-18",
+      "pi_end": "2027-01-16",
+      "start": "2026-11-02",
+      "end": "2027-01-06",
+      "initiative": "Cloud-Optimized R+D",
+      "project": "AQ Portal",
+      "team": "Geospatial"
     }
   },
   {
     "number": 46,
-    "title": "[Data Curator]-[Objective 46]: Public API documentation",
-    "url": "",
+    "title": "[Geospatial]-[Objective 46]: Public API documentation",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/46",
     "state": "open",
     "body": "## Context\n\n### Motivation\nDeliver **Public API documentation** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for public api documentation.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n|  |  |  |  |",
     "labels": [
@@ -824,15 +959,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Disasters",
+      "project": "Disasters",
+      "team": "Data Services"
     }
   },
   {
     "number": 47,
-    "title": "[ML]-[Objective 47]: Onboarding revamp",
-    "url": "",
+    "title": "[Designer]-[Objective 47]: Onboarding revamp",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/47",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Onboarding revamp** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for onboarding revamp.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Liam Walsh | Data Curator | 0.4 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Onboarding revamp** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for onboarding revamp.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.6 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -842,15 +980,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "AIR4US",
+      "project": "HLS",
+      "team": "Plugins"
     }
   },
   {
     "number": 48,
     "title": "[Geospatial]-[Objective 48]: STAC catalog buildout",
-    "url": "",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/48",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **STAC catalog buildout** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stac catalog buildout.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.3 | — |\n| Rae Thompson | Frontend | 0.8 | — |\n| Taylor Brooks | Comms | 0.75 | — |\n| Elena Petrova | Designer | 0.25 | — |\n| Morgan Reyes | Jupyterhub | 0.2 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **STAC catalog buildout** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for stac catalog buildout.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Morgan Reyes | Jupyterhub | 0.1 | — |\n| Devon Lee | Frontend | 0.2 | — |\n| Nadia Hassan | Backend | 0.6 | — |\n| Bob Martinez | Backend | 0.3 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -860,15 +1001,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Water Insights",
+      "project": "MAAP",
+      "team": "ODD"
     }
   },
   {
     "number": 49,
-    "title": "[Data Curator]-[Objective 49]: Imagery mosaicking",
-    "url": "",
+    "title": "[Backend]-[Objective 49]: Imagery mosaicking",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/49",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Imagery mosaicking** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for imagery mosaicking.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Sam Okoro | ML | 0.4 | — |\n| Sofia Rossi | PM | 0.3 | — |\n| Elena Petrova | Designer | 0.3 | — |\n| Jordan Kim | Designer | 0.25 | — |\n| Nadia Hassan | Backend | 0.1 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Imagery mosaicking** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for imagery mosaicking.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.75 | — |\n| Alice Nguyen | Backend | 0.75 | — |\n| Priya Patel | Data Curator | 0.8 | — |\n| Nadia Hassan | Backend | 1.0 | — |\n| Sofia Rossi | PM | 0.5 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -878,15 +1022,18 @@
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
       "start": "2026-10-18",
-      "end": "2027-01-16"
+      "end": "2027-01-16",
+      "initiative": "Plugins",
+      "project": "CSDA",
+      "team": "EIE"
     }
   },
   {
     "number": 50,
-    "title": "[PM]-[Objective 50]: Latency profiling",
-    "url": "",
+    "title": "[Designer]-[Objective 50]: Latency profiling",
+    "url": "https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/50",
     "state": "open",
-    "body": "## Context\n\n### Motivation\nDeliver **Latency profiling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for latency profiling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Taylor Brooks | Comms | 0.6 | — |",
+    "body": "## Context\n\n### Motivation\nDeliver **Latency profiling** to support the Disasters program during this PI.\n\n### Description\nScope, milestones, and dependencies for latency profiling.\n\n### Examples & Concept Diagrams (If applicable)\n\n## Success Criteria\n- [ ] Design reviewed and approved\n- [ ] Implementation merged and deployed\n\n## Risks\n- Dependency slippage; mitigate with early integration checkpoints.\n\n## LOE/FTE\n<!-- PI and Start/End dates live on the project board, not here. -->\n| Person | Role | FTE | Notes |\n| ------ | ---- | --- | ----- |\n| Elena Petrova | Designer | 0.75 | — |\n| Morgan Reyes | Jupyterhub | 0.75 | — |\n| Priya Patel | PM | 0.3 | — |\n| Rae Thompson | Frontend | 0.4 | — |\n| Bob Martinez | Backend | 0.8 | — |",
     "labels": [
       "Objective",
       "poc-loe"
@@ -895,8 +1042,11 @@
       "pi": "PI 27.2",
       "pi_start": "2026-10-18",
       "pi_end": "2027-01-16",
-      "start": "2026-11-17",
-      "end": "2027-01-16"
+      "start": "2026-10-18",
+      "end": "2027-01-16",
+      "initiative": "CMS",
+      "project": "AQ Portal",
+      "team": "Front-end"
     }
   }
 ]

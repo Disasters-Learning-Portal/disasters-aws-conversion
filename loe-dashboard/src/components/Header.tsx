@@ -10,6 +10,8 @@ interface Props {
   edited: boolean;
   onReset: () => void;
   onExport: (kind: "alloc" | "person" | "role") => void;
+  /** Reset/Export/what-if controls are only meaningful on the editable dashboard tab. */
+  showEditControls: boolean;
 }
 
 export default function Header({
@@ -22,6 +24,7 @@ export default function Header({
   edited,
   onReset,
   onExport,
+  showEditControls,
 }: Props) {
   return (
     <header className="topbar">
@@ -60,13 +63,17 @@ export default function Header({
           ))}
         </select>
         <div className="spacer" />
-        {edited && <span className="badge warn" title="Numbers reflect your unsaved what-if edits">what-if edits active</span>}
-        <button onClick={onReset} disabled={!edited} title="Discard what-if edits and restore the report values">
-          Reset
-        </button>
-        <button onClick={() => onExport("alloc")}>Export allocations</button>
-        <button onClick={() => onExport("person")}>Export by person</button>
-        <button onClick={() => onExport("role")}>Export by role</button>
+        {showEditControls && (
+          <>
+            {edited && <span className="badge warn" title="Numbers reflect your unsaved what-if edits">what-if edits active</span>}
+            <button onClick={onReset} disabled={!edited} title="Discard what-if edits and restore the report values">
+              Reset
+            </button>
+            <button onClick={() => onExport("alloc")}>Export allocations</button>
+            <button onClick={() => onExport("person")}>Export by person</button>
+            <button onClick={() => onExport("role")}>Export by role</button>
+          </>
+        )}
       </div>
     </header>
   );
