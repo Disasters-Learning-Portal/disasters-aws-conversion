@@ -10,6 +10,11 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
   Jupyterhub). Rows with any other role or non-numeric FTE are skipped and warned.
 - **Project board fields** hold **Program Increment** (which PI) and **Start Date / End Date**
   (the objective's own window inside the PI). These are deliberately **not** in the issue body.
+- **Grouping fields** — **Project**, **Initiative**, **Team** — are also read from the board
+  (generic `_item_field`, blank if the field is absent) and written as `project` / `initiative`
+  / `team` columns in `loe_allocations.csv`. They are per-objective and drive the dashboard's
+  Capacity Matrix (grouped by Initiative, filtered by Project). Sample data assigns them
+  deterministically by index in `loe-poc/generate_sample_issues.py`.
 - **PI window**: on the real org board (`Disasters-Learning-Portal` project **#5**) PI is an
   **iteration** field (window = `startDate` + `duration`). On the POC board it is a
   **single-select**, so the window is looked up from `PI_WINDOWS` in the parser. The parser
@@ -43,11 +48,16 @@ for both raw and weighted (weighted is rounded per-allocation so it reconciles t
 
 ## Dashboard
 `loe-dashboard/` is a static Vite+React SPA (Netlify) that visualizes these reports and adds
-browser-only **what-if** editing. It fetches the CSVs at runtime from the public
-`loe-report/all-pis` branch (snapshot fallback in `public/data/`), so new reports appear on
-reload with no redeploy. It **reuses each row's `weighted_fte` from `loe_allocations.csv`** for
-unedited rows (the CSV's `pi_fraction` is only 2-dp rounded) so it reconciles exactly with the
-generator; only edited rows recompute. Full detail + Netlify setup in `loe-dashboard/README.md`.
+browser-only **what-if** editing. Two tabs (switch bottom-left): a read-only **Capacity
+Matrix** (people × objectives, columns grouped into collapsible **Initiative** groups, a
+**Project** filter, one row per person·role with `Per role` + `Per person` totals, and
+`Total per objective` / `Total per initiative` footer rows; objective headers link to the
+ticket) and the original **What-if Dashboard** (charts + editable allocations). It fetches the
+CSVs at runtime from the public `loe-report/all-pis` branch (snapshot fallback in
+`public/data/`), so new reports appear on reload with no redeploy. It **reuses each row's
+`weighted_fte` from `loe_allocations.csv`** for unedited rows (the CSV's `pi_fraction` is only
+2-dp rounded) so it reconciles exactly with the generator; only edited rows recompute. Full
+detail + Netlify setup in `loe-dashboard/README.md`.
 
 ## Current deployment state
 - POC board: **`kyle-lesinger/projects/1`** (id `PVT_kwHOC5zXJc4Bd9S1`). Fields: **Program

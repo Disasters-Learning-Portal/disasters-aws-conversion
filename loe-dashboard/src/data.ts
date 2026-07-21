@@ -37,6 +37,11 @@ function parseAllocations(text: string): Allocation[] {
     issue_number: parseInt(r.issue_number, 10),
     issue_title: r.issue_title ?? "",
     issue_url: r.issue_url ?? "",
+    // Backward-compatible: CSVs written before these columns existed (or with the field
+    // blank on the board) group under "Unspecified" rather than an empty label.
+    project: r.project || "Unspecified",
+    initiative: r.initiative || "Unspecified",
+    team: r.team || "Unspecified",
     person: r.person ?? "",
     role: r.role ?? "",
     fte: parseFloat(r.fte) || 0,

@@ -9,6 +9,10 @@ export interface Allocation {
   issue_number: number;
   issue_title: string;
   issue_url: string;
+  /** Board grouping fields (per-objective). Empty CSVs fall back to "Unspecified" in data.ts. */
+  project: string;
+  initiative: string;
+  team: string;
   person: string;
   role: string;
   /** Editable in what-if mode. */

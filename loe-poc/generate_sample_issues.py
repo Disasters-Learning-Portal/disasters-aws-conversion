@@ -40,6 +40,24 @@ ROSTER = [
 
 TEAM_TAGS = ["PM", "Frontend", "Backend", "Geospatial", "Data Curator", "Comms", "ML", "Designer", "Jupyterhub"]
 
+# A few people wear a second hat — exercises the per-person-per-role split in the matrix
+# (their allocations land under two roles, so they get two role-rows with a combined total).
+SECOND_ROLE = {
+    "Alice Nguyen": "Backend",
+    "Devon Lee": "Designer",
+    "Priya Patel": "PM",
+    "Sam Okoro": "Data Curator",
+}
+
+# Board grouping fields (per-objective). Values mirror the real IMPACT board so the matrix
+# view demos with several Initiative groups. Assigned by index (see generate) — NOT via rng —
+# so the existing random stream (FTEs, windows, roster) and the reconciliation baseline are
+# unchanged; these columns are purely additive.
+INITIATIVES = ["Disasters", "AIR4US", "Water Insights", "Plugins", "CMS", "EIE",
+               "TiTiler-CMR", "Science Support", "Cloud-Optimized R+D"]
+PROJECTS = ["Disasters", "HLS", "MAAP", "CSDA", "AQ Portal"]
+TEAMS = ["Front-end", "Back-end", "Geospatial", "Data Services", "Plugins", "ODD", "EIE"]
+
 TOPICS = [
     "COG pipeline hardening", "S3 ingestion API v2", "Disaster dashboard redesign",
     "Flood extent model", "CSDA catalog automation", "Stakeholder reporting portal",
@@ -83,7 +101,11 @@ def make_rows(rng, kind):
     if kind == "empty":
         return ["|  |  |  |  |"]
     n = rng.randint(1, 5)
-    rows = [f"| {name} | {role} | {rng.choice(FTES)} | — |" for name, role in rng.sample(ROSTER, n)]
+    rows = []
+    for name, role in rng.sample(ROSTER, n):
+        alt = SECOND_ROLE.get(name)
+        eff_role = alt if alt and rng.random() < 0.4 else role
+        rows.append(f"| {name} | {eff_role} | {rng.choice(FTES)} | — |")
     if kind == "edge":
         bad = rng.choice(BAD_ROWS)
         rows.append(f"| {bad[0]} | {bad[1]} | {bad[2]} | — |")
@@ -111,6 +133,10 @@ def generate(count, seed):
         topic = TOPICS[(i - 1) % len(TOPICS)]
         team = rng.choice(TEAM_TAGS)
         title = f"[{team}]-[Objective {i}]: {topic}"
+        # Board grouping fields — deterministic by index so the rng stream stays intact.
+        initiative = INITIATIVES[(i - 1) % len(INITIATIVES)]
+        project = PROJECTS[(i - 1) % len(PROJECTS)]
+        board_team = TEAMS[(i - 1) % len(TEAMS)]
 
         if (i not in empties) and (rng.random() < 0.30):
             obj_start, obj_end = partial_window(rng, pi_start, pi_end)
@@ -119,13 +145,15 @@ def generate(count, seed):
 
         kind = "empty" if i in empties else ("edge" if i in edges else "normal")
         body = body_for(topic, make_rows(rng, kind))
+        url = f"https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/{i}"
         issues.append({
-            "number": i, "title": title, "url": "", "state": "open",
+            "number": i, "title": title, "url": url, "state": "open",
             "body": body, "labels": ["Objective", "poc-loe"],
             "project": {
                 "pi": pi_title,
                 "pi_start": pi_start.isoformat(), "pi_end": pi_end.isoformat(),
                 "start": obj_start.isoformat(), "end": obj_end.isoformat(),
+                "initiative": initiative, "project": project, "team": board_team,
             },
         })
     return issues

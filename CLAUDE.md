@@ -18,6 +18,11 @@ Three concerns share this repo:
 - **Data split:** PI and each objective's **Start/End dates come from the project board**
   (fields), **not** the issue body. The **LOE/FTE table lives in the issue body**. The report
   joins them.
+- **Board grouping fields:** the generator also reads **Project**, **Initiative**, and **Team**
+  from the board (generic `_item_field` lookup, blank if absent) and emits them as columns in
+  `loe_allocations.csv`. These are **per-objective** (each objective belongs to one initiative)
+  and drive the dashboard's Capacity Matrix grouping. Adding a board field ⇒ no code change,
+  just call `_item_field(it, "<name>")`.
 - **Board is read, not issues:** the Action calls `gh project item-list` (board → issue),
   never the issue's Projects sidebar.
 - **POC board is a personal project** (`kyle-lesinger/projects/1`). Consequence: org-repo
@@ -61,6 +66,20 @@ Jupyterhub (other roles / non-numeric FTE → row skipped + warned). Raw FTE sum
 days) for partial-window objectives (informational; the flag uses the raw sum).
 
 ## LOE Dashboard (`loe-dashboard/`, Netlify) — non-obvious facts
+- **Two tabs, switched bottom-left** (`TabSwitcher`, `activeTab` state in `App.tsx`):
+  1. **Capacity Matrix** (default, `MatrixView.tsx`, read-only): a spreadsheet pivot of
+     **people × objectives**. Objective columns are grouped into **collapsible Initiative
+     groups** (chevron → folds to one `Σ Initiative` subtotal column); a **Project** filter
+     scopes it. A person with multiple roles gets **one row per role**: `Per role` sums that
+     role, `Per person` (merged `rowSpan` cell) sums all their roles. Footer rows: **Total per
+     objective** and **Total per initiative** ("total per team" = per initiative). Objective
+     headers link to the GitHub ticket (`issue_url`).
+  2. **What-if Dashboard**: the original charts + editable allocations table (edit-only Header
+     controls — Reset/Export — hide on the matrix tab via `showEditControls`).
+- **Grouping needs the board fields**: the matrix groups by `initiative` (and filters by
+  `project`) from `loe_allocations.csv`. `src/data.ts` falls back to **"Unspecified"** when a
+  CSV predates those columns — so a live branch not yet re-run shows one "Unspecified" group
+  until the Action regenerates with the new columns.
 - **Reads data at runtime** from the **public** `loe-report/all-pis` branch raw URLs
   (`src/data.ts`); falls back to the snapshot in `loe-dashboard/public/data/`. **No backend,
   no secrets, no change to the Action** — new reports appear on next page load, no redeploy.

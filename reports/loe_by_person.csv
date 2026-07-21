@@ -1,33 +1,33 @@
 pi,person,total_fte,weighted_fte,num_objectives,roles,over_allocated
-PI 26.4,Alice Nguyen,2.9,2.33,4,PM,true
-PI 26.4,Bob Martinez,2.9,2.62,7,Backend,true
-PI 26.4,Carla Diaz,2.6,1.83,6,Geospatial,true
-PI 26.4,Devon Lee,4.4,3.84,6,Frontend,true
-PI 26.4,Elena Petrova,0.6,0.36,3,Designer,false
-PI 26.4,Jordan Kim,3.4,3.2,6,Designer,true
-PI 26.4,Liam Walsh,2.9,2.43,4,Data Curator,true
-PI 26.4,Morgan Reyes,2.35,1.58,4,Jupyterhub,true
-PI 26.4,Nadia Hassan,2.3,1.7,5,Backend,true
-PI 26.4,Owen Clark,1.8,1.3,6,Geospatial,true
-PI 26.4,Priya Patel,2.45,2.45,4,Data Curator,true
-PI 26.4,Rae Thompson,1.45,1.03,4,Frontend,true
-PI 26.4,Sam Okoro,1.5,1.36,4,ML,true
-PI 26.4,Sofia Rossi,2.7,1.56,5,PM,true
-PI 26.4,Taylor Brooks,3.15,2.94,9,Comms,true
-PI 26.4,Yuki Tanaka,2.6,2.17,5,ML,true
-PI 27.2,Alice Nguyen,1.9,1.28,4,PM,true
-PI 27.2,Bob Martinez,0.2,0.2,2,Backend,false
-PI 27.2,Carla Diaz,2.1,1.76,4,Geospatial,true
-PI 27.2,Devon Lee,0.9,0.4,2,Frontend,false
-PI 27.2,Elena Petrova,2.5,1.84,7,Designer,true
-PI 27.2,Jordan Kim,1.0,1.0,2,Designer,false
-PI 27.2,Liam Walsh,1.75,1.06,4,Data Curator,true
-PI 27.2,Morgan Reyes,2.1,1.35,4,Jupyterhub,true
-PI 27.2,Nadia Hassan,0.95,0.65,3,Backend,false
-PI 27.2,Owen Clark,1.05,0.89,2,Geospatial,true
-PI 27.2,Priya Patel,2.4,1.47,4,Data Curator,true
-PI 27.2,Rae Thompson,2.1,1.95,4,Frontend,true
-PI 27.2,Sam Okoro,2.15,1.94,5,ML,true
-PI 27.2,Sofia Rossi,2.25,1.11,5,PM,true
-PI 27.2,Taylor Brooks,1.35,1.15,2,Comms,true
-PI 27.2,Yuki Tanaka,2.9,2.64,6,ML,true
+PI 26.4,Alice Nguyen,3.75,2.89,8,PM;Backend,true
+PI 26.4,Bob Martinez,4.05,3.43,8,Backend,true
+PI 26.4,Carla Diaz,3.15,2.68,7,Geospatial,true
+PI 26.4,Devon Lee,3.35,3.35,5,Frontend;Designer,true
+PI 26.4,Elena Petrova,1.8,1.66,3,Designer,true
+PI 26.4,Jordan Kim,1.55,1.55,4,Designer,true
+PI 26.4,Liam Walsh,2.4,2.33,5,Data Curator,true
+PI 26.4,Morgan Reyes,1.7,1.31,4,Jupyterhub,true
+PI 26.4,Nadia Hassan,4.7,4.21,9,Backend,true
+PI 26.4,Owen Clark,2.4,2.11,5,Geospatial,true
+PI 26.4,Priya Patel,2.25,1.76,5,PM;Data Curator,true
+PI 26.4,Rae Thompson,1.45,1.26,4,Frontend,true
+PI 26.4,Sam Okoro,2.0,1.91,5,Data Curator;ML,true
+PI 26.4,Sofia Rossi,1.8,1.32,5,PM,true
+PI 26.4,Taylor Brooks,3.4,3.08,8,Comms,true
+PI 26.4,Yuki Tanaka,1.75,1.36,2,ML,true
+PI 27.2,Alice Nguyen,1.75,1.75,2,Backend,true
+PI 27.2,Bob Martinez,2.2,2.2,4,Backend,true
+PI 27.2,Carla Diaz,1.4,1.4,3,Geospatial,true
+PI 27.2,Devon Lee,1.2,1.2,4,Frontend,true
+PI 27.2,Elena Petrova,2.7,2.46,6,Designer,true
+PI 27.2,Jordan Kim,0.4,0.15,2,Designer,false
+PI 27.2,Liam Walsh,1.5,1.5,3,Data Curator,true
+PI 27.2,Morgan Reyes,3.25,3.25,5,Jupyterhub,true
+PI 27.2,Nadia Hassan,2.05,2.02,5,Backend,true
+PI 27.2,Owen Clark,0.5,0.5,1,Geospatial,false
+PI 27.2,Priya Patel,1.7,1.51,4,PM;Data Curator,true
+PI 27.2,Rae Thompson,0.9,0.83,3,Frontend,false
+PI 27.2,Sam Okoro,1.55,1.55,3,Data Curator;ML,true
+PI 27.2,Sofia Rossi,1.9,1.52,3,PM,true
+PI 27.2,Taylor Brooks,2.05,1.69,4,Comms,true
+PI 27.2,Yuki Tanaka,0.35,0.28,2,ML,false

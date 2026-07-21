@@ -13,9 +13,9 @@ function toCsv(headers: string[], rows: (string | number | boolean)[][]): string
 
 export function allocationsToCsv(allocs: Allocation[]): string {
   return toCsv(
-    ["pi", "pi_window", "issue_number", "issue_title", "issue_url", "person", "role", "fte", "obj_start", "obj_end", "pi_fraction", "weighted_fte"],
+    ["pi", "pi_window", "issue_number", "issue_title", "issue_url", "project", "initiative", "team", "person", "role", "fte", "obj_start", "obj_end", "pi_fraction", "weighted_fte"],
     allocs.map((a) => [
-      a.pi, a.pi_window, a.issue_number, a.issue_title, a.issue_url, a.person, a.role,
+      a.pi, a.pi_window, a.issue_number, a.issue_title, a.issue_url, a.project, a.initiative, a.team, a.person, a.role,
       a.fte, a.obj_start, a.obj_end, a.pi_fraction, Math.round((a.fte * a.pi_fraction + Number.EPSILON) * 100) / 100,
     ]),
   );

@@ -27,7 +27,7 @@ body {
 a { color: var(--blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-.app { max-width: 1200px; margin: 0 auto; padding: 20px 20px 60px; }
+.app { max-width: 1200px; margin: 0 auto; padding: 20px 20px 96px; }
 
 /* Header */
 .topbar {
@@ -96,3 +96,90 @@ tr.over td { background: #fff7f7; }
 .err { color: var(--red); }
 .footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 30px; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ── Bottom-left tab switcher ───────────────────────────────────────────── */
+.tab-switcher {
+  position: fixed; bottom: 20px; left: 20px; z-index: 40;
+  display: flex; gap: 4px; padding: 4px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.16);
+}
+.tab-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 0; background: transparent; color: var(--muted); font-weight: 600;
+  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+}
+.tab-btn:hover:not(.active) { background: #f1f5f9; color: var(--ink); }
+.tab-btn.active { background: var(--blue); color: #fff; }
+.tab-ico { font-size: 13px; line-height: 1; }
+
+/* ── Capacity Matrix ────────────────────────────────────────────────────── */
+.matrix-wrap { max-height: 660px; }
+.matrix { font-size: 12px; }
+.matrix td, .matrix th { padding: 6px 8px; }
+.matrix td.num { min-width: 46px; }
+/* Dotted vertical dividers between every column (solid 2px group separators win in collapse). */
+.matrix th, .matrix td { border-right: 1px dotted var(--line); }
+
+/* Two sticky identity columns (Person, Role) + sticky two-row header. */
+.matrix td.rowhead, .matrix th.rowhead {
+  position: sticky; background: #fff; z-index: 3; white-space: nowrap; vertical-align: top;
+}
+.matrix td.pcell, .matrix th.corner { left: 0; }
+.matrix td.pcell { min-width: 140px; width: 140px; }
+.matrix td.pcell .pname { font-weight: 600; }
+.matrix td.rcell { left: 140px; min-width: 96px; width: 96px; color: var(--muted); box-shadow: 1px 0 0 var(--line); }
+.matrix th.corner { box-shadow: 1px 0 0 var(--line); }
+.matrix thead th { position: sticky; background: #f8fafc; }
+.matrix thead tr.group th { top: 0; height: 34px; z-index: 5; }
+.matrix thead tr.cols th { top: 34px; z-index: 4; }
+.matrix thead th.corner { top: 0; z-index: 6; }
+.matrix thead th.rowhead-right { top: 0; z-index: 5; }
+
+/* Initiative group header + collapse chevron. */
+.matrix thead tr.group th.grouphead {
+  padding: 0; text-align: left; background: #eef2f8; border-left: 2px solid var(--line);
+}
+.matrix .chev {
+  display: flex; align-items: center; gap: 6px; width: 100%; height: 100%;
+  background: transparent; border: 0; padding: 6px 8px; cursor: pointer;
+  font-weight: 700; color: var(--ink); text-transform: none; letter-spacing: 0;
+}
+.matrix .chev:hover { background: rgba(37, 99, 235, 0.08); }
+.matrix .tri { color: var(--blue); font-size: 11px; width: 10px; }
+.matrix .gname { flex: 1; text-align: left; white-space: nowrap; }
+.matrix .gtot { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* Objective column headers: readable, wrapped, link-colored. */
+.matrix th.objhead {
+  width: 96px; min-width: 96px; max-width: 96px; height: 92px; vertical-align: bottom;
+  white-space: normal; text-transform: none; letter-spacing: 0; font-size: 10.5px;
+  line-height: 1.2; font-weight: 600; color: var(--ink);
+}
+.matrix th.objhead a { color: var(--blue); }
+.matrix th.objhead.sumcol { color: var(--muted); font-weight: 700; vertical-align: middle; }
+
+/* Group separators, empty/subtotal emphasis. */
+.matrix .grpstart { border-left: 2px solid var(--line); }
+.matrix td.empty { background: #fcfcfd; }
+.matrix td.subtotal, .matrix th.sumcol { background: #f4f7fb; font-weight: 600; }
+
+/* Two distinct total columns: "Per role" is a light secondary total;
+   "Per person" is the bold headline total that sums all of a person's roles. */
+.matrix td.roletot, .matrix th.roletot {
+  border-left: 2px solid var(--line); background: #f8fafc; font-weight: 600;
+}
+.matrix td.total, .matrix th.total {
+  border-left: 2px solid var(--blue-soft); background: #eef4ff; color: var(--blue);
+  font-weight: 800; min-width: 58px;
+}
+.matrix td.overtot { color: var(--red); background: var(--red-soft); }
+.matrix tr.over td.rowhead { background: #fff7f7; }
+
+/* Totals footer rows (two stacked, pinned to the bottom of the scroll area). */
+.matrix tfoot td { position: sticky; background: #f8fafc; font-weight: 700; z-index: 3; }
+.matrix tfoot tr.obj-totals td { bottom: 32px; border-top: 2px solid var(--line); }
+.matrix tfoot tr.team-totals td { bottom: 0; height: 32px; }
+.matrix tfoot td.rowhead { z-index: 5; }
+.matrix tfoot td.grptotal { text-align: center; }
+.matrix tfoot td.total { background: #eef4ff; color: var(--blue); }
