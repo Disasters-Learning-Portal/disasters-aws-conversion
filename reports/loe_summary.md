@@ -1,6 +1,6 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:54:19Z_
+_Generated: 2026-07-21T19:54:23Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
@@ -8,21 +8,21 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - **Program Increments (PIs):** 2
 - **Partial-window objectives:** 16
 - **Missing / empty LOE:** 4
-- **Total allocated FTE (raw):** 68.1
-- **Over-allocated (person, PI) pairs:** 27
+- **Total allocated FTE (raw):** 69.1
+- **Over-allocated (person, PI) pairs:** 28
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
-- Objectives: 31 | People: 16 | Raw FTE: 40.5 | Weighted FTE: 35.69 | Partial: 9 | Missing LOE: 2
+- Objectives: 31 | People: 16 | Raw FTE: 41.5 | Weighted FTE: 36.31 | Partial: 9 | Missing LOE: 2
 
-**Over-allocated this PI:** Nadia Hassan (4.7), Bob Martinez (4.05), Alice Nguyen (3.75), Devon Lee (3.35), Carla Diaz (3.15), Taylor Brooks (2.9), Liam Walsh (2.4), Owen Clark (2.4), Sam Okoro (2.4), Priya Patel (2.25), Elena Petrova (2.0), Morgan Reyes (1.7), Sofia Rossi (1.7), Jordan Kim (1.55), Rae Thompson (1.45)
+**Over-allocated this PI:** Nadia Hassan (4.7), Bob Martinez (4.05), Alice Nguyen (3.75), Taylor Brooks (3.4), Devon Lee (3.35), Carla Diaz (3.15), Liam Walsh (2.4), Owen Clark (2.4), Priya Patel (2.25), Sam Okoro (2.0), Sofia Rossi (1.8), Elena Petrova (1.8), Yuki Tanaka (1.75), Morgan Reyes (1.7), Jordan Kim (1.55), Rae Thompson (1.45)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
-| Alice Nguyen | 3.75 | 2.96 | 8 | PM;Backend | ⚠️ yes |
+| Alice Nguyen | 3.75 | 2.92 | 8 | PM;Backend | ⚠️ yes |
 | Bob Martinez | 4.05 | 3.43 | 8 | Backend | ⚠️ yes |
 | Carla Diaz | 3.15 | 2.68 | 7 | Geospatial | ⚠️ yes |
 | Devon Lee | 3.35 | 3.35 | 5 | Frontend;Designer | ⚠️ yes |
-| Elena Petrova | 2.0 | 1.79 | 4 | Designer | ⚠️ yes |
+| Elena Petrova | 1.8 | 1.66 | 3 | Designer | ⚠️ yes |
 | Jordan Kim | 1.55 | 1.55 | 4 | Designer | ⚠️ yes |
 | Liam Walsh | 2.4 | 2.33 | 5 | Data Curator | ⚠️ yes |
 | Morgan Reyes | 1.7 | 1.31 | 4 | Jupyterhub | ⚠️ yes |
@@ -30,21 +30,21 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Owen Clark | 2.4 | 2.11 | 5 | Geospatial | ⚠️ yes |
 | Priya Patel | 2.25 | 1.76 | 5 | PM;Data Curator | ⚠️ yes |
 | Rae Thompson | 1.45 | 1.26 | 4 | Frontend | ⚠️ yes |
-| Sam Okoro | 2.4 | 2.17 | 6 | Data Curator;ML | ⚠️ yes |
-| Sofia Rossi | 1.7 | 1.26 | 4 | PM | ⚠️ yes |
-| Taylor Brooks | 2.9 | 2.77 | 7 | Comms | ⚠️ yes |
-| Yuki Tanaka | 0.75 | 0.75 | 1 | ML | no |
+| Sam Okoro | 2.0 | 1.91 | 5 | Data Curator;ML | ⚠️ yes |
+| Sofia Rossi | 1.8 | 1.33 | 5 | PM | ⚠️ yes |
+| Taylor Brooks | 3.4 | 3.1 | 8 | Comms | ⚠️ yes |
+| Yuki Tanaka | 1.75 | 1.4 | 2 | ML | ⚠️ yes |
 
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
-| PM | 3.1 | 2.11 | 3 | 8 |
+| PM | 3.2 | 2.18 | 3 | 9 |
 | Frontend | 3.8 | 3.61 | 2 | 7 |
-| Backend | 11.2 | 9.78 | 3 | 22 |
+| Backend | 11.2 | 9.74 | 3 | 22 |
 | Geospatial | 5.55 | 4.79 | 2 | 12 |
 | Data Curator | 5.05 | 4.56 | 3 | 10 |
-| Comms | 2.9 | 2.77 | 1 | 7 |
-| ML | 2.65 | 2.42 | 2 | 6 |
-| Designer | 4.55 | 4.34 | 3 | 10 |
+| Comms | 3.4 | 3.1 | 1 | 8 |
+| ML | 3.25 | 2.81 | 2 | 6 |
+| Designer | 4.35 | 4.21 | 3 | 9 |
 | Jupyterhub | 1.7 | 1.31 | 1 | 4 |
 
 ### Objectives (click to open)
@@ -78,7 +78,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#37](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/37) — [Data Curator]-[Objective 28]: Vector tile support — 3 ppl · 0.85 FTE
 - [#38](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/38) — [Frontend]-[Objective 29]: Search relevance tuning — 5 ppl · 2.75 FTE
 - [#39](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/39) — [PM]-[Objective 30]: Incident runbook automation — 1 ppl · 0.25 FTE
-- [#40](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40) — [Data Curator]-[Objective 31]: COG pipeline hardening — 3 ppl · 1.4 FTE
+- [#40](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40) — [Data Curator]-[Objective 31]: COG pipeline hardening — 4 ppl · 2.4 FTE
 
 ## PI 27.2 — 2026-10-18 to 2027-01-16
 - Objectives: 19 | People: 16 | Raw FTE: 27.6 | Weighted FTE: 20.69 | Partial: 7 | Missing LOE: 2
