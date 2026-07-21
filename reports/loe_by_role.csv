@@ -1,12 +1,12 @@
 pi,role,total_fte,weighted_fte,num_people,num_allocations
 PI 26.4,PM,5.6,3.89,2,9
-PI 26.4,Frontend,5.85,4.87,2,10
-PI 26.4,Backend,6.95,6.07,3,14
-PI 26.4,Geospatial,4.9,3.63,2,12
-PI 26.4,Data Curator,5.6,5.13,2,9
-PI 26.4,Comms,3.25,3.04,1,10
+PI 26.4,Frontend,5.05,4.07,2,9
+PI 26.4,Backend,6.45,5.57,3,14
+PI 26.4,Geospatial,5.65,4.38,2,13
+PI 26.4,Data Curator,4.8,4.33,2,8
+PI 26.4,Comms,2.85,2.64,1,9
 PI 26.4,ML,4.25,3.68,2,9
-PI 26.4,Designer,4.4,3.96,2,10
+PI 26.4,Designer,4.8,4.36,3,11
 PI 26.4,Jupyterhub,2.35,1.58,1,4
 PI 27.2,PM,4.15,2.39,2,9
 PI 27.2,Frontend,3.0,2.35,2,6
