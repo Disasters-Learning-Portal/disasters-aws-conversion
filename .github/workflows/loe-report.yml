@@ -122,7 +122,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes for $BR."
           else
-            git commit -m "LOE report — ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }}) [skip ci]"
+            # No [skip ci]: this workflow has no push trigger (so the commit can't loop it),
+            # and Netlify honors [skip ci] by canceling the Deploy Preview we want on the PR.
+            git commit -m "LOE report — ${{ steps.cfg.outputs.label }} (run ${{ github.run_id }})"
             git push origin "$BR"
             echo "Report pushed to branch: $BR"
           fi
