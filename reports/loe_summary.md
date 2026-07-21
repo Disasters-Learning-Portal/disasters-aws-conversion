@@ -1,15 +1,15 @@
 # LOE / FTE Capacity Report
 
-_Generated: 2026-07-21T19:55:00Z_
+_Generated: 2026-07-21T19:55:05Z_
 _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adjusts for objectives that cover only part of the PI._
 
 ## Headline
 - **Open Objective tickets:** 50
 - **Program Increments (PIs):** 2
-- **Partial-window objectives:** 13
+- **Partial-window objectives:** 12
 - **Missing / empty LOE:** 4
-- **Total allocated FTE (raw):** 63.65
-- **Over-allocated (person, PI) pairs:** 24
+- **Total allocated FTE (raw):** 63.35
+- **Over-allocated (person, PI) pairs:** 25
 
 ## PI 26.4 — 2026-07-12 to 2026-10-17
 - Objectives: 31 | People: 16 | Raw FTE: 41.5 | Weighted FTE: 36.21 | Partial: 9 | Missing LOE: 2
@@ -81,9 +81,9 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#40](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/40) — [Data Curator]-[Objective 31]: COG pipeline hardening — 4 ppl · 2.4 FTE
 
 ## PI 27.2 — 2026-10-18 to 2027-01-16
-- Objectives: 19 | People: 16 | Raw FTE: 22.15 | Weighted FTE: 19.09 | Partial: 4 | Missing LOE: 2
+- Objectives: 19 | People: 16 | Raw FTE: 21.85 | Weighted FTE: 20.19 | Partial: 3 | Missing LOE: 2
 
-**Over-allocated this PI:** Elena Petrova (3.1), Morgan Reyes (2.6), Sofia Rossi (2.3), Sam Okoro (2.15), Liam Walsh (1.9), Taylor Brooks (1.85), Carla Diaz (1.4), Bob Martinez (1.1)
+**Over-allocated this PI:** Elena Petrova (3.1), Morgan Reyes (2.6), Sam Okoro (2.5), Taylor Brooks (2.05), Liam Walsh (1.9), Sofia Rossi (1.7), Carla Diaz (1.4), Bob Martinez (1.1), Rae Thompson (1.05)
 
 | Person | Raw FTE | Weighted FTE | Objectives | Roles | Over-allocated |
 | --- | --- | --- | --- | --- | --- |
@@ -91,30 +91,30 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 | Bob Martinez | 1.1 | 1.1 | 2 | Backend | ⚠️ yes |
 | Carla Diaz | 1.4 | 1.4 | 3 | Geospatial | ⚠️ yes |
 | Devon Lee | 1.0 | 1.0 | 3 | Frontend | no |
-| Elena Petrova | 3.1 | 2.65 | 8 | Designer | ⚠️ yes |
+| Elena Petrova | 3.1 | 2.86 | 8 | Designer | ⚠️ yes |
 | Jordan Kim | 0.55 | 0.33 | 2 | Designer | no |
 | Liam Walsh | 1.9 | 1.9 | 4 | Data Curator | ⚠️ yes |
-| Morgan Reyes | 2.6 | 2.19 | 4 | Jupyterhub | ⚠️ yes |
+| Morgan Reyes | 2.6 | 2.6 | 4 | Jupyterhub | ⚠️ yes |
 | Nadia Hassan | 0.45 | 0.45 | 3 | Backend | no |
 | Owen Clark | 0.5 | 0.5 | 1 | Geospatial | no |
 | Priya Patel | 0.6 | 0.41 | 2 | Data Curator | no |
-| Rae Thompson | 0.8 | 0.8 | 1 | Frontend | no |
-| Sam Okoro | 2.15 | 1.94 | 6 | Data Curator;ML | ⚠️ yes |
-| Sofia Rossi | 2.3 | 1.61 | 4 | PM | ⚠️ yes |
-| Taylor Brooks | 1.85 | 1.29 | 3 | Comms | ⚠️ yes |
-| Yuki Tanaka | 0.85 | 0.52 | 3 | ML | no |
+| Rae Thompson | 1.05 | 1.05 | 2 | Frontend | ⚠️ yes |
+| Sam Okoro | 2.5 | 2.5 | 6 | Data Curator;ML | ⚠️ yes |
+| Sofia Rossi | 1.7 | 1.32 | 3 | PM | ⚠️ yes |
+| Taylor Brooks | 2.05 | 1.49 | 4 | Comms | ⚠️ yes |
+| Yuki Tanaka | 0.35 | 0.28 | 2 | ML | no |
 
 | Role | Raw FTE | Weighted FTE | People | Allocations |
 | --- | --- | --- | --- | --- |
-| PM | 2.3 | 1.61 | 1 | 4 |
-| Frontend | 1.8 | 1.8 | 2 | 4 |
+| PM | 1.7 | 1.32 | 1 | 3 |
+| Frontend | 2.05 | 2.05 | 2 | 5 |
 | Backend | 2.55 | 2.55 | 3 | 6 |
 | Geospatial | 1.9 | 1.9 | 2 | 4 |
-| Data Curator | 2.9 | 2.71 | 3 | 7 |
-| Comms | 1.85 | 1.29 | 1 | 3 |
-| ML | 2.6 | 2.06 | 2 | 8 |
-| Designer | 3.65 | 2.98 | 2 | 10 |
-| Jupyterhub | 2.6 | 2.19 | 1 | 4 |
+| Data Curator | 3.65 | 3.46 | 3 | 8 |
+| Comms | 2.05 | 1.49 | 1 | 4 |
+| ML | 1.7 | 1.63 | 2 | 6 |
+| Designer | 3.65 | 3.19 | 2 | 10 |
+| Jupyterhub | 2.6 | 2.6 | 1 | 4 |
 
 ### Objectives (click to open)
 - [#41](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/41) — [Jupyterhub]-[Objective 32]: S3 ingestion API v2 — 3 ppl · 0.9 FTE
@@ -129,7 +129,7 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 - [#50](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/50) — [Comms]-[Objective 41]: Tile server migration — 3 ppl · 1.6 FTE
 - [#51](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/51) — [ML]-[Objective 42]: Metadata schema v3 — 3 ppl · 1.25 FTE
 - [#52](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/52) — [ML]-[Objective 43]: Alerting pipeline — 1 ppl · 0.4 FTE
-- [#53](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/53) — [ML]-[Objective 44]: Cloud cost monitoring — 5 ppl · 2.7 FTE
+- [#53](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/53) — [Geospatial]-[Objective 44]: Cloud cost monitoring — 5 ppl · 2.4 FTE
 - [#54](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/54) — [Data Curator]-[Objective 45]: Wildfire severity model — 2 ppl · 0.85 FTE
 - [#55](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/55) — [Data Curator]-[Objective 46]: Public API documentation — ⚠️ no LOE table
 - [#56](https://github.com/Disasters-Learning-Portal/disasters-aws-conversion/issues/56) — [ML]-[Objective 47]: Onboarding revamp — 1 ppl · 0.4 FTE
@@ -140,5 +140,5 @@ _Raw FTE summed per person **per PI**; > 1.0 = over-allocated. Weighted FTE adju
 ## Warnings
 - #22 (PI 26.4): invalid role 'DevOps' for 'Chris DevOps' (row skipped)
 - #38 (PI 26.4): invalid role 'Analyst' for 'Pat Analyst' (row skipped)
-- #53 (PI 27.2): invalid role 'Analyst' for 'Pat Analyst' (row skipped)
+- #53 (PI 27.2): non-numeric FTE 'TBD' for 'Jamie Ops' (row skipped)
 
