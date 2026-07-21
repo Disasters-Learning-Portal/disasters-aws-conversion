@@ -75,3 +75,12 @@ aws_credentials.py
 # global *.csv / *.json ignores above (so the Action can commit reports/ too).
 !reports/*.csv
 !loe-poc/*.json
+
+# LOE capacity dashboard (Vite app) — re-include its build config + bundled
+# snapshot data despite the global *.json / *.csv ignores. Explicit paths only,
+# so node_modules json is never matched (and dist/ stays ignored above).
+!loe-dashboard/package.json
+!loe-dashboard/package-lock.json
+!loe-dashboard/tsconfig.json
+!loe-dashboard/tsconfig.node.json
+!loe-dashboard/public/data/*.csv

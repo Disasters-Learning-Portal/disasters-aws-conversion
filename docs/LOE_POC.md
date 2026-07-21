@@ -38,6 +38,14 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
 **Reconciliation invariant** (tested): Σ allocation FTE == Σ by_person == Σ by_role, per PI,
 for both raw and weighted (weighted is rounded per-allocation so it reconciles to the cent).
 
+## Dashboard
+`loe-dashboard/` is a static Vite+React SPA (Netlify) that visualizes these reports and adds
+browser-only **what-if** editing. It fetches the CSVs at runtime from the public
+`loe-report/all-pis` branch (snapshot fallback in `public/data/`), so new reports appear on
+reload with no redeploy. It **reuses each row's `weighted_fte` from `loe_allocations.csv`** for
+unedited rows (the CSV's `pi_fraction` is only 2-dp rounded) so it reconciles exactly with the
+generator; only edited rows recompute. Full detail + Netlify setup in `loe-dashboard/README.md`.
+
 ## Current deployment state
 - POC board: **`kyle-lesinger/projects/1`** (id `PVT_kwHOC5zXJc4Bd9S1`). Fields: **Program
   Increment** (single-select: `PI 26.4`, `PI 27.2`), **Start Date**, **End Date** (DATE).

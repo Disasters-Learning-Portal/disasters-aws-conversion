@@ -1,6 +1,22 @@
 # Architectural Decisions
 
-Short decision records. Newest first. Scope: LOE/FTE capacity-report POC.
+Short decision records. Newest first. Scope: LOE/FTE capacity-report POC + dashboard.
+
+## ADR-10: Dashboard reuses the generator's per-row weighted FTE (no recompute for unedited rows)
+`loe_allocations.csv` stores `pi_fraction` rounded to 2 dp, but the generator computed each
+row's `weighted_fte` from the **full-precision** fraction. Recomputing `fte × pi_fraction` in
+the browser drifts ±0.01 vs the report (and Python's `round()` is banker's, not half-up). So
+the dashboard reuses each row's `weighted_fte` from the CSV verbatim for unedited rows and
+only recomputes rows the user edits (what-if). Keeps the `✓ matches baseline` self-check exact
+(0 mismatches across all 50 aggregate rows). See `loe-dashboard/src/compute.ts` (`weightedOf`).
+
+## ADR-9: Capacity dashboard is a static SPA that reads reports at runtime (no workflow coupling)
+The repo is public, so the dashboard (`loe-dashboard/`, Vite+React, Netlify) fetches the LOE
+CSVs directly from the public `loe-report/all-pis` branch raw URLs at page load, with a
+bundled snapshot fallback. Rejected: having the Action build/deploy the site or bundle data
+per run. Runtime fetch means **no secrets, no Action changes, no redeploy** when reports
+refresh. What-if edits stay client-side (never written to GitHub). Cost: ~5-min raw-CDN cache
+and a heavier client bundle (Recharts) — both fine for an internal tool.
 
 ## ADR-8: `.gitignore` negations for report + tracking files
 The repo globally ignores `*.csv` and `*.json`. Report CSVs and the demo tracking JSONs must

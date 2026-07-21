@@ -1,15 +1,18 @@
 # Project Guide
 
 ## What this repo is
-Two concerns share this repo:
+Three concerns share this repo:
 1. **AWS COG conversion** (primary): convert GeoTIFFs → Cloud-Optimized GeoTIFFs, fix
    nodata, reproject, upload to S3. Code in `lib/` (core / analysis / processors), top-level
    scripts (`update_nodata_cog.py`, `convert_nodata_to_zero.py`, `check_nodata.py`), and
    notebooks in `templates/`. GDAL/rasterio based.
-2. **LOE/FTE capacity-report POC** (added this session): a GitHub Action that reads team
-   **Objective** issues + a **Projects v2** board and reports staffing capacity per Program
-   Increment. Code in `loe-poc/`, `.github/scripts/generate_loe_report.py`,
-   `.github/workflows/loe-report.yml`. Full detail in `docs/LOE_POC.md`.
+2. **LOE/FTE capacity-report POC**: a GitHub Action that reads team **Objective** issues +
+   a **Projects v2** board and reports staffing capacity per Program Increment. Code in
+   `loe-poc/`, `.github/scripts/generate_loe_report.py`, `.github/workflows/loe-report.yml`.
+   Full detail in `docs/LOE_POC.md`.
+3. **LOE capacity dashboard**: a static Vite+React SPA in `loe-dashboard/` that visualizes
+   the LOE reports and adds in-browser what-if editing. Deployed on Netlify from `main`
+   (`netlify.toml` at repo root). Detail in `loe-dashboard/README.md`.
 
 ## LOE POC — critical, non-obvious constraints
 - **Data split:** PI and each objective's **Start/End dates come from the project board**
@@ -56,3 +59,19 @@ Roles are a fixed set: PM, Frontend, Backend, Geospatial, Data Curator, Comms, M
 Jupyterhub (other roles / non-numeric FTE → row skipped + warned). Raw FTE summed per person
 **per PI** > 1.0 = **over-allocated**; **weighted FTE** = fte × (objective days in PI / PI
 days) for partial-window objectives (informational; the flag uses the raw sum).
+
+## LOE Dashboard (`loe-dashboard/`, Netlify) — non-obvious facts
+- **Reads data at runtime** from the **public** `loe-report/all-pis` branch raw URLs
+  (`src/data.ts`); falls back to the snapshot in `loe-dashboard/public/data/`. **No backend,
+  no secrets, no change to the Action** — new reports appear on next page load, no redeploy.
+- **Unedited rows reuse the generator's per-row `weighted_fte`** (`weightedOf` in
+  `src/compute.ts`). The CSV's `pi_fraction` is only 2-dp rounded, but the generator computed
+  weighted from the full-precision fraction, so recomputing `fte × pi_fraction` drifts ±0.01.
+  Reusing the CSV value keeps the `✓ matches baseline` self-check exact; only **edited** rows
+  recompute (same over-allocation rule: raw Σ FTE > 1.0).
+- **What-if edits are browser-only** — never written back to GitHub. Export downloads CSVs.
+- **Netlify**: base `loe-dashboard`, publish `dist` (`netlify.toml`). Two one-time steps:
+  connect the site to the repo on `main`; run the Action once with `pi = "All PIs"` to seed
+  `loe-report/all-pis` (until then the site uses the bundled snapshot).
+- **Build**: `cd loe-dashboard && npm ci && npm run build` (`build` is `vite build`, no
+  type-check gate; run `npm run typecheck` separately). Dev: `npm run dev`.
