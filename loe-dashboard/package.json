@@ -1,0 +1,27 @@
+{
+  "name": "loe-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Interactive LOE / FTE capacity dashboard for the disasters-aws-conversion project. Reads the latest capacity reports and lets PMs visualize and run what-if scenarios.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.3.14",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.9"
+  }
+}
