@@ -16,18 +16,18 @@ PI 26.4,Sofia Rossi,1.8,1.32,5,PM,true
 PI 26.4,Taylor Brooks,3.4,3.08,8,Comms,true
 PI 26.4,Yuki Tanaka,1.75,1.36,2,ML,true
 PI 27.2,Alice Nguyen,1.75,1.75,2,Backend,true
-PI 27.2,Bob Martinez,1.4,1.4,3,Backend,true
+PI 27.2,Bob Martinez,2.2,2.2,4,Backend,true
 PI 27.2,Carla Diaz,1.4,1.4,3,Geospatial,true
 PI 27.2,Devon Lee,1.2,1.2,4,Frontend,true
-PI 27.2,Elena Petrova,1.95,1.71,5,Designer,true
+PI 27.2,Elena Petrova,2.7,2.46,6,Designer,true
 PI 27.2,Jordan Kim,0.4,0.15,2,Designer,false
 PI 27.2,Liam Walsh,1.5,1.5,3,Data Curator,true
-PI 27.2,Morgan Reyes,2.5,2.5,4,Jupyterhub,true
+PI 27.2,Morgan Reyes,3.25,3.25,5,Jupyterhub,true
 PI 27.2,Nadia Hassan,2.05,2.02,5,Backend,true
 PI 27.2,Owen Clark,0.5,0.5,1,Geospatial,false
-PI 27.2,Priya Patel,1.4,1.21,3,Data Curator,true
-PI 27.2,Rae Thompson,0.5,0.43,2,Frontend,false
+PI 27.2,Priya Patel,1.7,1.51,4,PM;Data Curator,true
+PI 27.2,Rae Thompson,0.9,0.83,3,Frontend,false
 PI 27.2,Sam Okoro,1.55,1.55,3,Data Curator;ML,true
 PI 27.2,Sofia Rossi,1.9,1.52,3,PM,true
-PI 27.2,Taylor Brooks,2.65,2.09,5,Comms,true
+PI 27.2,Taylor Brooks,2.05,1.69,4,Comms,true
 PI 27.2,Yuki Tanaka,0.35,0.28,2,ML,false
