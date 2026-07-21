@@ -33,9 +33,9 @@ FTE is summed per person **per Program Increment (PI)**; > 1.0 = over-allocated.
    Start/End (board date fields), and the LOE table (issue body).
 4. Aggregate per `(PI, person)` and `(PI, role)`; compute raw + weighted FTE.
 5. Emit CSVs + `loe_summary.md` (with clickable `[#N](url)` ticket links).
-6. Commit to `loe-report/<pi>`, then **open/update a PR from that branch to `main`**
-   (one living PR per PI; new runs push commits that refresh it). The PR gets a Netlify
-   Deploy Preview of the dashboard rendered with this report's data. Also uploads the
+6. Commit to `loe-report/<pi>`, then **open a PR from that branch to `main`** (one living PR
+   per PI; new runs push commits that refresh it). The PR body **links to the live dashboard**
+   (`DASHBOARD_URL`), which renders this report's data (fetched live). Also uploads the
    artifact and appends the summary to the run.
 
 **Reconciliation invariant** (tested): Σ allocation FTE == Σ by_person == Σ by_role, per PI,
